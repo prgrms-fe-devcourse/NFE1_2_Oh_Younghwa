@@ -7,7 +7,7 @@ export const getConfiguration = async () => {
   return response.data;
 };
 
-export const getPopularMovies = async (page: number): Promise<MovieListResponse> => {
-  const response = await movieApiAxiosClient.get<MovieListResponse>(`/movie/popular?language=en-US&page=${page}`);
+export const getPopularMovies = async (): Promise<MovieListResponse> => {
+  const response = await movieApiAxiosClient.get<MovieListResponse>(`/movie/popular?language=ko-KR&page=1&region=KOR`);
   return response.data;
 };

@@ -21,7 +21,7 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
   // 인증 실패 시 로그인 화면으로 리디렉션
   if (!data && !isLoading) {
     console.log(data);
-    navigate('/login'); // 로그인 페이지로 리디렉션
+    navigate('/login'); // 로그인 페이지로 리다이렉트
   }
   console.log(data);
 
