@@ -1,3 +1,4 @@
+import useDebounce from '../../../shared/hooks/useDebounce';
 import { POSTER_IMAGE_BASE_URL } from '../../../shared/utils/baseUrl';
 import { useSearchedMovies } from '../hooks/useSearchMovies';
 import { Movie } from '../model/movie';
@@ -6,8 +7,8 @@ type SearchResultProps = {
   searchKeyword: string;
 };
 export default function MovieSearchResult({ searchKeyword }: SearchResultProps) {
-  const { data, isError, isLoading } = useSearchedMovies(searchKeyword);
-
+  const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
+  const { data, isError, isLoading } = useSearchedMovies(debouncedSearchKeyword);
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;
   const isNull = data?.results.length === 0;
