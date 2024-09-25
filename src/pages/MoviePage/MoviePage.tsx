@@ -1,5 +1,7 @@
 import MovieSearchIcon from '../../shared/components/atom/icons/MovieSearchIcon';
+
 import PopularMovies from './components/PopularMovies';
+
 import './scss/moviePage.scss';
 export default function MoviePage() {
   return (

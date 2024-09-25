@@ -1,6 +1,7 @@
 import { POSTER_IMAGE_BASE_URL } from '../../../shared/utils/baseUrl';
 import { usePopularMovies } from '../hooks/usePopularMovies';
 import { Movie } from '../model/movie';
+
 import '../scss/moviePage.scss';
 const PopularMovies: React.FC = () => {
   const { data, isError, isLoading } = usePopularMovies();
