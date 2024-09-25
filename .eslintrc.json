@@ -1,0 +1,94 @@
+{
+  // 실행 환경 설정
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "es6": true
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "simple-import-sort", "prettier", "import"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended", //타입스크립트와 충돌하는 규칙 비활성화, 호환성 유지
+    "plugin:@typescript-eslint/recommended", //타입스크립트 규칙 적용
+    "plugin:react-hooks/recommended", // react-hooks 규칙 적용
+    "plugin:prettier/recommended", // eslint, prettier 중복되는 규칙을 비활성화.
+    "plugin:import/recommended", // import 관련 규칙을 적용
+    "plugin:import/typescript", //typescript에서 import 관련 규칙을 적용할 수 있게 지원
+    "plugin:@tanstack/eslint-plugin-query/recommended" // eslint-plugin-query 규칙 적용
+  ],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "warn",
+    "indent": ["warn", 2], // 들여쓰기 2칸
+    "quotes": ["off", "single"], // 쌍따옴표가 아닌 홑따옴표를 사용
+    "semi": ["warn", "always"], // semi colon강제
+    "no-multiple-empty-lines": ["warn", { "max": 1, "maxEOF": 0 }],
+    "no-multi-spaces": "warn", // 스페이스 여러개 금지
+    "object-curly-spacing": ["warn", "always"], // 객체 괄호 앞 뒤 공백 추가
+    "space-in-parens": ["warn", "never"], // 일반 괄호 앞 뒤 공백 추가
+    "computed-property-spacing": ["warn", "never"], // 대괄호 앞 뒤 공백 추가하지 않음
+    "comma-spacing": ["warn", { "before": false, "after": true }], // 반점 앞 뒤 공백: 앞에는 없고, 뒤에는 있게
+    "react-hooks/rules-of-hooks": "warn", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "off", // Checks effect dependencies
+    "simple-import-sort/imports": "warn", //import 정렬 강제
+    "simple-import-sort/exports": "warn", //export 정렬 강제
+    "react/react-in-jsx-scope": "off", // import React from "react"가 필수였던 시기에 필요한 규칙이므로 off
+    "no-unused-vars": "warn",
+    "no-console": "warn"
+  },
+  "overrides": [
+    //import 정렬 방식 재정의
+    //react, next, packages, @, ~, ../, ./, style, side effect 순으로 정렬
+    {
+      "files": ["**/*.js", "**/*.ts", "**/*.tsx"],
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              // react를 먼저 정렬, 그 다음 소문자로 시작하는 다른 노드 모듈 정렬
+              ["^react$", "^[a-z]"],
+              // `@`로 시작하는 패키지 정렬. @material-ui 같은
+              ["^@"],
+              // Packages starting with `~`
+              ["^~"],
+              // Imports starting with `../` 상위 디렉토리
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              // Imports starting with `./` 현재 디렉토리
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              //css, scss 파일 정렬
+              ["^.+\\.s?css$"],
+              // 사이드 이펙트 파일 정렬
+              ["^\\u0000"]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "parser": "@typescript-eslint/parser", //eslint가 typescript를 이해할 수 있게 해줌
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true //jsx지원
+    },
+    "ecmaVersion": "latest", //최신 ecmascript 사용
+    "sourceType": "module" //ecmascript 모듈 사용
+  },
+
+  "settings": {
+    //eslint-plugin-import가 모듈 해석할 때 어떻게 경로를 찾을지 설정
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"], //모듈을 찾을 때 node_modules, src/에서 찾음
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"] //인식할 확장자 설정
+      }
+    },
+    "react": {
+      "version": "detect"
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx", ".js"] //ts, tsx, js 파일을 파싱할 때 사용할 parser 설정
+    }
+  }
+}
