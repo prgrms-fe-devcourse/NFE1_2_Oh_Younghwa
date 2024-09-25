@@ -42,13 +42,14 @@ function App() {
             <div className="arrow-holder"></div>
           </div>
         </div>
-        <div className="contents">contents</div>
+        <div className="contents">
+          <Outlet />
+        </div>
       </div>
       {/* <Link to="/asdf">wrongPage</Link>
       <Link to="/movie">movie</Link>
       <Link to="/">home</Link> */}
       {/* <PopularMovies /> */}
-      <Outlet />
     </>
   );
 }

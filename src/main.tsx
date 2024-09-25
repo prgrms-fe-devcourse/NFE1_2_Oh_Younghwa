@@ -11,6 +11,7 @@ import MoviePage from './pages/MoviePage/MoviePage.tsx';
 import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
 import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const router = createBrowserRouter([
   {
@@ -47,5 +48,6 @@ createRoot(document.getElementById('root')!).render(
         <RouterProvider router={router} />
       </Provider>
     </CookiesProvider>
+    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>,
 );

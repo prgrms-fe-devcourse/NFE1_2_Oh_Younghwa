@@ -1,16 +1,16 @@
 $primary-color: #333;
-$border-primary: #D0D5DD;
+$border-primary: #d0d5dd;
 $white: #ffffff;
-$utility-purple-100:#EBE9FE;
-$utility-purple-300:#BDB4FE;
-$utility-purple-400:#9B8AFB;
+$utility-purple-100: #ebe9fe;
+$utility-purple-300: #bdb4fe;
+$utility-purple-400: #9b8afb;
 
-body{
+body {
   margin: 0;
-  background: #F5F5F7;
+  background: #f5f5f7;
 }
 
-.navigate-bar{
+.navigate-bar {
   position: fixed;
   height: 100%;
   width: 62px;
@@ -20,10 +20,10 @@ body{
   justify-content: center;
   background: $utility-purple-100;
 
-  .menu-icon{
+  .menu-icon {
     width: 44px;
     height: 44px;
-    background: #E1D7FE;
+    background: #e1d7fe;
     margin-bottom: 15px;
     border-radius: 8px;
     display: flex;
@@ -32,25 +32,24 @@ body{
   }
 }
 
-.contents-wrap{
+.contents-wrap {
   height: 100%;
   width: 600px;
   margin: auto;
-  .contents-title-wrap{
+  .contents-title-wrap {
     text-align: center;
     height: 43px;
-    .contents-title{
+    .contents-title {
       padding: 11px 8px;
       display: flex;
       justify-content: space-between;
-      .arrow-holder{
+      .arrow-holder {
         width: 24px;
         height: 24px;
       }
     }
-
   }
-  .contents{
+  .contents {
     background: $white;
     height: 94.7vh;
     border: solid 1px $border-primary;
