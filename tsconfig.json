@@ -1,7 +1,12 @@
 {
   "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
+  "compilerOptions": {
+    // ...
+    // compilerOptions안에 아래 코드 추가
+    "types": ["vite-plugin-svgr/client"]
+    // ...
+  },
+  // include에 svg.d.ts 추가
+  "include": ["svg.d.ts"]
 }
