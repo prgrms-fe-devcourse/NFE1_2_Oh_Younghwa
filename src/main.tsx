@@ -27,6 +27,9 @@ const router = createBrowserRouter([
         element: <MoviePage />,
         errorElement: <div>404 Not Found</div>,
       },
+      {
+        path: '/login',
+      },
     ],
   },
   {
