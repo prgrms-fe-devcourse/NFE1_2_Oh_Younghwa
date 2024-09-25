@@ -1,10 +1,10 @@
 import { ChangeEvent, useState } from 'react';
+
 import MovieSearchInput from './components/MovieSearchInput';
 import PopularMovies from './components/PopularMovies';
 import SearchResult from './components/SearchResult';
+
 import './scss/moviePage.scss';
-import { getSearchedMovies } from './api/tmdbApi';
-import { get } from 'http';
 
 export default function MoviePage() {
   /**

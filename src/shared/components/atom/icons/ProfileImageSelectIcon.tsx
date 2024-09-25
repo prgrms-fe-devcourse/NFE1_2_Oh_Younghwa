@@ -1,4 +1,4 @@
-import ProfileImageSelectIconSvg from '../../../asset/ProfileImageSelectIcon.svg?react';
+import ProfileImageSelectIconSvg from '../../../asset/ProfileImageSelectIcon.svg';
 
 export default function ProfileImageSelectIcon() {
   return <ProfileImageSelectIconSvg />;

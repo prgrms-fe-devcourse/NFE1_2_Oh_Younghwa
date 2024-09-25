@@ -1,4 +1,4 @@
-import SearchPageIconSvg from '../../../asset/SearchPageIcon.svg?react';
+import SearchPageIconSvg from '../../../asset/SearchPageIcon.svg';
 
 export default function SearchPageIcon() {
   return <SearchPageIconSvg />;

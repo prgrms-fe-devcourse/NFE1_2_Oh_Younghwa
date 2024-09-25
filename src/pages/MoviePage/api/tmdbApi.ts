@@ -13,7 +13,6 @@ export const getPopularMovies = async (): Promise<MovieListResponse> => {
 };
 
 export const getSearchedMovies = async (searchKeyword: string): Promise<MovieListResponse> => {
-  console.log(searchKeyword, 'asdf');
   const encodedStr = encodeURIComponent(searchKeyword);
   const response = await movieApiAxiosClient.get<MovieListResponse>(
     `/search/movie?query=${encodedStr}&include_adult=false&language=ko-KR&page=1`,

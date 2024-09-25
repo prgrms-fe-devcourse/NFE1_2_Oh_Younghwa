@@ -1,4 +1,5 @@
 import { ChangeEventHandler } from 'react';
+
 import InputSearchIcon from '../../../shared/components/atom/icons/InputSearchIcon';
 type MovieSearchInputProps = {
   handleSearchKeyword: ChangeEventHandler<HTMLInputElement>;

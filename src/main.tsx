@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { SessionProvider } from './context/SessionProvider.tsx';
 import LoginPage from './pages/LoginPage/components/LoginForm.tsx';
@@ -11,7 +12,6 @@ import MoviePage from './pages/MoviePage/MoviePage.tsx';
 import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
 import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const router = createBrowserRouter([
   {

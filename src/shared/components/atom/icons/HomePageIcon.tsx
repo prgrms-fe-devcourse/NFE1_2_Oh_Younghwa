@@ -1,4 +1,4 @@
-import HomePageIconSvg from '../../../asset/HomePageIcon.svg?react';
+import HomePageIconSvg from '../../../asset/HomePageIcon.svg';
 
 export default function HomePageIcon() {
   return <HomePageIconSvg />;

@@ -1,4 +1,4 @@
-import StarIconSvg from '../../../asset/StarIcon.svg?react';
+import StarIconSvg from '../../../asset/StarIcon.svg';
 
 export default function StarIcon() {
   return <StarIconSvg />;
