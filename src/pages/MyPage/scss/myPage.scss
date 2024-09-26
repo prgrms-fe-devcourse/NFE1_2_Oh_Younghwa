@@ -1,4 +1,8 @@
+.mypage-container {
+  position: relative;
+}
 .mypage-header {
+  position: relative;
   box-sizing: border-box;
   padding: 42px 0 0 26px;
   display: flex;
@@ -28,6 +32,7 @@
       font-style: normal;
       font-weight: 600;
       line-height: 150%; /* 33px */
+      margin: 0;
     }
     .bio {
       color: #000;
@@ -74,3 +79,31 @@
   }
 }
 
+.edit-btn {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.follow-btn {
+  cursor: pointer;
+  justify-content: end;
+  border-style: none;
+  width: max-content;
+  max-width: 110px;
+  min-width: 101px;
+  height: 42px;
+  flex-shrink: 0;
+  background-color: #D9D9D9;
+  position: absolute;
+  bottom: 0;
+  right: 30px;
+  color: #000;
+
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 27px */
+}

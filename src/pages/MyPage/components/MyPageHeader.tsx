@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { hrtime } from 'process';
+
+import ProfileSettingButtonIcon from '../../../shared/components/atom/icons/ProfileSettingButtonIcon';
 
 import '../scss/myPage.scss';
 
@@ -13,7 +14,7 @@ const MyPageHeader: React.FC = () => {
         <div className="user-profile">
           <div className="user-profile-img">프로필사진</div>
           <div className="user-profile-description">
-            <div className="nickname">닉네임</div>
+            <p className="nickname">닉네임</p>
             <h5 className="bio">소개글</h5>
           </div>
         </div>
@@ -22,6 +23,10 @@ const MyPageHeader: React.FC = () => {
           <hr className="divider" />
           <div className="following">팔로잉 {following}</div>
         </div>
+        <div className="edit-btn">
+          <ProfileSettingButtonIcon />
+        </div>
+        <button className="follow-btn">팔로잉</button>
       </div>
     </>
   );
