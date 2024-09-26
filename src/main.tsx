@@ -31,6 +31,11 @@ const router = createBrowserRouter([
       {
         path: '/login',
       },
+      {
+        path: '/search',
+        element: <SearchPage />,
+        errorElement: <div>404 Not Found</div>,
+      }
     ],
   },
   {
@@ -38,11 +43,12 @@ const router = createBrowserRouter([
     element: <LoginPage />,
     errorElement: <div>404 Not Found</div>,
   },
-  { path: '/signup', element: <SignUpPage />, errorElement: <div>404 Not Found</div> }, {
-    path: '/search',
-    element: <SearchPage/>,
+  {
+    path: '/signup',
+    element: <SignUpPage />,
     errorElement: <div>404 Not Found</div>,
   },
+  
   { path: '/signup', element: <SignUpPage />, errorElement: <div>404 Not Found</div> },
 ]);
 const queryClient = new QueryClient();

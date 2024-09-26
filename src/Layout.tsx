@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import PopularMovies from './pages/MoviePage/components/PopularMovies';
 import GoBackIconSvg from './shared/components/atom/icons/GoBackIcon';
@@ -10,7 +10,14 @@ import SearchPageIconSvg from './shared/components/atom/icons/SearchPageIcon';
 
 import './App.scss';
 
+const titleMapping: { [key: string]: string } = {
+  '/search': '검색',
+  // Add more routes and titles as needed
+};
 function App() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const title = titleMapping[currentPath];
   return (
     <>
       {/* <h1>LAYOUT</h1> */}
@@ -38,17 +45,19 @@ function App() {
             <div className="arrow-holder">
               <GoBackIconSvg />
             </div>
-            title
+            {title}
             <div className="arrow-holder"></div>
           </div>
         </div>
-        <div className="contents">contents</div>
+        <div className="contents">
+        <Outlet />
+        </div>
       </div>
       {/* <Link to="/asdf">wrongPage</Link>
       <Link to="/movie">movie</Link>
       <Link to="/">home</Link> */}
       {/* <PopularMovies /> */}
-      <Outlet />
+      
     </>
   );
 }
