@@ -1,0 +1,76 @@
+.mypage-header {
+  box-sizing: border-box;
+  padding: 42px 0 0 26px;
+  display: flex;
+  flex-direction: column;
+}
+.user-profile {
+  display: flex;
+
+  &-img {
+    background-color: gray;
+    border-radius: 999px;
+    width: 98px;
+    height: 98px;
+    flex-shrink: 0;
+  }
+
+  &-description {
+    display: flex;
+    flex-direction: column;
+    margin-left: 22px;
+    justify-content: end;
+
+    .nickname {
+      color: #000;
+      font-family: Pretendard;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%; /* 33px */
+    }
+    .bio {
+      color: #000;
+      font-family: Inter;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 18px */
+      letter-spacing: -0.132px;
+      margin: 2px 0 0 0;
+    }
+  }
+}
+
+.user-connection {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: max-content;
+  max-width: 300px;
+  height: 20px;
+  margin-top: 27px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 19.5px */
+
+  .follower {
+    box-sizing: border-box;
+  }
+
+  .divider {
+    background:  #DADADA;
+    border: 1px;
+    width: 1px;
+    height: 11px;
+    margin: 0 12px;
+  }
+
+  .following {
+    box-sizing: border-box;
+  }
+}
+

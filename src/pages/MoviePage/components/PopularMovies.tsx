@@ -3,6 +3,7 @@ import { usePopularMovies } from '../hooks/usePopularMovies';
 import { Movie } from '../model/movie';
 
 import '../scss/moviePage.scss';
+
 const PopularMovies: React.FC = () => {
   const { data, isError, isLoading } = usePopularMovies();
 
