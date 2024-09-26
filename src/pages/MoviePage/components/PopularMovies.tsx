@@ -1,30 +1,34 @@
-import { useState } from 'react';
-
 import { POSTER_IMAGE_BASE_URL } from '../../../shared/utils/baseUrl';
 import { usePopularMovies } from '../hooks/usePopularMovies';
 import { Movie } from '../model/movie';
 
+import '../scss/moviePage.scss';
 const PopularMovies: React.FC = () => {
-  const [page, setPage] = useState(1);
-  const { data, isError, isLoading } = usePopularMovies(page);
+  const { data, isError, isLoading } = usePopularMovies();
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;
 
   return (
-    <ul>
-      <button onClick={() => setPage((prev) => prev + 1)}>adsf</button>
-      {data?.results.map((movie: Movie) => (
-        <li key={movie.id} style={{ display: 'flex' }}>
-          <img
-            style={{ objectFit: 'contain', width: '150px' }}
-            src={POSTER_IMAGE_BASE_URL + movie.poster_path}
-            alt={movie.title}
-          />
-          <p>{movie.title}</p>
-        </li>
-      ))}
-    </ul>
+    <>
+      <div className="movie-grid">
+        {data?.results.map((movie: Movie) => (
+          <div key={movie.id} className="movie-card">
+            <img
+              style={{ objectFit: 'contain', width: '150px' }}
+              src={POSTER_IMAGE_BASE_URL + movie.poster_path}
+              alt={movie.title}
+            />{' '}
+            <div className="movie-info">
+              <h3>{movie.title}</h3>
+              <p>개봉 {movie.release_date}일째</p>
+              {/* <p>누적 관객 {movie.viewers}명</p> */}
+            </div>
+            {/* {movie.rank && <span className="rank">{movie.rank}</span>} */}
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
