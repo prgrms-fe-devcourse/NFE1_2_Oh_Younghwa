@@ -12,6 +12,7 @@ import MoviePage from './pages/MoviePage/MoviePage.tsx';
 import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
 import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
+import MovieDetailPage from './pages/MovieDetailPage/MovieDetailPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
         element: <MoviePage />,
         errorElement: <div>404 Not Found</div>,
       },
+      { path: '/movie/:movieId', element: <MovieDetailPage />, errorElement: <div>404 Not Found</div> },
       {
         path: '/login',
       },

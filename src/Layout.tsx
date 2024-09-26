@@ -1,6 +1,5 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
-import PopularMovies from './pages/MoviePage/components/PopularMovies';
 import GoBackIconSvg from './shared/components/atom/icons/GoBackIcon';
 import HomePageIconSvg from './shared/components/atom/icons/HomePageIcon';
 import MoviePageIconSvg from './shared/components/atom/icons/MoviePageIcon';
@@ -46,10 +45,6 @@ function App() {
           <Outlet />
         </div>
       </div>
-      {/* <Link to="/asdf">wrongPage</Link>
-      <Link to="/movie">movie</Link>
-      <Link to="/">home</Link> */}
-      {/* <PopularMovies /> */}
     </>
   );
 }
