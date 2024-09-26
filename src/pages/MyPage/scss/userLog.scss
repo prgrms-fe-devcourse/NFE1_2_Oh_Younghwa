@@ -1,3 +1,11 @@
+@mixin font ($family, $size, $style, $weight, $height) {
+  font-family: $family;
+  font-size: $size;
+  font-style: $style;
+  font-weight: $weight;
+  line-height: $height;
+}
+
 ul, li {
   list-style: none;
 }
@@ -10,20 +18,15 @@ li {
 
 .mypage-log {
   margin-top: 23px;
-  border-top: 1px solid  #E7E7E7;
-  border-bottom: 1px solid  #E7E7E7;
-
 
   .user-log-list {
     box-sizing: border-box;
+    border-top: 1px solid  #E7E7E7;
+    border-bottom: 1px solid  #E7E7E7;
     display: flex;
     justify-content: space-evenly;
     color: #000;
-    font-family: Pretendard;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 150%; /* 27px */
+    @include font(Pretendard, 18px, normal, 400, 150%);
     margin: 0;
     padding: 0;
 
