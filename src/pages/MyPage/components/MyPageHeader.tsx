@@ -1,5 +1,4 @@
 import { User } from '../../../auth/model/user';
-import ProfileSettingButtonIcon from '../../../shared/components/atom/icons/ProfileSettingButtonIcon';
 
 import '../scss/myPage.scss';
 
@@ -23,10 +22,6 @@ const MyPageHeader = ({ user }: MyPageHeaderProps) => {
           <hr className="divider" />
           <div className="following">팔로잉 {user?.following.length}</div>
         </div>
-        <div className="edit-btn">
-          <ProfileSettingButtonIcon />
-        </div>
-        <button className="follow-btn">팔로우</button>
       </div>
     </>
   );

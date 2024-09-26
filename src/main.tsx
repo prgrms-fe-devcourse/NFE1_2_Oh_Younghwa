@@ -9,6 +9,7 @@ import { SessionProvider } from './context/SessionProvider.tsx';
 import LoginPage from './pages/LoginPage/components/LoginForm.tsx';
 import MoviePage from './pages/MoviePage/MoviePage.tsx';
 import MyPage from './pages/MyPage/MyPage.tsx';
+import OthersMyPage from './pages/MyPage/OthersMypage.tsx';
 import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
 import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
       {
         path: '/mypage',
         element: <MyPage />,
+        errorElement: <div>404 Not Found</div>,
+      },
+      {
+        path: '/user/:userId',
+        element: <OthersMyPage />,
         errorElement: <div>404 Not Found</div>,
       },
     ],

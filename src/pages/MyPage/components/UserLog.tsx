@@ -10,6 +10,8 @@ interface UserLogProps {
 
 const UserLog = ({ user }: UserLogProps) => {
   const [log, setLog] = useState<string[]>([]);
+  console.log(user.posts);
+
   const showLog = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     const value = event.currentTarget.textContent;
     //const posts: string[] = user.posts;

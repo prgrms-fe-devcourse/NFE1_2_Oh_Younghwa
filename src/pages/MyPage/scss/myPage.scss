@@ -91,16 +91,14 @@ $inter: "Inter", sans-serif;
 
 .follow-btn {
   cursor: pointer;
-  justify-content: end;
   border-style: none;
   width: max-content;
   max-width: 110px;
   min-width: 101px;
   height: 42px;
-  flex-shrink: 0;
   background-color: #D9D9D9;
   position: absolute;
-  bottom: 0;
+  top: 141px;
   right: 30px;
   @include font($pretendard, 18px, normal, 400, 150%, #000);
 }
