@@ -11,7 +11,6 @@ import './App.scss';
 function App() {
   return (
     <>
-      {/* <h1>LAYOUT</h1> */}
       <div className="navigate-bar">
         <div className="menu-icon home">
           <HomePageIconSvg />
@@ -44,6 +43,7 @@ function App() {
           <Outlet />
         </div>
       </div>
+
     </>
   );
 }
