@@ -6,7 +6,7 @@
 
 ### ESlint 적용
 
-    npm run eslint:fix
+    npm run lint:fix
 
 를 입력하면 코드를 규칙에 맞게 수정할 수 있습니다.
 
