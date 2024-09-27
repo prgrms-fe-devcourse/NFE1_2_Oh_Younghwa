@@ -33,7 +33,6 @@ const StarRating = ({ setFormData, rating = 0 }: StarRatingProps) => {
     <div className="star-rating">
       {[...Array(5)].map((_, index) => {
         const starValue = index + 1;
-        console.log(starValue);
         return (
           <StarIcon
             key={index}

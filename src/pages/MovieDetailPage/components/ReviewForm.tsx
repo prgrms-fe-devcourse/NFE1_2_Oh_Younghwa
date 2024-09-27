@@ -23,7 +23,7 @@ export default function ReviewForm({ title }: ReviewFormProps) {
     const resetState = { rating: 0, review: '', title };
     setFormData(resetState);
   };
-  console.log(formData.rating);
+
   return (
     <div className="review-form-wrapper">
       <p className="review-form-header">감상평</p>
