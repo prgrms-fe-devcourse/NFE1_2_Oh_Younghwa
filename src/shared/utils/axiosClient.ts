@@ -43,7 +43,6 @@ export const validateTokenAxiosClient = (token: string): AxiosInstance => {
   return validateTokenRequest;
 };
 
-
 /* 게시글 api전용 axios instance */
 export const postApiAxiosClient: AxiosInstance = axios.create({
   baseURL: LMS_API_BASE_URL,

@@ -42,14 +42,13 @@ function App() {
           </div>
         </div>
         <div className="contents">
-        <Outlet />
+          <Outlet />
         </div>
       </div>
       {/* <Link to="/asdf">wrongPage</Link>
       <Link to="/movie">movie</Link>
       <Link to="/">home</Link> */}
       {/* <PopularMovies /> */}
-      
     </>
   );
 }

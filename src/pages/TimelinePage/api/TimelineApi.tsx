@@ -1,23 +1,21 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import axios from 'axios';
+
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { postApiAxiosClient } from '../../../shared/utils/axiosClient';
 import { Channel, Post, PostListResponse } from '../model/article';
 
 // fetch 함수들을 여기에 작성
 export const getArticles = async (): Promise<Post[]> => {
-  try{
-  const response = await postApiAxiosClient.get<Post[]>(`/posts/channel/66f50d3001d4aa076bcbdb99`);
-console.log(response.data)
-  return response.data;
-} catch(error){
-  console.error("Error fetching articles:", error);
-  throw new Error("Failed to fetch articles");
-}
+  try {
+    const response = await postApiAxiosClient.get<Post[]>(`/posts/channel/66f50d3001d4aa076bcbdb99`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+    throw new Error('Failed to fetch articles');
+  }
 };
-
-
-
 
 /* 
 const fetchTodo = () => {
@@ -125,4 +123,3 @@ const UseMutationEx = () => {
 
 const functions = { TodoFetchingNode, UseMutationEx }; 
 export default functions;*/
-

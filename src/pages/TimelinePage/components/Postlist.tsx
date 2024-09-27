@@ -1,8 +1,7 @@
 import React from 'react';
+
 import { useArticles } from '../hooks/useArticles.ts';
 import { Post } from '../model/article.ts';
-
-
 
 const Postlist = () => {
   const { data = [], isError, isLoading } = useArticles();
@@ -17,11 +16,7 @@ const Postlist = () => {
       <div className="">
         {data.map((post: Post) => (
           <div key={post._id} className="">
-            <img
-              style={{ objectFit: 'contain', width: '32px' }}
-              src={post.author.image}
-              alt={post.title}
-            />{' '}
+            <img style={{ objectFit: 'contain', width: '32px' }} src={post.author.image} alt={post.title} />{' '}
             <h3>{post.author.fullName}</h3>
             <p>{post.createdAt}</p>
             <p>{post.title}</p>

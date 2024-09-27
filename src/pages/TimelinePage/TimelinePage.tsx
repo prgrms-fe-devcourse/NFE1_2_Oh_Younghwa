@@ -8,7 +8,7 @@ const TimelinePage = () => {
   return (
     <div>
       <div className="blockSample"></div>
-      <Postlist/>
+      <Postlist />
     </div>
   );
 };
