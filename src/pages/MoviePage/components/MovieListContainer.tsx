@@ -1,10 +1,10 @@
 import { Movie, MovieListResponse } from '../model/movie';
 
 import MovieCard from './MovieCard';
-type MovieList = {
+type MovieListContainerProps = {
   data: MovieListResponse;
 };
-export default function MovieListContainer({ data }: MovieList) {
+export default function MovieListContainer({ data }: MovieListContainerProps) {
   if (data === undefined) return <div>로딩 중...</div>;
   return (
     <div className="movie-list-container">

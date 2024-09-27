@@ -8,11 +8,12 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { SessionProvider } from './context/SessionProvider.tsx';
 import LoginPage from './pages/LoginPage/components/LoginForm.tsx';
+import MovieDetailPage from './pages/MovieDetailPage/MovieDetailPage.tsx';
 import MoviePage from './pages/MoviePage/MoviePage.tsx';
 import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
 import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
-import MovieDetailPage from './pages/MovieDetailPage/MovieDetailPage.tsx';
+import './reset.css';
 
 const router = createBrowserRouter([
   {
@@ -30,9 +31,6 @@ const router = createBrowserRouter([
         errorElement: <div>404 Not Found</div>,
       },
       { path: '/movie/:movieId', element: <MovieDetailPage />, errorElement: <div>404 Not Found</div> },
-      {
-        path: '/login',
-      },
     ],
   },
   {

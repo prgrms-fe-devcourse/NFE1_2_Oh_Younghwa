@@ -8,7 +8,6 @@ import NotificationPageIconSvg from './shared/components/atom/icons/Notification
 import SearchPageIconSvg from './shared/components/atom/icons/SearchPageIcon';
 
 import './App.scss';
-
 function App() {
   return (
     <>

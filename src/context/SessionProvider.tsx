@@ -1,4 +1,4 @@
-import { createContext, useEffect } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useTokenValidation } from '../auth/hooks/useTokenValidation';
@@ -10,7 +10,7 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const { data, isLoading, error } = useTokenValidation();
+  const { data, isLoading } = useTokenValidation();
 
   useEffect(() => {}, [pathname]); // 페이지를 이동할 때마다 세션을 갱신
   // 로딩 중일 때 대기
@@ -23,7 +23,6 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
   return <SessionContent.Provider value={data}>{children}</SessionContent.Provider>;
 };
 
-// // 클라이언트 컴포넌트용 커스텀 훅
-// export const useSession = () => {
-//   return useContext(SessionContent);
-// };
+export const useSession = () => {
+  return useContext(SessionContent);
+};

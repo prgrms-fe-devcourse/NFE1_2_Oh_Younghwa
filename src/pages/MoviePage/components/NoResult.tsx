@@ -1,4 +1,5 @@
 import NoResultIcon from '../../../shared/components/atom/icons/NoResultIcon';
+
 import '../scss/NoResult.scss';
 export default function NoResult() {
   return (
