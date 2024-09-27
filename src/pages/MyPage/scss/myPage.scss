@@ -1,0 +1,104 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+$pretendard: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+$inter: "Inter", sans-serif;
+
+
+@mixin font($family, $size, $style, $weight, $height, $color) {
+  font-family: $family;
+  font-size: $size;
+  font-style: $style;
+  font-weight: $weight;
+  line-height: $height;
+  color: $color;
+}
+@mixin display($justify: flex-start, $align: stretch, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+
+.mypage-container {
+  position: relative;
+}
+.mypage-header {
+  position: relative;
+  box-sizing: border-box;
+  padding: 42px 0 0 26px;
+  @include display($direction: column);
+}
+.user-profile {
+  display: flex;
+
+  &-img {
+    background-color: gray;
+    border-radius: 999px;
+    width: 98px;
+    height: 98px;
+    flex-shrink: 0;
+  }
+
+  &-description {
+    @include display($justify: end, $direction: column);
+    margin-left: 22px;
+
+    .nickname {
+      @include font($pretendard, 22px, normal, 600, 150%, #000);
+      margin: 0;
+    }
+    .bio {
+      @include font($inter, 12px, normal, 400, 150%, #000);
+      letter-spacing: -0.132px;
+      margin: 2px 0 0 0;
+    }
+  }
+}
+
+.user-connection {
+  @include display($align: center);
+  flex-shrink: 0;
+  width: max-content;
+  max-width: 300px;
+  height: 20px;
+  margin-top: 27px;
+  @include font($pretendard, 13px, normal, 400, 150%, #000);
+
+  .follower {
+    box-sizing: border-box;
+  }
+
+  .divider {
+    background:  #DADADA;
+    border: 1px;
+    width: 1px;
+    height: 11px;
+    margin: 0 12px;
+  }
+
+  .following {
+    box-sizing: border-box;
+  }
+}
+
+.edit-btn {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.follow-btn {
+  cursor: pointer;
+  border-style: none;
+  width: max-content;
+  max-width: 110px;
+  min-width: 101px;
+  height: 42px;
+  background-color: #D9D9D9;
+  position: absolute;
+  top: 141px;
+  right: 30px;
+  @include font($pretendard, 18px, normal, 400, 150%, #000);
+}
