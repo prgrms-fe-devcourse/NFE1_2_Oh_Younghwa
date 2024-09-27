@@ -19,6 +19,7 @@ import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
 import './reset.css';
 import ResultPage from './pages/SearchPage/Components/ResultPage.tsx';
+import NotificationsPage from './pages/NotificationsPage/NotificationsPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
     ),
     errorElement: <div>404 Not Found</div>,
     children: [
+      {
+        path: '/timeline',
+        element: <TimelinePage />,
+        errorElement: <div>404 Not Found</div>,
+      },
       {
         path: '/movie',
         element: <MoviePage />,
@@ -48,6 +54,11 @@ const router = createBrowserRouter([
        {
         path: '/result',
         element: <ResultPage />,
+        errorElement: <div>404 Not Found</div>,
+      },
+      {
+        path: '/notifications',
+        element: <NotificationsPage />,
         errorElement: <div>404 Not Found</div>,
       },
       {
