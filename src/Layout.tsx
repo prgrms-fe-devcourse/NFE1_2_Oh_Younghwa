@@ -10,7 +10,7 @@ import SearchPageIconSvg from './shared/components/atom/icons/SearchPageIcon';
 import './App.scss';
 const titleMapping: { [key: string]: string } = {
   '/search': '검색',
-  '/result' : '검색결과'
+  '/result': '검색결과',
   // Add more routes and titles as needed
 };
 function App() {

@@ -1,5 +1,6 @@
 // src/hooks/usePopularMovies.ts
 import { useQuery } from '@tanstack/react-query';
+
 import { getReviewsByMovieTitle } from '../api/reviewApi';
 
 type MovieTitle = {
