@@ -1,4 +1,4 @@
-import GrayStarIconSvg from '../../../asset/GrayStarIcon.svg?react';
+import GrayStarIconSvg from '../../../asset/GrayStarIcon.svg';
 
 export default function GrayStarIcon() {
   return <GrayStarIconSvg />;

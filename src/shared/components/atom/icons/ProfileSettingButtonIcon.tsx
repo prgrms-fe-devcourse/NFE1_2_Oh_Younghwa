@@ -1,4 +1,4 @@
-import ProfileSettingButtonIconSvg from '../../../asset/ProfileSettingButtonIcon.svg?react';
+import ProfileSettingButtonIconSvg from '../../../asset/ProfileSettingButtonIcon.svg';
 
 export default function ProfileSettingButtonIcon() {
   return <ProfileSettingButtonIconSvg />;

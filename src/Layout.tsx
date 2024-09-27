@@ -1,6 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
-import PopularMovies from './pages/MoviePage/components/PopularMovies';
 import GoBackIconSvg from './shared/components/atom/icons/GoBackIcon';
 import HomePageIconSvg from './shared/components/atom/icons/HomePageIcon';
 import MoviePageIconSvg from './shared/components/atom/icons/MoviePageIcon';
@@ -20,7 +19,6 @@ function App() {
   const title = titleMapping[currentPath];
   return (
     <>
-      {/* <h1>LAYOUT</h1> */}
       <div className="navigate-bar">
         <div className="menu-icon home">
           <HomePageIconSvg />
