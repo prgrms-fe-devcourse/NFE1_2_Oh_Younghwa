@@ -8,7 +8,7 @@ type Review = {
 
 export const postReview = async ({ title, image, channelId }: Review): Promise<Review> => {
   const request = reviewAxiosClient();
-  const response = await request.post<Review>('/posts/creaㄴte', {
+  const response = await request.post<Review>('/posts/create', {
     title,
     image,
     channelId,

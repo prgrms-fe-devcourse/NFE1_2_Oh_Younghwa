@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useTokenValidation } from '../../auth/hooks/useTokenValidation';
 import ProfileSettingButtonIcon from '../../shared/components/atom/icons/ProfileSettingButtonIcon';
 
+import EditModal from './components/EditModal';
 import MyPageHeader from './components/MyPageHeader';
 import UserLog from './components/UserLog';
 
@@ -13,6 +14,8 @@ import './scss/userLog.scss';
 export default function MyPage() {
   const { data, isLoading, error } = useTokenValidation();
   const navigate = useNavigate();
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (!isLoading && !data) {
@@ -29,9 +32,11 @@ export default function MyPage() {
         <>
           <MyPageHeader user={data} />
           <UserLog user={data} />
-          <div className="edit-btn">
+          <button className="edit-btn" onClick={() => setModalOpen(true)}>
             <ProfileSettingButtonIcon />
-          </div>
+          </button>
+
+          {modalOpen && <EditModal isModalOpen={modalOpen} onClose={() => setModalOpen(false)} />}
         </>
       )}
     </div>

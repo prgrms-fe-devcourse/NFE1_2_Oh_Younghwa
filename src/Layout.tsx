@@ -11,6 +11,8 @@ import './App.scss';
 const titleMapping: { [key: string]: string } = {
   '/search': '검색',
   '/result': '검색결과',
+  '/mypage': '마이페이지',
+  '/movie/detail': '영화 상세정보',
   // Add more routes and titles as needed
 };
 function App() {
@@ -23,18 +25,24 @@ function App() {
         <div className="menu-icon home">
           <HomePageIconSvg />
         </div>
-        <div className="menu-icon search">
-          <SearchPageIconSvg />
-        </div>
-        <div className="menu-icon movie">
-          <MoviePageIconSvg />
-        </div>
+        <Link to={'/search'}>
+          <div className="menu-icon search">
+            <SearchPageIconSvg />
+          </div>
+        </Link>
+        <Link to={'/movie'}>
+          <div className="menu-icon movie">
+            <MoviePageIconSvg />
+          </div>
+        </Link>
         <div className="menu-icon alert">
           <NotificationPageIconSvg />
         </div>
-        <div className="menu-icon mypage">
-          <MypageIconSvg />
-        </div>
+        <Link to={'/mypage'}>
+          <div className="menu-icon mypage">
+            <MypageIconSvg />
+          </div>
+        </Link>
       </div>
 
       <div className="contents-wrap">
@@ -53,8 +61,8 @@ function App() {
       </div>
       {/* <Link to="/asdf">wrongPage</Link>
       <Link to="/movie">movie</Link>
-      <Link to="/">home</Link> */}
-      {/* <PopularMovies /> */}
+      <Link to="/">home</Link> /}
+      {/ <PopularMovies /> */}
     </>
   );
 }
