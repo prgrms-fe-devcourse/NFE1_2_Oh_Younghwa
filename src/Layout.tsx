@@ -28,9 +28,7 @@ function App() {
           <NotificationPageIconSvg />
         </div>
         <div className="menu-icon mypage">
-          <Link to="/mypage">
-            <MypageIconSvg />
-          </Link>
+          <MypageIconSvg />
         </div>
       </div>
 
