@@ -22,7 +22,6 @@ const LoginForm: React.FC = () => {
   const useLoginUsers = useMutation({
     mutationFn: postLoginRequest,
     onSuccess: (data) => {
-      console.log(data);
       const { token } = data;
       localStorage.setItem('token', token);
       navigate('/');
@@ -86,7 +85,6 @@ const LoginForm: React.FC = () => {
     setErrors(validationErrors);
     //오류값의 프로퍼티가 하나라도 있으면 회원가입 불가
     if (Object.keys(validationErrors).length === 0) {
-      console.log('Form submitted successfully:', form);
       useLoginUsers.mutate(form);
       // 서버로 데이터 전송 로직 추가 가능
     }

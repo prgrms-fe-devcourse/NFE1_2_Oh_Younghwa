@@ -1,0 +1,58 @@
+// ReviewComponent.scss
+.review-container {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: white;
+
+  .stars {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .star {
+      width: 24px;
+      height: 24px;
+      margin-right: 2px;
+    }
+
+    .rating {
+      font-size: 18px;
+      font-weight: bold;
+      margin-left: 5px;
+    }
+  }
+
+  .review-text {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .review-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+
+  .likes {
+    display: flex;
+    align-items: center;
+
+    .heart-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+      color: #666;
+    }
+
+    .like-count {
+      font-size: 12px;
+      color: #666;
+    }
+  }
+}

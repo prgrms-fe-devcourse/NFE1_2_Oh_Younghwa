@@ -1,4 +1,4 @@
-import CommentButtonIconSvg from '../../../asset/CommentButtonIcon.svg?react';
+import CommentButtonIconSvg from '../../../asset/CommentButtonIcon.svg';
 export default function CommentButtonIcon() {
   return <CommentButtonIconSvg />;
 }

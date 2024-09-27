@@ -1,4 +1,4 @@
-import NotificationPageIconSvg from '../../../asset/NotificationPageIcon.svg?react';
+import NotificationPageIconSvg from '../../../asset/NotificationPageIcon.svg';
 
 export default function NotificationPageIcon() {
   return <NotificationPageIconSvg />;
