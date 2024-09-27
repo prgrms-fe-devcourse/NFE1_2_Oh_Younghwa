@@ -19,6 +19,7 @@ body{
   align-items: center;
   justify-content: center;
   background: $utility-purple-100;
+  z-index: 3;
 
   .menu-icon{
     width: 44px;
@@ -54,5 +55,6 @@ body{
     background: $white;
     height: 94.7vh;
     border: solid 1px $border-primary;
+    position: relative;
   }
 }

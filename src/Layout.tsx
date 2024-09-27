@@ -13,7 +13,6 @@ import './App.scss';
 function App() {
   return (
     <>
-      {/* <h1>LAYOUT</h1> */}
       <div className="navigate-bar">
         <div className="menu-icon home">
           <HomePageIconSvg />
@@ -42,13 +41,15 @@ function App() {
             <div className="arrow-holder"></div>
           </div>
         </div>
-        <div className="contents">contents</div>
+        <div className="contents">
+        <Outlet />
+        </div>
       </div>
       {/* <Link to="/asdf">wrongPage</Link>
       <Link to="/movie">movie</Link>
       <Link to="/">home</Link> */}
       {/* <PopularMovies /> */}
-      <Outlet />
+      
     </>
   );
 }

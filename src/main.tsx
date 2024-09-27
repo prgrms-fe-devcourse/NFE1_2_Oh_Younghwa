@@ -9,6 +9,7 @@ import { SessionProvider } from './context/SessionProvider.tsx';
 import LoginPage from './pages/LoginPage/components/LoginForm.tsx';
 import MoviePage from './pages/MoviePage/MoviePage.tsx';
 import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
+import TimelinePage from './pages/TimelinePage/TimelinePage.tsx';
 import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
 
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/login',
+      },
+      {
+        path: '/timeline',
+        element: <TimelinePage />,
+        errorElement: <div>404 Not Found</div>,
       },
     ],
   },
