@@ -32,20 +32,24 @@ const router = createBrowserRouter([
         element: <MoviePage />,
         errorElement: <div>404 Not Found</div>,
       },
-
+      {
+        path: '/movie/:movieId',
+        element: <MovieDetailPage />,
+        errorElement: <div>404 Not Found</div>,
+      },
+      {
+        path: '/search',
+        element: <SearchPage />,
+        errorElement: <div>404 Not Found</div>,
+      },
     ],
   },
+  { path: '/signup', element: <SignUpPage />, errorElement: <div>404 Not Found</div> },
   {
     path: '/login',
     element: <LoginPage />,
     errorElement: <div>404 Not Found</div>,
   },
-  { path: '/signup', element: <SignUpPage />, errorElement: <div>404 Not Found</div> }, {
-    path: '/search',
-    element: <SearchPage/>,
-    errorElement: <div>404 Not Found</div>,
-  },
-  { path: '/signup', element: <SignUpPage />, errorElement: <div>404 Not Found</div> },
 ]);
 const queryClient = new QueryClient();
 createRoot(document.getElementById('root')!).render(
