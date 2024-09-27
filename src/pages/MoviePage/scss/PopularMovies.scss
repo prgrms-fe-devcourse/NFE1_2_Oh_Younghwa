@@ -1,0 +1,50 @@
+$text-tertiary-600: #475467;
+
+.movie-list-container {
+  padding: 14px;
+  .movie-list-title {
+    margin: 6px 0px 20px 0px;
+    color: $text-tertiary-600;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.64px;
+  }
+
+  .movie-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(25%, 1fr));
+    //grid는 부모 div의 padding을 무시하므로, max-width에서 28px을 빼줘야 넘치지 않음
+    max-width: calc(100% - 28px);
+    gap: 10px;
+  }
+
+  .movie-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    .movie-poster {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .movie-title {
+      margin: 0;
+      color: #000;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 150%; /* 22.5px */
+    }
+    .movie-release {
+      margin: 0;
+      color: #000;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 15px */
+    }
+  }
+}

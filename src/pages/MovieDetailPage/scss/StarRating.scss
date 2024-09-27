@@ -1,0 +1,30 @@
+.star-rating {
+  display: flex;
+  align-items: center;
+
+  .star {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+
+    path {
+      fill: #d1d5db; // 기본 회색
+      transition: fill 0.2s ease-in-out;
+    }
+
+    &.filled path {
+      fill: #7a5af8; // 활성화된 노란색
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .rating-text {
+    margin-left: 0.5rem;
+    color: #4b5563;
+    font-size: 1rem;
+  }
+}

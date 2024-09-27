@@ -1,4 +1,4 @@
-import NoResultIconSvg from '../../../asset/NoResultIcon.svg?react';
+import NoResultIconSvg from '../../../asset/NoResultIcon.svg';
 
 export default function NoResultIcon() {
   return <NoResultIconSvg />;

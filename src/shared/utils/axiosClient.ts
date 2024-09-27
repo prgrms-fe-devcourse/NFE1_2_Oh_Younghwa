@@ -30,6 +30,23 @@ export const loginUserAxiosClient: AxiosInstance = axios.create({
   },
 });
 
+/**로그인한 사용자 전용 axios instance */
+export const reviewAxiosClient = (): AxiosInstance => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('토큰이 없습니다');
+  }
+  const validateTokenRequest = axios.create({
+    baseURL: LMS_API_BASE_URL,
+    timeout: 1000,
+    headers: {
+      accept: 'application/json',
+      Authorization: `bearer ${token}`,
+    },
+  });
+  return validateTokenRequest;
+};
+
 /**사용자 토큰을 담은 요청을 서버로 전송해서 인증된 사용자인지 검증 */
 export const validateTokenAxiosClient = (token: string): AxiosInstance => {
   const validateTokenRequest = axios.create({

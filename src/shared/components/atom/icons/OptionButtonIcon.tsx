@@ -1,4 +1,4 @@
-import OptionButtonIconSvg from '../../../asset/OptionButtonIcon.svg?react';
+import OptionButtonIconSvg from '../../../asset/OptionButtonIcon.svg';
 
 export default function OptionButtonIcon() {
   return <OptionButtonIconSvg />;
