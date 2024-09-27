@@ -16,6 +16,7 @@ import TimelinePage from './pages/TimelinePage/TimelinePage.tsx';
 import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
 import './reset.css';
+import ResultPage from './pages/SearchPage/Components/ResultPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
       {
         path: '/search',
         element: <SearchPage />,
+        errorElement: <div>404 Not Found</div>,
+      },
+       {
+        path: '/result',
+        element: <ResultPage />,
         errorElement: <div>404 Not Found</div>,
       },
     ],

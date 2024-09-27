@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 import GoBackIconSvg from './shared/components/atom/icons/GoBackIcon';
 import HomePageIconSvg from './shared/components/atom/icons/HomePageIcon';
@@ -8,7 +8,15 @@ import NotificationPageIconSvg from './shared/components/atom/icons/Notification
 import SearchPageIconSvg from './shared/components/atom/icons/SearchPageIcon';
 
 import './App.scss';
+const titleMapping: { [key: string]: string } = {
+  '/search': '검색',
+  '/result' : '검색결과'
+  // Add more routes and titles as needed
+};
 function App() {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const title = titleMapping[currentPath];
   return (
     <>
       <div className="navigate-bar">
@@ -35,15 +43,17 @@ function App() {
             <div className="arrow-holder">
               <GoBackIconSvg />
             </div>
-            title
+            {title}
             <div className="arrow-holder"></div>
           </div>
         </div>
-        <div className="contents">
-          <Outlet />
-        </div>
+        <div className="contents"><Outlet /></div>
       </div>
-
+      {/* <Link to="/asdf">wrongPage</Link>
+      <Link to="/movie">movie</Link>
+      <Link to="/">home</Link> */}
+      {/* <PopularMovies /> */}
+      
     </>
   );
 }
