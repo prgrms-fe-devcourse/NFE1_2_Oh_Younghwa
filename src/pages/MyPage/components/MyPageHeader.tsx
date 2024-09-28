@@ -1,4 +1,4 @@
-import { User } from '../../../auth/model/user';
+import { User } from '../../TimelinePage/model/article';
 
 import '../scss/myPage.scss';
 

@@ -7,7 +7,7 @@ interface EditModalProps {
   onClose: () => void;
 }
 
-const EditModal: React.FC<EditModalProps> = ({ isModalOpen, onClose }) => {
+const EditModal = ({ isModalOpen, onClose }: EditModalProps) => {
   const { mutate: logout } = useLogout();
   // isModalOpen이 false이면 null을 반환해서 모달을 렌더링하지 않음
   if (!isModalOpen) return null;

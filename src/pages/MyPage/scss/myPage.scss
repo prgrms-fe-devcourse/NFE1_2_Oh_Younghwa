@@ -86,15 +86,19 @@
 }
 
 .follow-btn {
+  background-color: #afacc1;
   cursor: pointer;
   border-style: none;
   width: max-content;
   max-width: 110px;
   min-width: 101px;
   height: 42px;
-  background-color: #D9D9D9;
   position: absolute;
   top: 141px;
   right: 30px;
   @include font(pretendard, 18px, normal, 400, 150%, #000);
+
+  &:hover {
+    background-color: #7A5AF8;
+  }
 }
