@@ -8,17 +8,8 @@ export interface User {
   posts: Post[];
   likes: Like[];
   comments: string[];
-  followers: [];
-  following: [
-    {
-      _id: string;
-      user: string;
-      follower: string;
-      createdAt: string;
-      updatedAt: string;
-      __v: 0;
-    },
-  ];
+  followers: Follow[]; //followers 정보 수정하기 위해서 수정
+  following: Follow[]; //following 정보 수정하기 위해서 수정
   notifications: Notification[];
   messages: Message[];
   _id: string;

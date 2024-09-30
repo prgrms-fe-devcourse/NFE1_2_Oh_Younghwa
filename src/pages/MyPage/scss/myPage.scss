@@ -19,7 +19,7 @@
 .mypage-header {
   position: relative;
   box-sizing: border-box;
-  padding: 42px 0 0 26px;
+  padding: 70px 20px 40px 20px;
   @include display($direction: column);
 }
 .user-profile {
@@ -34,8 +34,8 @@
   }
 
   &-description {
-    @include display($justify: end, $direction: column);
-    margin-left: 22px;
+    @include display($justify: flex-start, $direction: column);
+    margin-left: 16px;
 
     .nickname {
       @include font(pretendard, 22px, normal, 600, 150%, #000);
@@ -86,7 +86,7 @@
 }
 
 .follow-btn {
-  background-color: #afacc1;
+  background-color: #7A5AF8;
   cursor: pointer;
   border-style: none;
   width: max-content;
@@ -96,9 +96,30 @@
   position: absolute;
   top: 141px;
   right: 30px;
-  @include font(pretendard, 18px, normal, 400, 150%, #000);
+  @include font(pretendard, 18px, normal, 600, 150%, #F4F3FF);
 
   &:hover {
-    background-color: #7A5AF8;
+    background-color: #6e51e3;
+  }
+}
+
+.following-btn {
+  cursor: pointer;
+  display: flex;
+  max-width: 110px;
+  min-width: 101px;
+  height: 42px;
+  padding: var(--spacing-sm, 6px) 27px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #98A2B3;
+  position: absolute;
+  top: 141px;
+  right: 30px;
+  @include font(pretendard, 18px, normal, 600, 150%, #667085);
+
+  &:hover {
+    background-color: #8e8e8e;
   }
 }

@@ -9,15 +9,17 @@ export const getOtherUsers = async (userId: string): Promise<User> => {
 };
 
 //팔로우
-export const followUser = async (userId: string, token: string): Promise<Follow> => {
-  const client = validateTokenAxiosClient(token);
-
+export const followUser = async (userId: string): Promise<Follow> => {
   try {
-    const response = await client.post<Follow>('/follow/create', {
-      user: userId,
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('토큰이 없습니다');
+    }
+    const request = validateTokenAxiosClient(token);
+    const response = await request.post<Follow>('/follow/create', {
+      userId: userId,
     });
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -25,12 +27,23 @@ export const followUser = async (userId: string, token: string): Promise<Follow>
   }
 };
 //언팔로우
-// export const unfollowUser = async (followId: string): Promise<Follow> => {
-//   const response = await loginUserAxiosClient.delete<Follow>('/follow/delete', { id: followId });
+export const unfollowUser = async (followId: string): Promise<Follow> => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('토큰이 없습니다');
+    }
+    const request = validateTokenAxiosClient(token);
+    const response = await request.delete<Follow>('/follow/delete', {
+      data: { id: followId },
+    });
 
-//   console.log(response.data);
-//   return response.data;
-// };
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('언팔로우 실패');
+  }
+};
 
 //로그아웃
 export const logoutUser = async (): Promise<void> => {

@@ -12,7 +12,7 @@ import './scss/myPage.scss';
 import './scss/userLog.scss';
 
 export default function MyPage() {
-  const { data, isLoading, error } = useGetUsers();
+  const { data, isLoading, error } = useGetUsers(); //나의 마이페이지
   const navigate = useNavigate();
 
   const [modalOpen, setModalOpen] = useState(false);
