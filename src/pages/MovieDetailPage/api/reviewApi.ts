@@ -1,24 +1,33 @@
 import { reviewAxiosClient } from '../../../shared/utils/axiosClient';
+import { MoviePost } from '../../TimelinePage/model/article';
 
 type Review = {
-  title: String;
-  image: String;
-  channelId: String;
+  title: string;
+  image: string | null;
+  channelId: string;
 };
 
 export const postReview = async ({ title, image, channelId }: Review): Promise<Review> => {
   const request = reviewAxiosClient();
-  const response = await request.post<Review>('/posts/create', {
+  const response = await request.post('/posts/create', {
     title,
     image,
     channelId,
   });
-  console.log(response.data);
   return response.data;
 };
 
-export const getReviewsByMovieTitle = async (title: string): Promise<Review[]> => {
+export const getReviewsByMovieTitle = async (title: string): Promise<MoviePost[]> => {
   const request = reviewAxiosClient();
-  const response = await request.get<Review[]>(`/search/all/${title}`);
+  const response = await request.get(`/search/all/${title}`);
   return response.data;
+};
+
+export const deleteReview = async (postId: string): Promise<void> => {
+  const request = reviewAxiosClient();
+  await request.delete(`/posts/delete`, {
+    data: {
+      id: postId,
+    },
+  });
 };

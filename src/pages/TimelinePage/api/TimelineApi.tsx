@@ -1,9 +1,5 @@
-import axios from 'axios';
-
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-
 import { postApiAxiosClient } from '../../../shared/utils/axiosClient';
-import { Channel, Post, PostListResponse } from '../model/article';
+import { Post } from '../model/article';
 
 // fetch 함수들을 여기에 작성
 export const getArticles = async (): Promise<Post[]> => {

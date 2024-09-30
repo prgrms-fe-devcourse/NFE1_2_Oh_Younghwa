@@ -50,7 +50,18 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
 }
-
+export interface MoviePost {
+  likes: string[];
+  comments: Comment[];
+  _id: string;
+  image: string;
+  imagePublicId: string;
+  title: string;
+  channel: string;
+  author: string;
+  createdAt: string;
+  updatedAt: string;
+}
 export interface PostListResponse {
   results: Post[];
 }

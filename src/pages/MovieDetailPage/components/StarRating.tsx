@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import '../scss/StarRating.scss';
 type StarIconProps = {
   filled: boolean;
