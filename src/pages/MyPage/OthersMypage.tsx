@@ -70,7 +70,7 @@ export default function OthersMyPage() {
         <>
           <MyPageHeader user={data} />
           <UserLog user={data} />
-          {isFollowing ? (
+          {isFollowing === -1 ? (
             <>
               <button className="follow-btn" onClick={() => followHandler(data._id)}>
                 팔로우 <FollowPlusButton />
