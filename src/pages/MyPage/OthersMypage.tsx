@@ -8,7 +8,6 @@ import UserLog from './components/UserLog';
 import { useGetOtherUsers } from './hooks/useGetOtherUsers';
 import { useGetUsers } from './hooks/useGetUsers';
 import { useHandleFollow } from './hooks/useHandleFollow';
-import { useHandleUnfollow } from './hooks/useHandleUnfollow';
 
 import './scss/myPage.scss';
 import './scss/userLog.scss';
@@ -19,8 +18,8 @@ export default function OthersMyPage() {
   const { userId } = useParams();
   const { data, isLoading, error } = useGetOtherUsers(userId as string); //다른 사용자의 정보
   const { data: myInfo } = useGetUsers(); //내 정보
+  // const { mutate: followMutate } = useHandleFollow();
   const { mutate: followMutate } = useHandleFollow();
-  const { mutate: unfollowMutate } = useHandleUnfollow();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,22 +35,29 @@ export default function OthersMyPage() {
   //팔로우 중인 유저 리스트
   const followingUserList = myInfo?.following.map((follow) => follow);
   //리스트에서 상대방의 userId 찾아서 팔로우 여부 확인 - 팔로우
-  const findId = followingUserList?.findIndex((id) => id.user === userId);
+  const isFollowing = followingUserList?.findIndex((id) => id.user === userId);
   //팔로우 중인 유저 리스트에서 고유의 팔로우 관계 id 찾기 - 언팔로우
   const followId = followingUserList?.find((followR) => followR.user === userId);
 
   //팔로우 버튼
   const followHandler = (user: string) => {
-    if (user && findId === -1) {
-      followMutate(user);
+    if (user && isFollowing === -1) {
+      followMutate({
+        isFollowing: false,
+        userId: user,
+      });
     }
   };
+
   //언팔로우 버튼
   const unfollowHandler = (id: string | undefined) => {
     //이미 팔로우 중인 유저라면 버튼 한 번 더 눌렀을 때 언팔로우하기
     if (followId !== undefined) {
       //팔로우 중인 유저로 확인되면
-      unfollowMutate(id as string); //언팔로우 가능
+      followMutate({
+        isFollowing: true,
+        followId: id,
+      }); //언팔로우 가능
     }
   };
 
@@ -64,7 +70,7 @@ export default function OthersMyPage() {
         <>
           <MyPageHeader user={data} />
           <UserLog user={data} />
-          {findId === -1 ? (
+          {isFollowing ? (
             <>
               <button className="follow-btn" onClick={() => followHandler(data._id)}>
                 팔로우 <FollowPlusButton />

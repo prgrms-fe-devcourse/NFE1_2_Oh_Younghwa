@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
+import ReviewList from '../../MovieDetailPage/components/ReviewList';
+import { Movie } from '../../MoviePage/model/movie';
+import Postlist from '../../TimelinePage/components/Postlist';
 import { User } from '../../TimelinePage/model/article';
 
 import '../scss/userLog.scss';
@@ -10,12 +13,15 @@ interface UserLogProps {
 
 const UserLog = ({ user }: UserLogProps) => {
   const [log, setLog] = useState<string[]>([]);
+  const [posts, setPosts] = useState();
+  const [reviews, setReviews] = useState();
+  const [likes, setLikes] = useState();
 
   const showLog = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     const value = event.currentTarget.textContent;
     //const posts: string[] = user.posts;
     if (value === '게시글') {
-      setLog(user.posts.map((post) => post.title));
+      setLog(['게시글']);
     }
     if (value === '영화리뷰') {
       setLog(user.posts.map((post) => post.image));
