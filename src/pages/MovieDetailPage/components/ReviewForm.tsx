@@ -18,7 +18,7 @@ export default function ReviewForm({ title }: ReviewFormProps) {
     const newFormData = { ...formData, rating };
     setFormData(newFormData);
   };
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     const newFormData = { ...formData, review: value };
     setFormData(newFormData);
@@ -34,11 +34,16 @@ export default function ReviewForm({ title }: ReviewFormProps) {
 
   return (
     <div className="review-form-wrapper">
-      <p className="review-form-header">감상평</p>
-      <p className="review-form-star-header">별점을 선택해주세요</p>
+      <p className="review-form-header">평가하기</p>
       <StarRating rating={formData.rating} setFormData={ratingHandler} />
       <form className="review-form-input-wrapper" action="" onSubmit={onSubmitHandler}>
-        <input type="text" className="review-form-input" value={formData.review} onChange={onChangeHandler} />
+        <textarea
+          className="review-form-input"
+          placeholder="감상평을 작성해주세요"
+          required
+          value={formData.review}
+          onChange={onChangeHandler}
+        />
         <button className="review-form-button">등록</button>
       </form>
     </div>
