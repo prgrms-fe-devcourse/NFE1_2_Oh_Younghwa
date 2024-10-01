@@ -1,6 +1,8 @@
 // src/hooks/usePopularMovies.ts
 import { useQuery } from '@tanstack/react-query';
+
 import { MoviePost } from '../../TimelinePage/model/article';
+
 import { getReviewsByMovieTitle } from '../api/reviewApi';
 
 type MovieTitle = {

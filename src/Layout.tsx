@@ -17,6 +17,7 @@ const titleMapping: { [key: string]: string } = {
   '/mypage': '마이페이지',
   '/posts': '포스트',
 
+
   // Add more routes and titles as needed
 };
 
