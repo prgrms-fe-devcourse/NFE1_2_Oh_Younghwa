@@ -7,25 +7,32 @@ import ReviewForm from './components/ReviewForm';
 import ReviewList from './components/ReviewList';
 
 import './scss/MovieDetailPage.scss';
+import { useMovieDetailData } from './hook/useMovieDetailData';
 
 export default function MovieDetailPage() {
   const location = useLocation(); // useLocation은 제네릭 타입을 받지 않음
-  const state = location.state.movie as Movie; // state의 타입을 명시적으로 지정
-  console.log(state);
+  const state = location.state.movie; // state의 타입을 명시적으로 지정
+
+  const { data: movieData, isError, isLoading } = useMovieDetailData(state);
+  if (isLoading) return <div>로딩중...</div>;
+  if (movieData === undefined) return <div>데이터가 없습니다.</div>;
   return (
     <div className="scroll-container">
       <div className="detail-section">
-        <img className="detail-image" src={POSTER_IMAGE_BASE_URL + state.poster_path} alt={state.title} />
+        <img className="detail-image" src={POSTER_IMAGE_BASE_URL + movieData.posterPath} alt={movieData.title} />
         <div className="detail-info">
-          <h3 className="detail-title">{state.title}</h3>
+          <h3 className="detail-title">{movieData.title}</h3>
           <p className="detail-description">
-            {state.release_date} · 범죄/액션/드라마 · 한국 <br></br> 1시간 58분 · 15세 <br></br>
-            황정민﹒정해인﹒안보현﹒장윤주
+            {movieData.releaseDate}﹒
+            {movieData.genreArray?.map((genre, i) => ` ${genre}${i < movieData.genreArray?.length - 1 ? '/' : ' '}`)}﹒
+            {movieData.originCountry}
+            <br />
+            {movieData.runtime}
           </p>
         </div>
       </div>
-      <ReviewForm title={state.title} />
-      <ReviewList title={state.title} />
+      <ReviewForm title={movieData.title} />
+      <ReviewList title={movieData.title} />
     </div>
   );
 }
