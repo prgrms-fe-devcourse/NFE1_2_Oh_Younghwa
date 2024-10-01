@@ -1,16 +1,19 @@
 import { useLocation } from 'react-router-dom';
+
 import { POSTER_IMAGE_BASE_URL } from '../../shared/utils/baseUrl';
-import './scss/MovieDetailPage.scss';
 import { Movie } from '../MoviePage/model/movie';
+
 import ReviewForm from './components/ReviewForm';
 import ReviewList from './components/ReviewList';
+
+import './scss/MovieDetailPage.scss';
 
 export default function MovieDetailPage() {
   const location = useLocation(); // useLocation은 제네릭 타입을 받지 않음
   const state = location.state.movie as Movie; // state의 타입을 명시적으로 지정
-
+  console.log(state);
   return (
-    <>
+    <div className="scroll-container">
       <div className="detail-section">
         <img className="detail-image" src={POSTER_IMAGE_BASE_URL + state.poster_path} alt={state.title} />
         <div className="detail-info">
@@ -23,6 +26,6 @@ export default function MovieDetailPage() {
       </div>
       <ReviewForm title={state.title} />
       <ReviewList title={state.title} />
-    </>
+    </div>
   );
 }

@@ -1,6 +1,3 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 import MyPageHeader from './components/MyPageHeader';
 import UserLog from './components/UserLog';
 import { useGetUsers } from './hooks/useGetUsers';

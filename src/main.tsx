@@ -12,13 +12,14 @@ import MovieDetailPage from './pages/MovieDetailPage/MovieDetailPage.tsx';
 import MoviePage from './pages/MoviePage/MoviePage.tsx';
 import MyPage from './pages/MyPage/MyPage.tsx';
 import OthersMyPage from './pages/MyPage/OthersMypage.tsx';
-import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
+import ResultPage from './pages/SearchPage/Components/ResultPage.tsx';
 import SearchPage from './pages/SearchPage/SearchPage.tsx';
+import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
 import TimelinePage from './pages/TimelinePage/TimelinePage.tsx';
 import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
+
 import './reset.css';
-import ResultPage from './pages/SearchPage/Components/ResultPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
     ),
     errorElement: <div>404 Not Found</div>,
     children: [
+      {
+        path: '/timeline',
+        element: <TimelinePage />,
+        errorElement: <div>404 Not Found</div>,
+      },
       {
         path: '/movie',
         element: <MoviePage />,
@@ -45,7 +51,7 @@ const router = createBrowserRouter([
         element: <SearchPage />,
         errorElement: <div>404 Not Found</div>,
       },
-       {
+      {
         path: '/result',
         element: <ResultPage />,
         errorElement: <div>404 Not Found</div>,
