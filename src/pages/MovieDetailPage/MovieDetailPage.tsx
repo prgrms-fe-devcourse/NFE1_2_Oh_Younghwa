@@ -11,7 +11,7 @@ import './scss/MovieDetailPage.scss';
 export default function MovieDetailPage() {
   const location = useLocation(); // useLocation은 제네릭 타입을 받지 않음
   const state = location.state.movie as Movie; // state의 타입을 명시적으로 지정
-
+  console.log(state);
   return (
     <div className="scroll-container">
       <div className="detail-section">

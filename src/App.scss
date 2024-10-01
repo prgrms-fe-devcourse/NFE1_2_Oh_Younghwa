@@ -74,7 +74,9 @@ body {
     }
   }
   .contents {
-    flex-grow: 2;
+    scrollbar-width: none;
+    overflow: scroll;
+    height: inherit;
     background: $white;
     border: solid 1px $border-primary;
     position: relative;

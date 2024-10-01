@@ -1,5 +1,5 @@
 import { reviewAxiosClient } from '../../../shared/utils/axiosClient';
-import { MoviePost } from '../../TimelinePage/model/article';
+import { MoviePost, Post } from '../../TimelinePage/model/article';
 
 type Review = {
   title: string;
@@ -24,10 +24,27 @@ export const getReviewsByMovieTitle = async (title: string): Promise<MoviePost[]
 };
 
 export const deleteReview = async (postId: string): Promise<void> => {
+  console.log(postId);
   const request = reviewAxiosClient();
   await request.delete(`/posts/delete`, {
     data: {
       id: postId,
     },
   });
+};
+type ReviewUpdate = {
+  postId: string;
+  title: string;
+  image: string | null;
+  channelId: string;
+};
+export const updateReview = async ({ postId, title, image, channelId }: ReviewUpdate): Promise<Post> => {
+  const request = reviewAxiosClient();
+  const response = await request.put('/posts/update', {
+    postId,
+    title,
+    image,
+    channelId,
+  });
+  return response.data;
 };

@@ -9,7 +9,7 @@
   padding: 10px 15px 5px 15px;
   font-family: Arial, sans-serif;
   position: relative; /* 가상 요소 배치를 위해 relative 추가 */
-  max-width: 600px;
+
   background-color: white;
 
   &::after {
@@ -41,8 +41,15 @@
   }
 
   .review-text {
+    color: #344054;
+    text-overflow: ellipsis;
+    /* article/text */
+    font-family: Pretendard;
     font-size: 14px;
-    line-height: 1.5;
+
+    font-weight: 300;
+    line-height: 140%; /* 19.6px */
+    letter-spacing: -0.28px;
     margin-bottom: 10px;
   }
 
@@ -96,7 +103,6 @@
     }
     .hamburger-menu {
       position: relative;
-
       .hamburger-icon {
         background: none;
         border: none;
@@ -118,34 +124,36 @@
 
       .menu-items {
         position: absolute;
-        bottom: 25px;
-        right: 0;
+        z-index: 9999;
+        bottom: 0px;
+        right: 35px;
         background-color: #fff;
-        border: 1px solid #ddd;
-
         display: flex;
         flex-direction: column;
-        overflow: hidden;
-
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         .menu-item {
           border: none;
           background: none;
-          padding: 10px 20px;
+
           text-wrap: nowrap;
           cursor: pointer;
           transition: background-color 0.3s ease;
 
+          height: 50px;
+          padding: 9px 32px;
+
+          align-self: stretch;
           &:hover {
             background-color: #f5f5f5;
           }
 
           &.edit {
-            color: #4a90e2;
+            border-bottom: 1px solid #bdb4fe;
           }
 
-          &.delete {
-            color: #e74c3c;
-          }
+          // &.delete {
+          //   color: #e74c3c;
+          // }
         }
       }
     }
