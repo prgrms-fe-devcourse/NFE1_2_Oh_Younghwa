@@ -8,8 +8,10 @@ import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButton
 import StarIcon from '../../../shared/components/atom/icons/StarIcon';
 import { useLikesMutation } from '../hook/useLikesMutation';
 import { useReviewMutation } from '../hook/useReviewMutation';
-import '../scss/UpdateReview.scss';
+
 import StarRating from './StarRating';
+
+import '../scss/UpdateReview.scss';
 type ReviewProps = {
   rating: number;
   review: string;
