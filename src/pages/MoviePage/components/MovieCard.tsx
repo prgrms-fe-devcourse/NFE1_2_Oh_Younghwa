@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { POSTER_IMAGE_BASE_URL } from '../../../shared/utils/baseUrl';
 import { Movie } from '../model/movie';
+
 type MovieCardProps = {
   movie: Movie;
 };

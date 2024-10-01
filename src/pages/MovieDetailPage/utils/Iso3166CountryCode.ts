@@ -7,7 +7,3 @@ export enum Iso3166CountryCode {
   CN = '중국',
   // 필요한 다른 국가 코드도 계속 추가하세요.
 }
-export const getCountryNameByIso = (code: string | undefined): string => {
-  if (code === undefined) return '';
-  return Iso3166CountryCode[code.toUpperCase() as keyof typeof Iso3166CountryCode] || code;
-};

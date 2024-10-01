@@ -22,6 +22,7 @@ import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
 
 import './reset.css';
+import { ToastContainer } from 'react-toastify';
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,7 @@ createRoot(document.getElementById('root')!).render(
     <CookiesProvider>
       <Provider store={store}>
         <RouterProvider router={router} />
+        <ToastContainer limit={5} />
       </Provider>
     </CookiesProvider>
     <ReactQueryDevtools initialIsOpen={false} />
