@@ -18,31 +18,31 @@ li {
 
 .mypage-log {
   margin-top: 23px;
+}
 
-  .user-log-list {
-    box-sizing: border-box;
-    border-top: 1px solid  #E7E7E7;
-    border-bottom: 1px solid  #E7E7E7;
-    display: flex;
-    justify-content: space-evenly;
-    color: #000;
-    @include font(Pretendard, 18px, normal, 400, 150%);
-    margin: 0;
-    padding: 0;
+.user-log-list {
+  box-sizing: border-box;
+  border-top: 1px solid  #E7E7E7;
+  border-bottom: 1px solid  #E7E7E7;
+  display: flex;
+  justify-content: space-evenly;
+  color: #000;
+  @include font(Pretendard, 18px, normal, 400, 150%);
+  margin: 0;
+  padding-left: 0;
 
-   .article {
-    flex: 1;
-    cursor: pointer;
-   } 
+ .article {
+  flex: 1;
+  cursor: pointer;
+ } 
 
-   .review {
-    flex: 1;
-    cursor: pointer;
-   }
+ .review {
+  flex: 1;
+  cursor: pointer;
+ }
 
-   .likes {
-    flex: 1;
-    cursor: pointer;
-   }
-  }
+ .likes {
+  flex: 1;
+  cursor: pointer;
+ }
 }

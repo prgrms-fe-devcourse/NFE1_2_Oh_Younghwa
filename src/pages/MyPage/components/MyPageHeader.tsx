@@ -1,4 +1,4 @@
-import { User } from '../../../auth/model/user';
+import { User } from '../../TimelinePage/model/article';
 
 import '../scss/myPage.scss';
 
@@ -16,11 +16,11 @@ const MyPageHeader = ({ user }: MyPageHeaderProps) => {
             <p className="nickname">{user.fullName}</p>
             <h5 className="bio">소개글</h5>
           </div>
-        </div>
-        <div className="user-connection">
-          <div className="follower">팔로워 {user?.followers.length}</div>
-          <hr className="divider" />
-          <div className="following">팔로잉 {user?.following.length}</div>
+          <div className="user-connection">
+            <div className="follower">팔로워 {user?.followers.length}</div>
+            <hr className="divider" />
+            <div className="following">팔로잉 {user?.following.length}</div>
+          </div>
         </div>
       </div>
     </>
