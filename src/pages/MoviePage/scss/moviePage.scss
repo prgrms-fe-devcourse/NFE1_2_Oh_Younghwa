@@ -2,6 +2,10 @@ $utility-gray-400: #98a2b3;
 
 $utility-purple-500: #7a5af8;
 $utility-purple-50: #f4f3ff;
+.scroll-container {
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
 .search-bar {
   display: flex;
 
