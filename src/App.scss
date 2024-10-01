@@ -5,9 +5,22 @@ $utility-purple-100: #ebe9fe;
 $utility-purple-300: #bdb4fe;
 $utility-purple-400: #9b8afb;
 
+@mixin channel-basic{
+  font-size: 14px;
+  font-family: Pretendard;
+  font-weight: 400;
+  height: 32px;
+  text-transform: uppercase;
+  word-wrap: break-word;
+  box-sizing: border-box;
+}
+
+
+
 body {
   margin: 0;
   background: #f5f5f7;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 .navigate-bar {
@@ -34,26 +47,74 @@ body {
 }
 
 .contents-wrap {
-  height: 100%;
+  height: 100vh;
   width: 600px;
   margin: auto;
-  .contents-title-wrap {
+  display: flex;
+  flex-direction: column;
+  
+  .contents-title-wrap{
     text-align: center;
-    height: 43px;
-    .contents-title {
+    position: relative;
+
+    .navigate-channel{
+      width: 87px;
+      height: 224px;
+      position: absolute;
+      top: 46px;
+      right: -103px;
+
+      .follow-channel{
+        background-image: url("./src/shared/asset/FollowChannelButtonBG.svg");
+        color: #98A2B3;
+        padding: 8px 0 8px 0;
+        @include channel-basic();
+        
+      }
+      .now-channel{
+        background-image: url("./src/shared/asset/NowChannelButtonBG.svg");
+        color: #E4E7EC;
+        padding: 10px 11px 8px 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+        @include channel-basic();
+      }
+      .genre-channel{
+        background:#F2F4F7;
+        color: #98A2B3;
+        padding: 9px 0 8px 0;
+        @include channel-basic();
+        border-left: 1px #D0D5DD solid;
+        border-right: 1px #D0D5DD solid;
+        border-bottom: 1px #D0D5DD solid;
+      }
+    }
+
+
+
+    .contents-title{
       padding: 11px 8px;
       display: flex;
       justify-content: space-between;
-      .arrow-holder {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      .arrow-holder{
         width: 24px;
         height: 24px;
       }
     }
   }
   .contents {
+    flex-grow: 2;
     background: $white;
-    height: 94.7vh;
     border: solid 1px $border-primary;
     position: relative;
+    overflow: scroll;
+    height: inherit;
+    scrollbar-width: none;
   }
 }

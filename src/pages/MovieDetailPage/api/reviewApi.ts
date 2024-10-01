@@ -1,14 +1,14 @@
 import { reviewAxiosClient } from '../../../shared/utils/axiosClient';
 
 type Review = {
-  title: String;
-  image: String;
-  channelId: String;
+  title: string;
+  image: string;
+  channelId: string;
 };
 
 export const postReview = async ({ title, image, channelId }: Review): Promise<Review> => {
   const request = reviewAxiosClient();
-  const response = await request.post<Review>('/posts/creaㄴte', {
+  const response = await request.post<Review>('/posts/create', {
     title,
     image,
     channelId,
@@ -20,5 +20,6 @@ export const postReview = async ({ title, image, channelId }: Review): Promise<R
 export const getReviewsByMovieTitle = async (title: string): Promise<Review[]> => {
   const request = reviewAxiosClient();
   const response = await request.get<Review[]>(`/search/all/${title}`);
+  console.log(response);
   return response.data;
 };

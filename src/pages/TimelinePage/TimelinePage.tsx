@@ -7,7 +7,6 @@ import './scss/timeline.scss';
 const TimelinePage = () => {
   return (
     <div>
-      <div className="blockSample"></div>
       <Postlist />
     </div>
   );
