@@ -1,6 +1,7 @@
 import { useGetReviewsByMovieTitle } from '../hook/useGetReviewsByMovieTitle';
 import Review from './Review';
 
+
 import '../scss/Review.scss';
 type ReviewListProps = {
   title: string;

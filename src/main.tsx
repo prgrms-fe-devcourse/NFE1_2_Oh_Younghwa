@@ -12,6 +12,7 @@ import MovieDetailPage from './pages/MovieDetailPage/MovieDetailPage.tsx';
 import MoviePage from './pages/MoviePage/MoviePage.tsx';
 import MyPage from './pages/MyPage/MyPage.tsx';
 import OthersMyPage from './pages/MyPage/OthersMypage.tsx';
+import PostDetailPage from './pages/PostDetailPage/PostDetailPage.tsx';
 import ResultPage from './pages/SearchPage/Components/ResultPage.tsx';
 import SearchPage from './pages/SearchPage/SearchPage.tsx';
 import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
@@ -32,8 +33,14 @@ const router = createBrowserRouter([
     errorElement: <div>404 Not Found</div>,
     children: [
       {
-        path: '/timeline',
+
+        path: '/posts/channel/:channelId',
         element: <TimelinePage />,
+        errorElement: <div>404 Not Found</div>,
+      },
+      {
+        path: '/posts/:postId',
+        element: <PostDetailPage />,
         errorElement: <div>404 Not Found</div>,
       },
       {

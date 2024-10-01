@@ -1,0 +1,97 @@
+$utility-purple-400:#9B8AFB;
+
+.blockSample{
+  width: 30px;
+  height: 50px;
+  background: $utility-purple-400;
+  position: absolute;
+  right: -40px;
+}
+
+.comment-title{
+  padding: 7px 21px;
+}
+
+.post-wrap{
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  display: flex;
+  padding: 16px;
+  gap: 10px;
+  .profile-img{
+    height: 32px;
+    object-fit: cover;
+  }
+  .post-box{
+    width: 522px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 6px 0;
+    .post-info{
+      display: flex;
+      gap: 8px;
+      .nickname{
+        font-size: 14px;
+        font-family: 'Pretendard';
+        font-weight: 600;
+        word-Wrap: break-word;
+      }
+      .created{
+        font-size: 12px;
+        font-family: 'Pretendard';
+        font-weight: 300;
+        word-Wrap: break-word;
+      }
+    }
+    .post-contents{
+      font-size: 14px;
+      font-family: 'Pretendard';
+      font-weight: 300;
+      line-height: 19.60px;
+      word-Wrap: break-word;
+
+    }
+    .contents-image{
+      max-height:642px;
+      object-fit: cover;
+      margin: 6px 0;
+    }
+    .activity-wrap{
+      display: flex;
+      font-size: 13px;
+      height: 16px;
+      line-height: 16px;
+      justify-content: space-between;
+      .activity-side{
+        display: flex;
+        gap: 14px;
+        .activity{
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+      .option-wrap{
+        position: relative;
+
+        .option-box{
+          position: absolute;
+          width: 58px;
+          height: 80px;
+          background-color: #ffffff;
+          font-size: 15px;
+          font-weight: 400;
+          top: 16px;
+          right: 8px;
+          display: none;
+          box-sizing: border-box;
+        }
+
+        .option-box.button-clicked{
+          display: block;
+        }
+    }
+  }
+  }
+  
+}
