@@ -33,6 +33,7 @@ const router = createBrowserRouter([
     errorElement: <div>404 Not Found</div>,
     children: [
       {
+
         path: '/posts/channel/:channelId',
         element: <TimelinePage />,
         errorElement: <div>404 Not Found</div>,
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
         errorElement: <div>404 Not Found</div>,
       },
       {
-        path: '/user/:userId',
+        path: '/users/:userId',
         element: <OthersMyPage />,
         errorElement: <div>404 Not Found</div>,
       },

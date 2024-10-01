@@ -16,6 +16,7 @@ const titleMapping: { [key: string]: string } = {
   '/movie/detail': '영화 상세정보',
   '/mypage': '마이페이지',
   '/posts': '포스트',
+
   // Add more routes and titles as needed
 };
 
@@ -34,6 +35,7 @@ function App() {
     <>
       <div className="navigate-bar">
         <Link to={'/posts/channel/66f50d3001d4aa076bcbdb99'}>
+
           <div className="menu-icon home">
             <HomePageIconSvg />
           </div>
@@ -90,7 +92,7 @@ function App() {
             <div className="arrow-holder" onClick={() => navigate(-1)}>
               <GoBackIconSvg />
             </div>
-            {title}
+            <div>{title}</div>
             <div className="arrow-holder"></div>
           </div>
         </div>
@@ -98,10 +100,7 @@ function App() {
           <Outlet />
         </div>
       </div>
-      {/* <Link to="/asdf">wrongPage</Link>
-      <Link to="/movie">movie</Link>
-      <Link to="/">home</Link> /}
-      {/ <PopularMovies /> */}
+
     </>
   );
 }
