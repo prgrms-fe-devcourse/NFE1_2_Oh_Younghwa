@@ -50,10 +50,12 @@ function App() {
           <div className="menu-icon movie">
             <MoviePageIconSvg />
           </div>
-        </Link>
+          </Link>
+        <Link to= {'/notifications'}>
         <div className="menu-icon alert">
           <NotificationPageIconSvg />
         </div>
+        </Link>
         <Link to={'/mypage'}>
           <div className="menu-icon mypage">
             <MypageIconSvg />

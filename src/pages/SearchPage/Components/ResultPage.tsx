@@ -1,23 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import InputDeleteIcon from '../../../shared/components/atom/icons/InputDeleteIcon';
 import InputSearchIcon from '../../../shared/components/atom/icons/InputSearchIcon';
 
-import { searchUsers, searchPosts } from '../api/searchApi'; // API 호출 함수 가져오기
+import { searchUsers, searchPosts } from '../api/searchApi';
 import '../search.scss';
+import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
+import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
 
 type User = {
-  userId: string;
-  nickname: string;
+  _id: string;
+  fullName: string;
   profileImage: string;
-  followersCount: number;
-  oneLinerMessage: string; // 한줄 메시지
+  followers: [];
+  messages: string;
 };
 
 type Post = {
-  postId: number;
-  postTitle: string;
+  title: string;
+  updatedAt: string;
+  author: Author;
+  likes: [];
+  comments: [];
+  image?: string;
+};
+type Author = {
+  fullName: string;
+  _id: string;
 };
 
 type SearchResult = {
@@ -25,17 +35,12 @@ type SearchResult = {
   posts: Post[];
 };
 
+const getFollowerCount = (user: User): number => {
+  return user.followers.length;
+};
 const ResultPage = () => {
-  const location = useLocation(); // 현재 위치 정보 가져오기
-  const navigate = useNavigate();
-  const { searchQuery: initialSearchQuery, selectedCategory: initialCategory } = location.state || {
-    searchQuery: '',
-    selectedCategory: 'post',
-  };
-
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  // 선택된 카테고리
-  const [inputValue, setInputValue] = useState(initialSearchQuery);
+  const [selectedCategory, setSelectedCategory] = useState('post');
+  const [inputValue, setInputValue] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult>({ users: [], posts: [] });
 
   // 카테고리 클릭 핸들러
@@ -43,33 +48,34 @@ const ResultPage = () => {
     setSelectedCategory(category);
   };
 
-  // 검색 폼 제출 핸들러
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (inputValue) {
-      navigate('/result'); // 검색 결과 페이지 이동
-    }
-  };
+  // // 검색 결과를 가져오는 함수
+  // const fetchSearchResults = async () => {
 
-  // 검색 결과를 가져오는 함수
-  const fetchSearchResults = async () => {
-    try {
-      const users = await searchUsers(inputValue);
-      console.log(users); // 지워야 함
-      const posts = await searchPosts(inputValue);
-      setSearchResults({ users, posts }); // 검색 결과 업데이트
-    } catch (error) {
-      console.error('검색 결과를 가져오는 중 오류 발생:', error);
-    }
-  };
+  //     const users = await searchUsers(inputValue);
+  //     console.log(users)
+  //     const posts = await searchPosts(inputValue);
+  //     console.log(posts)
+  //     setSearchResults({ users, posts }); // 검색 결과 업데이트
+
+  // };
 
   useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (inputValue) {
+        const users = await searchUsers(inputValue);
+        const posts = await searchPosts(inputValue);
+        setSearchResults({ users, posts });
+      } else {
+        setSearchResults({ users: [], posts: [] });
+      }
+    };
+
     fetchSearchResults();
-  }, []);
+  }, [inputValue]);
 
   return (
     <div className="search-contents">
-      <form className="search-form" onSubmit={handleSubmit}>
+      <form className="search-form">
         <InputSearchIcon />
         <input
           className="search-form-input"
@@ -102,12 +108,23 @@ const ResultPage = () => {
       </div>
 
       {selectedCategory === 'post' && (
-        <div>
-          <h2>게시글 결과:</h2>
+        <div className="search-container">
           {searchResults.posts.length > 0 ? (
-            searchResults.posts.map((post) => (
-              <div key={post.postId}>
-                <h3>{post.postTitle}</h3>
+            searchResults.posts.map((post, index) => (
+              <div key={index} className="search-post">
+                <h2 className="search-post-name">{post.author.fullName}</h2>
+                <h3 className="search-post-title">{post.title}</h3>
+                {post.image && <img src={post.image} className="search-post-image" alt={post.title} />}
+                <div className="search-post-icons">
+                  <p className="search-post-likeNum">
+                    <LikeButtonIcon />
+                    {post.likes.length}
+                  </p>
+                  <p className="search-post-commentNum">
+                    <CommentButtonIcon />
+                    {post.comments.length}
+                  </p>
+                </div>
               </div>
             ))
           ) : (
@@ -115,20 +132,19 @@ const ResultPage = () => {
           )}
         </div>
       )}
-      {selectedCategory === 'tag' && <p>{`태그 결과: ${initialSearchQuery}`}</p>}
+      {selectedCategory === 'tag' && <p>{`태그 결과: ${inputValue}`}</p>}
       {selectedCategory === 'user' && (
-        <div>
+        <div className="search-container">
           {searchResults.users.length > 0 ? (
-            searchResults.users.map((user) => (
-              <div key={user.userId} className="user-card">
-                <img src={user.profileImage} alt={user.nickname} className="user-profile-image" />
-                <div className="user-info">
-                  <h4>사용자 명 {user.nickname}</h4>
-                  <p>{user.oneLinerMessage}</p>
-                  <p>팔로워 수 {user.followersCount}</p>
+            searchResults.users.map((user, index) => (
+              <div key={index} className="search-user">
+                <img src={user.profileImage} className="search-user-image" />
+                <div className="search-user-info">
+                  <h4 className="search-user-name">{user.fullName}</h4>
+                  <p className="search-user-followerNum">팔로워{getFollowerCount(user)}명</p>
+                  <p className="search-user-message">{user.messages}한줄</p>
                 </div>
               </div>
-              // 데이터가 제대로 안뜸 + 이미지 및 한줄메세지 받아와야 함
             ))
           ) : (
             <p>사용자가 없습니다.</p>

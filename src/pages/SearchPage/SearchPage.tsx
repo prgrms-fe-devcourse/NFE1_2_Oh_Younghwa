@@ -17,43 +17,27 @@ const SearchPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('post');
 
   // 검색 폼 제출 핸들러
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSearchQuery(inputValue); // 검색어를 상태에 설정
-
-    // 검색어가 있을 때 ResultPage로 이동
-    if (inputValue) {
-      navigate('/result', { state: { searchQuery: inputValue, selectedCategory } }); // /result 경로로 이동
-    }
-  };
+  
 
   return (
     <div className="search-body">
-      <form className="search-form" onSubmit={handleSubmit}>
+      <form className="search-form">
         <InputSearchIcon />
         <input
           className="search-form-input"
           type="search"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)} // 입력값 변경 시 상태 업데이트
-          onFocus={() => setIsInputFocused(true)} // 입력 칸이 클릭되면 true
-          onBlur={() => setIsInputFocused(false)} // 입력 칸에서 벗어나면 false
-        />
+          onClick={()=>
+            navigate('/result')}
+          />
         <InputDeleteIcon />
       </form>
 
-      {/* 입력 필드 포커스에 따라 다른 컴포넌트 렌더링 */}
-      {isInputFocused ? (
-        <div className="recent-search">
-          <h3>최근 검색어</h3>
-          <RecentSearch />
-        </div>
-      ) : (
+     
         <div className="recommend-post">
           <h3>추천 게시물</h3>
           <RecommendPost />
         </div>
-      )}
     </div>
   );
 };

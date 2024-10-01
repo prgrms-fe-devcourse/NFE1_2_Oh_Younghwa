@@ -9,6 +9,7 @@
   border: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
   background: #fff;
 }
+
 .search-text {
   color: #000;
   text-align: center;
@@ -16,8 +17,9 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; 
+  line-height: 150%;
 }
+
 .search-form {
   display: flex;
   padding: 10px 14px;
@@ -27,8 +29,8 @@
   border-bottom: 1px solid var(--Component-colors-Utility-Purple-utility-purple-500, #7a5af8);
   background: var(--Component-colors-Utility-Purple-utility-purple-50, #f4f3ff);
 
-  
   box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+
   .search-form-input {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -44,33 +46,37 @@
     font-size: var(--Font-size-text-md, 16px);
     font-style: normal;
     font-weight: 400;
-    line-height: var(--Line-height-text-md, 24px); 
+    line-height: var(--Line-height-text-md, 24px);
   }
-  .search-form-input::-webkit-search-cancel-button{
+
+  .search-form-input::-webkit-search-cancel-button {
     -webkit-appearance: none;
   }
 }
+
 .search-contents {
   display: flex;
   width: 600px;
   flex-direction: column;
   align-items: flex-start;
+
   .search-contents-button {
     display: inline-flex;
     align-items: center;
     gap: 16px;
+
     .search-contents-button-post,
     .search-contents-button-tag,
     .search-contents-button-user {
       display: flex;
-      width: 178px;
+      width: 189px;
       padding: var(--spacing-sm, 6px) var(--spacing-7xl, 64px);
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 10%;
       border: 1px solid var(--Component-colors-Utility-Purple-utility-purple-300, #bdb4fe);
-      
     }
+
     .search-result {
       display: flex;
       width: var(--width-md, 560px);
@@ -78,6 +84,122 @@
       justify-content: center;
       align-items: flex-start;
       gap: 16px;
+    }
+  }
+}
+
+.search-container {
+  display: flex;
+  width: 600px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.search-post {
+  display: flex;
+  flex-direction: column; // 세로 방향으로 배치
+  padding: 16px 14px 0 14px; // 상단 여백 조정
+  justify-content: space-between; // 공간 분배
+  align-items: flex-start; // 왼쪽 정렬
+  align-self: stretch;
+  width: 600px; // 전체 너비 설정
+
+  .search-post-name {
+    color: var(--colors-text-text-primary-900, #101828);
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.28px;
+  }
+
+  .search-post-title {
+    display: -webkit-box;
+    width: 100%; // 부모 요소의 너비에 맞춤
+    max-width: 522px; // 최대 너비 설정
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    color: var(--colors-text-text-secondary-700, #344054);
+    text-overflow: ellipsis;
+
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 140%; /* 19.6px */
+    letter-spacing: -0.28px;
+  }
+
+  .search-post-image {
+    width: 100%; // 부모 요소의 너비에 맞춤
+    max-width: 522px; // 최대 너비 설정
+    height: auto; // 비율에 맞춰 자동 조정
+    flex-shrink: 0; // 크기 축소 방지
+  }
+
+  .search-post-actions {
+    display: flex; // 수평 정렬을 위한 wrapper
+    justify-content: flex-start; // 왼쪽 정렬
+    width: 100%; // 전체 너비 사용
+    gap: 16px; // 버튼 간격 설정
+    margin-top: auto; // 상단 공간을 모두 사용하고 아래로 이동
+  }
+
+  .search-post-icons {
+    display: flex; // 수평 정렬을 위해 flex 사용
+    align-items: center; // 아이콘과 텍스트 수직 중앙 정렬
+    gap: 8px; // 아이콘과 텍스트 간 간격
+  }
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column; // 수직 방향으로 정렬
+  gap: 10px; // 사용자 항목 간의 간격
+}
+
+.search-user {
+  display: flex;
+  align-items: flex-start; // 이미지가 위쪽에 정렬되도록
+  gap: 12px; // 사용자 이미지와 텍스트 간의 간격
+  padding: 10px 14px; // 사용자 항목 패딩
+  border-bottom: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
+  width: 100%; // 전체 너비 설정
+
+  .search-user-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; // 원형으로 만들기
+    object-fit: cover; // 이미지를 비율에 맞게 자르기
+  }
+
+  .search-user-info {
+    display: flex;
+    flex-direction: column; // 세로 방향으로 정렬
+    align-items: flex-start; // 왼쪽 정렬
+
+    .search-user-name {
+      color: var(--colors-text-text-primary-900, #101828);
+      font-family: Pretendard;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    .search-user-message {
+      color: var(--colors-text-text-secondary-700, #344054);
+      font-family: Pretendard;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 140%;
+    }
+
+    .search-user-followerNum {
+      font-family: Pretendard;
+      font-size: 12px;
+      color: var(--colors-text-text-secondary-500, #6f6f6f);
     }
   }
 }

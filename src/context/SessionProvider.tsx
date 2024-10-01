@@ -11,7 +11,6 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
   const navigate = useNavigate();
 
   const { data, isLoading } = useTokenValidation();
-  console.log(`나 세션인데, 렌더링 됐다`);
   // 세션 없을 시 로그인 페이지로 리다이렉트.
   // 로딩중일때는 당연히 세션이 없으므로 로딩중일때는 무시
   useEffect(() => {
