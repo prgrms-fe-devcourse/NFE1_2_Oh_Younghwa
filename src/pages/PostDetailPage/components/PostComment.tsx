@@ -31,7 +31,6 @@ export default function PostComment({ comments }: CommentProps) {
             </div>
           </div>
           </div>
-        </div>
       ))}
     </div>
   );
