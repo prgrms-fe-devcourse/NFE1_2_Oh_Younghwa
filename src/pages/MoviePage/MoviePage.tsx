@@ -20,9 +20,9 @@ export default function MoviePage() {
   const isNull = searchKeyword === '';
 
   return (
-    <>
+    <div className="scroll-container">
       <MovieSearchInput handleSearchKeyword={handleSearchKeyword} />
       {isNull ? <PopularMovies /> : <SearchResult searchKeyword={searchKeyword} />}
-    </>
+    </div>
   );
 }

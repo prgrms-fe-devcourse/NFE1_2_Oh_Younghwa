@@ -1,11 +1,26 @@
 // ReviewComponent.scss
+.review-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .review-container {
+  padding: 10px 15px 5px 15px;
   font-family: Arial, sans-serif;
-  max-width: 600px;
-  padding: 20px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  position: relative; /* 가상 요소 배치를 위해 relative 추가 */
+
   background-color: white;
+
+  &::after {
+    content: ''; /* 가상 요소 생성 */
+    position: absolute; /* 부모 div에 대해 절대 위치 지정 */
+    bottom: 0; /* 부모 div의 하단에 위치 */
+    left: 50%; /* 부모 div의 가로 중앙에서 시작 */
+    transform: translateX(-50%); /* 중앙 정렬 */
+    width: 95%; /* 원하는 border의 길이 설정 (조정 가능) */
+    border-bottom: 1px dotted #e7e7e7; /* border의 스타일과 두께 */
+  }
 
   .stars {
     display: flex;
@@ -26,33 +41,121 @@
   }
 
   .review-text {
+    color: #344054;
+    text-overflow: ellipsis;
+    /* article/text */
+    font-family: Pretendard;
     font-size: 14px;
-    line-height: 1.5;
+
+    font-weight: 300;
+    line-height: 140%; /* 19.6px */
+    letter-spacing: -0.28px;
     margin-bottom: 10px;
   }
 
   .review-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     font-size: 12px;
     color: #666;
     margin-bottom: 10px;
+    gap: 8px;
+    .reviewer {
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.24px;
+      color: #101828;
+    }
+    .review-date {
+      font-size: 12px;
+      color: #475467;
+      font-weight: 300;
+      line-height: normal;
+    }
   }
 
-  .likes {
+  .likes-hamburger-wrapper {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
 
-    .heart-icon {
-      width: 16px;
-      height: 16px;
-      margin-right: 5px;
-      color: #666;
+    .likes {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      .likes-button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+        line-height: 0;
+      }
+      .heart-icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
+        color: #666;
+      }
+
+      .like-count {
+        font-size: 12px;
+        color: #666;
+      }
     }
+    .hamburger-menu {
+      position: relative;
+      .hamburger-icon {
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        padding: 0;
 
-    .like-count {
-      font-size: 12px;
-      color: #666;
+        span {
+          width: 100%;
+          height: 3px;
+          background-color: #333;
+          transition: all 0.3s ease;
+        }
+      }
+
+      .menu-items {
+        position: absolute;
+        z-index: 9999;
+        bottom: 0px;
+        right: 35px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .menu-item {
+          border: none;
+          background: none;
+
+          text-wrap: nowrap;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          height: 50px;
+          padding: 9px 32px;
+
+          align-self: stretch;
+          &:hover {
+            background-color: #f5f5f5;
+          }
+
+          &.edit {
+            border-bottom: 1px solid #bdb4fe;
+          }
+
+          // &.delete {
+          //   color: #e74c3c;
+          // }
+        }
+      }
     }
   }
 }

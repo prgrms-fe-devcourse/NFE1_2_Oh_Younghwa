@@ -9,8 +9,6 @@ const Postlist = () => {
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;
 
-  console.log(data);
-
   return (
     <div>
       <div className="">

@@ -11,8 +11,10 @@ import './App.scss';
 const titleMapping: { [key: string]: string } = {
   '/search': '검색',
   '/result': '검색결과',
-  '/mypage': '마이페이지',
+  '/movie': '영화 정보',
   '/movie/detail': '영화 상세정보',
+  '/mypage': '마이페이지',
+  '/timeline': '타임라인',
   // Add more routes and titles as needed
 };
 function App() {
@@ -22,9 +24,11 @@ function App() {
   return (
     <>
       <div className="navigate-bar">
-        <div className="menu-icon home">
-          <HomePageIconSvg />
-        </div>
+        <Link to={'/timeline'}>
+          <div className="menu-icon home">
+            <HomePageIconSvg />
+          </div>
+        </Link>
         <Link to={'/search'}>
           <div className="menu-icon search">
             <SearchPageIconSvg />
@@ -51,7 +55,7 @@ function App() {
             <div className="arrow-holder">
               <GoBackIconSvg />
             </div>
-            {title}
+            <div>{title}</div>
             <div className="arrow-holder"></div>
           </div>
         </div>
@@ -59,10 +63,6 @@ function App() {
           <Outlet />
         </div>
       </div>
-      {/* <Link to="/asdf">wrongPage</Link>
-      <Link to="/movie">movie</Link>
-      <Link to="/">home</Link> /}
-      {/ <PopularMovies /> */}
     </>
   );
 }

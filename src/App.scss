@@ -10,7 +10,22 @@ $utility-purple-400: #9b8afb;
 body {
   margin: 0;
   background: #f5f5f7;
-  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family:
+    'Pretendard Variable',
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
 }
 
 .navigate-bar {
@@ -42,11 +57,10 @@ body {
   margin: auto;
   display: flex;
   flex-direction: column;
-
-  .contents-title-wrap{
+  .contents-title-wrap {
     text-align: center;
 
-    .contents-title{
+    .contents-title {
       padding: 11px 8px;
       display: flex;
       justify-content: space-between;
@@ -54,14 +68,16 @@ body {
       font-style: normal;
       font-weight: 400;
       line-height: 150%;
-      .arrow-holder{
+      .arrow-holder {
         width: 24px;
         height: 24px;
       }
     }
   }
   .contents {
-    flex-grow: 2;
+    scrollbar-width: none;
+    overflow: scroll;
+    height: inherit;
     background: $white;
     border: solid 1px $border-primary;
     position: relative;
