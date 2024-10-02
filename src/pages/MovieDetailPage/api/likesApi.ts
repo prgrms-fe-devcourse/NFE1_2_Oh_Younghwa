@@ -6,12 +6,10 @@ export const postLikes = async (postId: string): Promise<Like> => {
   const response = await request.post('/likes/create', {
     postId,
   });
-  console.log(response.data);
   return response.data;
 };
 
 export const deleteLikes = async (postId: string): Promise<void> => {
-  console.log(postId);
   const request = reviewAxiosClient();
   await request.delete(`/likes/delete`, {
     data: {

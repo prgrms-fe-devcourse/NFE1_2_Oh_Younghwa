@@ -8,13 +8,14 @@ import ReviewList from './components/ReviewList';
 
 import './scss/MovieDetailPage.scss';
 import { useMovieDetailData } from './hook/useMovieDetailData';
+import SearchLoadPage from '../MoviePage/components/SearchLoadPage';
 
 export default function MovieDetailPage() {
   const location = useLocation(); // useLocation은 제네릭 타입을 받지 않음
   const state = location.state.movie; // state의 타입을 명시적으로 지정
 
   const { data: movieData, isError, isLoading } = useMovieDetailData(state);
-  if (isLoading) return <div>로딩중...</div>;
+  if (isLoading) return <SearchLoadPage />;
   if (movieData === undefined) return <div>데이터가 없습니다.</div>;
   return (
     <div className="scroll-container">

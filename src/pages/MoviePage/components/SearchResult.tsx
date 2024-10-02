@@ -22,5 +22,5 @@ export default function MovieSearchResult({ searchKeyword }: MovieSearchResultPr
 
   if (isError) return <div>에러 발생</div>;
 
-  return <>{isNull ? <></> : <MovieListContainer data={data} />}</>;
+  return <>{isNull ? <>데이터가 없습니다</> : <MovieListContainer data={data} />}</>;
 }
