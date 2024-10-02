@@ -21,6 +21,15 @@ export const followUser = async (userId: string): Promise<Follow> => {
       userId: userId,
     });
 
+    const notificationPayload = {
+      notificationType: 'FOLLOW',
+      notificationTypeId: response.data._id,
+      userId: userId,
+      postId: null,
+    };
+    console.log(notificationPayload);
+    await request.post('/notifications/create', notificationPayload);
+
     return response.data;
   } catch (error) {
     console.error(error);

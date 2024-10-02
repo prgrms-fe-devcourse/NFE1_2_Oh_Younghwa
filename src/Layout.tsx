@@ -17,7 +17,6 @@ const titleMapping: { [key: string]: string } = {
   '/mypage': '마이페이지',
   '/posts': '포스트',
 
-
   // Add more routes and titles as needed
 };
 
@@ -36,7 +35,6 @@ function App() {
     <>
       <div className="navigate-bar">
         <Link to={'/posts/channel/66f50d3001d4aa076bcbdb99'}>
-
           <div className="menu-icon home">
             <HomePageIconSvg />
           </div>
@@ -50,11 +48,11 @@ function App() {
           <div className="menu-icon movie">
             <MoviePageIconSvg />
           </div>
-          </Link>
-        <Link to= {'/notifications'}>
-        <div className="menu-icon alert">
-          <NotificationPageIconSvg />
-        </div>
+        </Link>
+        <Link to={'/notifications'}>
+          <div className="menu-icon alert">
+            <NotificationPageIconSvg />
+          </div>
         </Link>
         <Link to={'/mypage'}>
           <div className="menu-icon mypage">
@@ -103,7 +101,6 @@ function App() {
           <Outlet />
         </div>
       </div>
-
     </>
   );
 }

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
 import InputDeleteIcon from '../../../shared/components/atom/icons/InputDeleteIcon';
 import InputSearchIcon from '../../../shared/components/atom/icons/InputSearchIcon';
-
-import { searchUsers, searchPosts } from '../api/searchApi';
-import '../search.scss';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
-import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
-import { elapsedText } from '../../TimelinePage/utility/elapsedText';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon';
-import OptionPopup from '../../TimelinePage/components/OptionPopup';
+import { elapsedText } from '../../TimelinePage/utility/elapsedText';
+import { searchPosts, searchUsers } from '../api/searchApi';
+
+import '../search.scss';
 
 type User = {
   _id: string;
@@ -21,7 +20,7 @@ type User = {
 };
 
 type Post = {
-  _id : string;
+  _id: string;
   title: string;
   updatedAt: string;
   author: User;
@@ -39,7 +38,7 @@ type SearchResult = {
 const ResultPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('post');
   const [inputValue, setInputValue] = useState('');
-  const [searchResults, setSearchResults] = useState<SearchResult>({ users: [], posts: [], tags : [] });
+  const [searchResults, setSearchResults] = useState<SearchResult>({ users: [], posts: [], tags: [] });
 
   // 카테고리 클릭 핸들러
   const handleCategoryClick = (category: string) => {
@@ -66,7 +65,7 @@ const ResultPage = () => {
         const tags = await searchPosts(inputValue);
         setSearchResults({ users, posts, tags });
       } else {
-        setSearchResults({ users: [], posts: [], tags:[] });
+        setSearchResults({ users: [], posts: [], tags: [] });
       }
     };
 
@@ -148,25 +147,22 @@ const ResultPage = () => {
 
       {selectedCategory === 'tag' && (
         <div className="search-container">
-          {searchResults.tags.length > 0 ? (
-            <p>태그 검색 결과</p>
-            ) : (
-            <p>게시글이 없습니다.</p>)}
+          {searchResults.tags.length > 0 ? <p>태그 검색 결과</p> : <p>게시글이 없습니다.</p>}
         </div>
-        )}
+      )}
 
       {selectedCategory === 'user' && (
         <div className="search-container">
           {searchResults.users.length > 0 ? (
             searchResults.users.map((user, index) => (
               <div key={index} className="search-user">
-                <img src={user.image} className="search-user-image" alt='profile'/>
-                <Link to={`/posts/${user._id}`}>
-                <div className="search-user-info">
-                  <h4 className="search-user-name">{user.fullName}</h4>
-                  <p className="search-user-followerNum">팔로워{user.followers.length}명</p>
-                  <p className="search-user-message">{user.messages}한줄</p>
-                </div>
+                <img src={user.image} className="search-user-image" alt="profile" />
+                <Link to={`/users/${user._id}`}>
+                  <div className="search-user-info">
+                    <h4 className="search-user-name">{user.fullName}</h4>
+                    <p className="search-user-followerNum">팔로워{user.followers.length}명</p>
+                    <p className="search-user-message">{user.messages}한줄</p>
+                  </div>
                 </Link>
               </div>
             ))

@@ -17,27 +17,19 @@ const SearchPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('post');
 
   // 검색 폼 제출 핸들러
-  
 
   return (
     <div className="search-body">
       <form className="search-form">
         <InputSearchIcon />
-        <input
-          className="search-form-input"
-          type="search"
-          value={inputValue}
-          onClick={()=>
-            navigate('/result')}
-          />
+        <input className="search-form-input" type="search" value={inputValue} onClick={() => navigate('/result')} />
         <InputDeleteIcon />
       </form>
 
-     
-        <div className="recommend-post">
-          <h3>추천 게시물</h3>
-          <RecommendPost />
-        </div>
+      <div className="recommend-post">
+        <h3>추천 게시물</h3>
+        <RecommendPost />
+      </div>
     </div>
   );
 };
