@@ -23,6 +23,44 @@ a {
   }
 }
 
+.menu-items {
+  position: absolute;
+  z-index: 9999;
+  width: 58px;
+  height: 80px;
+  top: 21px;
+  right: 8px;
+  font-size: 15px;
+  font-weight: 400;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  .menu-item {
+    border: none;
+    background: none;
+    text-wrap: nowrap;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 50px;
+    align-self: stretch;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+
+    &.edit {
+      border-bottom: 1px solid #bdb4fe;
+    }
+
+    // &.delete {
+    //   color: #e74c3c;
+    // }
+  }
+}
+
 
 .postlist-wrap{
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
@@ -92,26 +130,17 @@ a {
             display: flex;
             align-items: center;
             gap: 8px;
+            
+            .likes-button{
+              border: none;
+              background: none;
+              padding: 0;
+              height: 16px;
+            }
           }
         }
         .option-wrap{
           position: relative;
-
-          .option-box{
-            position: absolute;
-            width: 58px;
-            height: 80px;
-            background-color: #ffffff;
-            font-size: 15px;
-            font-weight: 400;
-            top: 16px;
-            right: 8px;
-            display: none;
-            box-sizing: border-box;
-            &.button-clicked{
-              display: block;
-            }
-          }
 
           
         }

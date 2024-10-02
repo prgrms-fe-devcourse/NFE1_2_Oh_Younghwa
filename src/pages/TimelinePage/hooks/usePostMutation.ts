@@ -14,6 +14,7 @@ export const usePostMutation = () => {
     },
     onSuccess: (data, variables, context) => {
       console.log(data);
+      queryClient.invalidateQueries({ queryKey: ['channel'] });
     },
     onSettled: (data, error, variables, context) => {},
   });
@@ -25,7 +26,7 @@ export const usePostMutation = () => {
       console.log(error);
     },
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['channel'] });
       console.log(data);
     },
     onSettled: (data, error, variables, context) => {},
@@ -38,7 +39,7 @@ export const usePostMutation = () => {
       console.log(error);
     },
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
+      queryClient.invalidateQueries({ queryKey: ['channel'] });
       console.log(data);
     },
     onSettled: (data, error, variables, context) => {},

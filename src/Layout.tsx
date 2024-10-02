@@ -81,9 +81,6 @@ function App() {
         </Link>
       </div>
 
-      {/* 글쓰는 모달 온오프 */}
-      {modalOpen && <WriteModal isModalOpen={modalOpen} onClose={() => setModalOpen(false)} />}
-
       <div className="contents-wrap">
         <button className="write-button" onClick={() => setModalOpen(true)}>
           <WriteButtonIcon />
@@ -104,6 +101,9 @@ function App() {
           <Outlet />
         </div>
       </div>
+
+      {/* 글쓰는 모달 온오프 */}
+      {modalOpen && <WriteModal isModalOpen={modalOpen} onClose={() => setModalOpen(false)} />}
     </>
   );
 }

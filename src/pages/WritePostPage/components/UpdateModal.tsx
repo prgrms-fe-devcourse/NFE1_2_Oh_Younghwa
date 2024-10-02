@@ -41,9 +41,8 @@ const UpdateModal = ({ listPostId, listChannelId, listPostTitle, isModalOpen, on
     }
   }, [text]); // text가 변경될 때마다 호출
 
-  //form data 전달하기
+  //form data 전달해서 업데이트 요청보내기
   const [formData, setFormData] = useState('');
-
   const { updatePostMutation } = usePostMutation();
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
