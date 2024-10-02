@@ -20,14 +20,26 @@ const EditModal = ({ isModalOpen, onClose }: EditModalProps) => {
     <>
       <div className="modal-overlay" onClick={onClose}>
         <div className="modal" onClick={(e) => e.stopPropagation()}>
-          <label htmlFor="file"></label>
-          <div className="profile-img-select">
-            <input type="file" />
-          </div>
+          <form>
+            <label htmlFor="file"></label>
+            <div className="profile-img-select">
+              <input type="file" />
+            </div>
+            <label>
+              닉네임
+              <input type="text" />
+              <div className="check-nickname"></div>
+            </label>
+            <label>
+              소개
+              <input type="text" />
+            </label>
+
+            <button onClick={onClose}>수정하기</button>
+          </form>
           <button className="modal-logout" onClick={logoutHandler}>
             로그아웃
           </button>
-          <button onClick={onClose}>닫기</button>
         </div>
       </div>
     </>

@@ -83,14 +83,14 @@ body {
       right: -103px;
 
       .follow-channel{
-        background-image: url("./src/shared/asset/FollowChannelButtonBG.svg");
+        background-image: url("../src/shared/asset/FollowChannelButtonBG.svg");
         color: #98A2B3;
         padding: 8px 0 8px 0;
         @include channel-basic();
         
       }
       .now-channel{
-        background-image: url("./src/shared/asset/NowChannelButtonBG.svg");
+        background-image: url("../src/shared/asset/NowChannelButtonBG.svg");
         color: #E4E7EC;
         padding: 10px 11px 8px 0;
         display: flex;
@@ -146,4 +146,4 @@ body {
     height: inherit;
     scrollbar-width: none;
   }
-}
+}}

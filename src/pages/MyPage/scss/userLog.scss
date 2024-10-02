@@ -1,4 +1,4 @@
-@mixin font ($family, $size, $style, $weight, $height) {
+@mixin font($family, $size, $style, $weight, $height) {
   font-family: $family;
   font-size: $size;
   font-style: $style;
@@ -6,7 +6,8 @@
   line-height: $height;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
 }
 
@@ -22,8 +23,7 @@ li {
 
 .user-log-list {
   box-sizing: border-box;
-  border-top: 1px solid  #E7E7E7;
-  border-bottom: 1px solid  #E7E7E7;
+  border-top: 1px solid #e7e7e7;
   display: flex;
   justify-content: space-evenly;
   color: #000;
@@ -31,18 +31,26 @@ li {
   margin: 0;
   padding-left: 0;
 
- .article {
-  flex: 1;
-  cursor: pointer;
- } 
+  .article {
+    box-sizing: border-box;
+    flex: 1;
+    cursor: pointer;
+    border-bottom: 1px solid #e7e7e7;
+  }
 
- .review {
-  flex: 1;
-  cursor: pointer;
- }
+  .review {
+    flex: 1;
+    cursor: pointer;
+    border-bottom: 1px solid #e7e7e7;
+  }
 
- .likes {
-  flex: 1;
-  cursor: pointer;
- }
+  .likes {
+    flex: 1;
+    cursor: pointer;
+    border-bottom: 1px solid #e7e7e7;
+  }
+
+  .active {
+    border-bottom: 1px solid #7a5af8;
+  }
 }

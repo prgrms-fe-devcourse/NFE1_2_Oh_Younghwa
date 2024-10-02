@@ -17,7 +17,11 @@ export default function PostComment({ comments }: CommentProps) {
       <h1 className="comment-title">답글</h1>
       {comment.map((comment) => (
         <div key={comment._id} className="post-wrap">
-          {comment.author.image ? <img className="profile-img" src={comment.author.image} alt={comment.comment} /> : <PlaceholderIcon/>}
+          {comment.author.image ? (
+            <img className="profile-img" src={comment.author.image} alt={comment.comment} />
+          ) : (
+            <PlaceholderIcon />
+          )}
           <div className="post-box">
             <div className="post-info">
               <p className="nickname">{comment.author.fullName}</p>
@@ -25,12 +29,13 @@ export default function PostComment({ comments }: CommentProps) {
             </div>
             <p className="post-contents">{comment.comment}</p>
             <div className="activity-wrap">
-              <div className="activity-side">
+              <div className="activity-side"></div>
+              <div>
+                <OptionButtonIcon />
               </div>
-              <div><OptionButtonIcon /></div>
             </div>
           </div>
-          </div>
+        </div>
       ))}
     </div>
   );

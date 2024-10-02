@@ -1,5 +1,5 @@
 import { reviewAxiosClient, validateTokenAxiosClient } from '../../../shared/utils/axiosClient';
-import { Follow, User } from '../../TimelinePage/model/article';
+import { Follow, MoviePost, User } from '../../TimelinePage/model/article';
 
 //다른 유저의 마이페이지 보기
 export const getOtherUsers = async (userId: string): Promise<User> => {
@@ -47,6 +47,14 @@ export const unfollowUser = async (followId: string): Promise<Follow> => {
   }
 };
 
+//영화리뷰 전체 가져오기
+export const getAllReviews = async (channel: string): Promise<MoviePost[]> => {
+  const request = reviewAxiosClient();
+
+  const response = await request.get(`/search/all/${channel}`);
+  return response.data;
+};
+
 //로그아웃
 export const logoutUser = async (): Promise<void> => {
   try {
@@ -57,10 +65,16 @@ export const logoutUser = async (): Promise<void> => {
     }
     const request = validateTokenAxiosClient(token);
     const response = await request.post('/logout', {});
-    localStorage.removeItem('token');
+
+    if (response.status === 200) {
+      console.log('로그아웃 성공');
+      localStorage.removeItem('token');
+    } else if (response.status === 401) {
+      console.log('로그아웃 실패: 인증되지 않은 사용자입니다.');
+    }
 
     return response.data;
-  } catch {
+  } catch (error) {
     console.log('로그아웃 실패');
     throw new Error('로그아웃 실패');
   }
