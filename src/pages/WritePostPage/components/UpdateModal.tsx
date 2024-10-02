@@ -13,13 +13,14 @@ interface EditModalProps {
   onClose: () => void;
   listPostId: string;
   listChannelId: string;
+  listPostTitle: string;
 }
 
 type Text = {
   title: string;
 };
 
-const UpdateModal = ({ listPostId, listChannelId, isModalOpen, onClose }: EditModalProps) => {
+const UpdateModal = ({ listPostId, listChannelId, listPostTitle, isModalOpen, onClose }: EditModalProps) => {
   //모달 온오프
   if (!isModalOpen) return null;
 
@@ -46,7 +47,8 @@ const UpdateModal = ({ listPostId, listChannelId, isModalOpen, onClose }: EditMo
   const { updatePostMutation } = usePostMutation();
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.currentTarget.value); // 상태 업데이트
+    const { value } = e.target;
+    setText(value); // 상태 업데이트
     setFormData(text);
   };
 
@@ -91,7 +93,7 @@ const UpdateModal = ({ listPostId, listChannelId, isModalOpen, onClose }: EditMo
                 <textarea
                   className="textarea"
                   ref={textareaRef}
-                  value={text}
+                  defaultValue={listPostTitle}
                   onChange={onChangeHandler}
                   placeholder="내용을 입력하세요."
                 />

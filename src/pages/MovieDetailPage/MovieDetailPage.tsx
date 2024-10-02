@@ -1,14 +1,14 @@
 import { useLocation } from 'react-router-dom';
 
 import { POSTER_IMAGE_BASE_URL } from '../../shared/utils/baseUrl';
+import SearchLoadPage from '../MoviePage/components/SearchLoadPage';
 import { Movie } from '../MoviePage/model/movie';
 
 import ReviewForm from './components/ReviewForm';
 import ReviewList from './components/ReviewList';
+import { useMovieDetailData } from './hook/useMovieDetailData';
 
 import './scss/MovieDetailPage.scss';
-import { useMovieDetailData } from './hook/useMovieDetailData';
-import SearchLoadPage from '../MoviePage/components/SearchLoadPage';
 
 export default function MovieDetailPage() {
   const location = useLocation(); // useLocation은 제네릭 타입을 받지 않음

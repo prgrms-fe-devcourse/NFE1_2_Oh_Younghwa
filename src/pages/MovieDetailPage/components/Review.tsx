@@ -1,151 +1,56 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
-
-import { useTokenValidation } from '../../../auth/hooks/useTokenValidation';
-import { useSession } from '../../../context/SessionProvider';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import LikedButtonIcon from '../../../shared/components/atom/icons/LikedButtonIcon';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon';
 import StarIcon from '../../../shared/components/atom/icons/StarIcon';
 import { useLikesMutation } from '../hook/useLikesMutation';
 import { useReviewMutation } from '../hook/useReviewMutation';
-
-import StarRating from './StarRating';
-
-import '../scss/UpdateReview.scss';
 type ReviewProps = {
   rating: number;
   review: string;
   author: string;
-  authorId: string;
-  channelId: string;
-  postId: string;
-  title: string;
   createdAt: string;
-  likes: string[];
+  isLiked: string[];
+  postId: string;
+  likes: number;
+  isAuthor: boolean;
+  toggleMenu: () => void;
+  isOpen: boolean;
+  handleEdit: () => void;
 };
+//isLiked.length,likes.length
 export default function Review({
   rating,
   review,
   author,
-  authorId,
-  channelId,
-  postId,
-  title,
   createdAt,
+  isLiked,
+  postId,
   likes,
+  isAuthor,
+  toggleMenu,
+  isOpen,
+  handleEdit,
 }: ReviewProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const { deleteReviewMutation, updateReviewMutation } = useReviewMutation();
+  //리뷰 삭제 로직을 담당하는 커스텀 훅입니다.
+  const { deleteReviewMutation } = useReviewMutation();
+
+  //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅입니다.
   const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
-  const { data, isLoading } = useTokenValidation();
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedReview, setEditedReview] = useState(review);
-  const [editedRating, setEditedRating] = useState(rating);
-
-  const session = useSession(); //이거 받아오고 []렌더링 한 번 더 됨. invalidate queries 하고 나서 다시 받아오게 할 수 있을까?
-
+  //리뷰 삭제
   const deleteReview = () => {
     deleteReviewMutation.mutate(postId);
   };
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
+  //좋아요 요청 전송
   const postLike = () => {
     addLikesMutation.mutate(postId);
   };
-
-  const isAuthor = session?.fullName === author;
-
-  const likesList = data?.likes?.map((like) => like._id);
-  function findString<T>(array: T[] = [], target: T) {
-    const found = array.find((item) => item === target);
-    return found ? found : null;
-  }
-
-  const isLiked = likes.map((like) => findString(likesList, like));
-
+  //좋아요 취소 요청 전송
+  //이 버튼이 보인다는 것은 이미 좋아요를 눌렀다는 뜻입니다.
   const deleteLike = () => {
-    isLiked?.map((like) => {
-      if (like) {
-        deleteLikesMutation.mutate(like);
-      }
-    });
-    setIsEditing(false);
+    deleteLikesMutation.mutate(isLiked[0]!);
   };
-  const handleEdit = () => {
-    setIsEditing(true);
-    setIsOpen(false);
-  };
-
-  const handleCancel = () => {
-    setEditedReview(review);
-    setEditedRating(rating);
-    setIsEditing(false);
-  };
-
-  //업데이트 로직
-
-  const [formData, setFormData] = useState({ rating, review, title, author });
-  const ratingHandler = (rating: number) => {
-    const newFormData = { ...formData, rating };
-    setFormData(newFormData);
-  };
-
-  const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target;
-    const newFormData = { ...formData, review: value };
-    setFormData(newFormData);
-  };
-  const handleSave = () => {
-    updateReviewMutation.mutate({ channelId, image: null, title: JSON.stringify(formData), postId });
-    setIsEditing(false);
-  };
-  // const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   //초기 렌더링 시 author가 undefined라서, 리뷰를 제출할 때 author에 session?.fullName을 넣어줌
-
-  // };
-  if (isEditing) {
-    return (
-      <div className="review-update-container">
-        <div className="stars">
-          <StarRating rating={formData.rating} setFormData={ratingHandler} />
-        </div>
-
-        <textarea defaultValue={editedReview} onChange={onChangeHandler} className="review-text" />
-
-        <div className="review-footer">
-          <span className="reviewer">{author}</span>
-          <span className="review-date">{createdAt}</span>
-        </div>
-        <div className="review-actions">
-          <div className="likes">
-            {isLiked.length !== 0 ? (
-              <div className="likes-button">
-                <LikedButtonIcon />
-              </div>
-            ) : (
-              <div className="likes-button">
-                <LikeButtonIcon />
-              </div>
-            )}
-            <span className="like-count">{likes.length}</span>
-          </div>
-          <div className="buttons">
-            <button className="cancel-button" onClick={handleCancel}>
-              취소하기
-            </button>
-            <button className="edit-button" onClick={handleSave}>
-              저장하기
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
   return (
     <div className="review-container">
       <div className="stars">
@@ -160,6 +65,8 @@ export default function Review({
       </div>
       <div className="likes-hamburger-wrapper">
         <div className="likes">
+          {/* 로그인한 사용자의 좋아요 리스트와 이 리뷰의 좋아요 리스트를 비교하여 중복된 요소가 있는지 확인합니다.
+          중복된 요소가 있다면 좋아요를 누른 것입니다. 따라서 좋아요 취소 버튼이 보입니다. */}
           {isLiked.length !== 0 ? (
             <button className="likes-button" onClick={deleteLike}>
               <LikedButtonIcon />
@@ -169,9 +76,10 @@ export default function Review({
               <LikeButtonIcon />
             </button>
           )}
-          <span className="like-count">{likes.length}</span>
+          <span className="like-count">{likes}</span>
         </div>
         <div className="hamburger-menu">
+          {/* 리뷰 작성자만 보이는 버튼입니다. */}
           {isAuthor ? (
             <button className="hamburger-icon" onClick={toggleMenu}>
               <OptionButtonIcon />

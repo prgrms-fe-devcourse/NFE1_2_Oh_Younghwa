@@ -1,4 +1,5 @@
 import { Id, toast, ToastOptions } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 import './CustomToast.scss';
 type ToastProps = {
