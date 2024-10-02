@@ -4,20 +4,23 @@ import { Link } from 'react-router-dom';
 import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon.tsx';
-import OptionPopup from '../../TimelinePage/components/OptionPopup.tsx';
 import { Post } from '../../TimelinePage/model/article.ts';
 import { elapsedText } from '../../TimelinePage/utility/elapsedText.ts';
 
 import '../../TimelinePage/scss/timeline.scss';
 
-const MyPagePostList = ({ posts }: { posts: Post[] }) => {
+interface info {
+  posts: Post[];
+  userId?: string;
+}
+
+const MyPagePostList = ({ posts }: info) => {
   const [isOn, setisOn] = useState(true);
+
   const toggleHandler = () => {
     // isOn의 상태를 변경하는 메소드를 구현
     setisOn(!isOn);
   };
-
-  console.log(posts);
 
   return (
     <div>
@@ -47,9 +50,7 @@ const MyPagePostList = ({ posts }: { posts: Post[] }) => {
                 </div>
                 <div className="option-wrap" onClick={toggleHandler}>
                   <OptionButtonIcon />
-                  <div key={post._id} className={`option-box ${isOn ? '' : 'button-clicked'}`}>
-                    <OptionPopup id={post._id} />
-                  </div>
+                  <div key={post._id} className={`option-box ${isOn ? '' : 'button-clicked'}`}></div>
                 </div>
               </div>
             </div>

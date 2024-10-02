@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { getMovieDetailData } from '../api/movieDetailApi';
 import { calculateRuntime, getCountryNameByIso, returnYearByReleaseDate } from '../utils/movieDataTransform';
 
