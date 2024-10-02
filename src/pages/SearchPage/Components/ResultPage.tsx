@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import InputDeleteIcon from '../../../shared/components/atom/icons/InputDeleteIcon';
 import InputSearchIcon from '../../../shared/components/atom/icons/InputSearchIcon';
@@ -8,65 +8,65 @@ import { searchUsers, searchPosts } from '../api/searchApi';
 import '../search.scss';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
+import { elapsedText } from '../../TimelinePage/utility/elapsedText';
+import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon';
+import OptionPopup from '../../TimelinePage/components/OptionPopup';
 
 type User = {
   _id: string;
   fullName: string;
-  profileImage: string;
   followers: [];
   messages: string;
+  image: string;
 };
 
 type Post = {
+  _id : string;
   title: string;
   updatedAt: string;
-  author: Author;
+  author: User;
   likes: [];
   comments: [];
   image?: string;
 };
-type Author = {
-  fullName: string;
-  _id: string;
-};
 
 type SearchResult = {
   users: User[];
+  tags: Post[];
   posts: Post[];
 };
 
-const getFollowerCount = (user: User): number => {
-  return user.followers.length;
-};
 const ResultPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('post');
   const [inputValue, setInputValue] = useState('');
-  const [searchResults, setSearchResults] = useState<SearchResult>({ users: [], posts: [] });
+  const [searchResults, setSearchResults] = useState<SearchResult>({ users: [], posts: [], tags : [] });
 
   // 카테고리 클릭 핸들러
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetchSearchResult();
+  };
   // // 검색 결과를 가져오는 함수
-  // const fetchSearchResults = async () => {
-
-  //     const users = await searchUsers(inputValue);
-  //     console.log(users)
-  //     const posts = await searchPosts(inputValue);
-  //     console.log(posts)
-  //     setSearchResults({ users, posts }); // 검색 결과 업데이트
-
-  // };
+  const fetchSearchResult = async () => {
+    const users = await searchUsers(inputValue);
+    const posts = await searchPosts(inputValue);
+    const tags = await searchPosts(inputValue);
+    setSearchResults({ users, posts, tags }); // 검색 결과 업데이트
+  };
 
   useEffect(() => {
     const fetchSearchResults = async () => {
       if (inputValue) {
         const users = await searchUsers(inputValue);
         const posts = await searchPosts(inputValue);
-        setSearchResults({ users, posts });
+        const tags = await searchPosts(inputValue);
+        setSearchResults({ users, posts, tags });
       } else {
-        setSearchResults({ users: [], posts: [] });
+        setSearchResults({ users: [], posts: [], tags:[] });
       }
     };
 
@@ -75,7 +75,7 @@ const ResultPage = () => {
 
   return (
     <div className="search-contents">
-      <form className="search-form">
+      <form className="search-form" onSubmit={handleSubmit}>
         <InputSearchIcon />
         <input
           className="search-form-input"
@@ -112,18 +112,31 @@ const ResultPage = () => {
           {searchResults.posts.length > 0 ? (
             searchResults.posts.map((post, index) => (
               <div key={index} className="search-post">
-                <h2 className="search-post-name">{post.author.fullName}</h2>
-                <h3 className="search-post-title">{post.title}</h3>
-                {post.image && <img src={post.image} className="search-post-image" alt={post.title} />}
-                <div className="search-post-icons">
-                  <p className="search-post-likeNum">
-                    <LikeButtonIcon />
-                    {post.likes.length}
-                  </p>
-                  <p className="search-post-commentNum">
-                    <CommentButtonIcon />
-                    {post.comments.length}
-                  </p>
+                <img className="search-post-profileimg" src={post.author.image} alt="profile-img" />
+                <div className="search-post-detail">
+                  <div className="search-post-info">
+                    <p className="search-post-name">{post.author.fullName}</p>
+                    <p className="search-post-updated">{elapsedText(new Date(post.updatedAt))}</p>
+                  </div>
+                  <Link to={`/posts/${post._id}`}>
+                    <h3 className="search-post-title">{post.title}</h3>
+                    {post.image ? <img className="search-post-image" src={post.image} /> : null}
+                  </Link>
+                  <div className="search-post-icons">
+                    <div className="search-post-icondetaile">
+                      <div className="search-post-likeNum">
+                        <LikeButtonIcon />
+                        {post.likes.length}
+                      </div>
+                      <div className="search-post-commentNum">
+                        <CommentButtonIcon />
+                        {post.comments.length}
+                      </div>
+                    </div>
+                    <div className="search-post-options">
+                      <OptionButtonIcon />
+                    </div>
+                  </div>
                 </div>
               </div>
             ))
@@ -132,18 +145,29 @@ const ResultPage = () => {
           )}
         </div>
       )}
-      {selectedCategory === 'tag' && <p>{`태그 결과: ${inputValue}`}</p>}
+
+      {selectedCategory === 'tag' && (
+        <div className="search-container">
+          {searchResults.tags.length > 0 ? (
+            <p>태그 검색 결과</p>
+            ) : (
+            <p>게시글이 없습니다.</p>)}
+        </div>
+        )}
+
       {selectedCategory === 'user' && (
         <div className="search-container">
           {searchResults.users.length > 0 ? (
             searchResults.users.map((user, index) => (
               <div key={index} className="search-user">
-                <img src={user.profileImage} className="search-user-image" />
+                <img src={user.image} className="search-user-image" alt='profile'/>
+                <Link to={`/posts/${user._id}`}>
                 <div className="search-user-info">
                   <h4 className="search-user-name">{user.fullName}</h4>
-                  <p className="search-user-followerNum">팔로워{getFollowerCount(user)}명</p>
+                  <p className="search-user-followerNum">팔로워{user.followers.length}명</p>
                   <p className="search-user-message">{user.messages}한줄</p>
                 </div>
+                </Link>
               </div>
             ))
           ) : (

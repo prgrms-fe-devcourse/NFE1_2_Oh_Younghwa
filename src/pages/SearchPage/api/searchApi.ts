@@ -2,24 +2,21 @@ import { reviewAxiosClient } from '../../../shared/utils/axiosClient';
 type User = {
   _id: string;
   fullName: string;
-  profileImage: string;
   followers: [];
   messages: string;
+  image: string;
 };
 
 type Post = {
+  _id : string;
   title: string;
   updatedAt : string;
-  author : Author;
+  author : User;
   likes : [];
   comments : [];
   image?:string
 };
-type Author = 
-  {
-    fullName : string;
-    _id : string;
-  }
+
 
 // 유저 검색
 export const searchUsers = async (query: string): Promise<User[]> => {

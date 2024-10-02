@@ -64,12 +64,14 @@
     display: inline-flex;
     align-items: center;
     gap: 16px;
+    margin-top: 10px;
+    margin-left: 15px;
 
     .search-contents-button-post,
     .search-contents-button-tag,
     .search-contents-button-user {
       display: flex;
-      width: 189px;
+      width: 178px;
       padding: var(--spacing-sm, 6px) var(--spacing-7xl, 64px);
       justify-content: center;
       align-items: center;
@@ -89,117 +91,146 @@
 }
 
 .search-container {
+  font-family:
+    'Pretendard Variable',
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
   display: flex;
-  width: 600px;
   flex-direction: column;
-  align-items: flex-start;
-}
+  margin-top:25px;
 
-.search-post {
-  display: flex;
-  flex-direction: column; // 세로 방향으로 배치
-  padding: 16px 14px 0 14px; // 상단 여백 조정
-  justify-content: space-between; // 공간 분배
-  align-items: flex-start; // 왼쪽 정렬
-  align-self: stretch;
-  width: 600px; // 전체 너비 설정
-
-  .search-post-name {
-    color: var(--colors-text-text-primary-900, #101828);
-    font-family: Pretendard;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    letter-spacing: -0.28px;
-  }
-
-  .search-post-title {
-    display: -webkit-box;
-    width: 100%; // 부모 요소의 너비에 맞춤
-    max-width: 522px; // 최대 너비 설정
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5;
-    overflow: hidden;
-    color: var(--colors-text-text-secondary-700, #344054);
-    text-overflow: ellipsis;
-
-    font-family: Pretendard;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: 140%; /* 19.6px */
-    letter-spacing: -0.28px;
-  }
-
-  .search-post-image {
-    width: 100%; // 부모 요소의 너비에 맞춤
-    max-width: 522px; // 최대 너비 설정
-    height: auto; // 비율에 맞춰 자동 조정
-    flex-shrink: 0; // 크기 축소 방지
-  }
-
-  .search-post-actions {
-    display: flex; // 수평 정렬을 위한 wrapper
-    justify-content: flex-start; // 왼쪽 정렬
-    width: 100%; // 전체 너비 사용
-    gap: 16px; // 버튼 간격 설정
-    margin-top: auto; // 상단 공간을 모두 사용하고 아래로 이동
-  }
-
-  .search-post-icons {
-    display: flex; // 수평 정렬을 위해 flex 사용
-    align-items: center; // 아이콘과 텍스트 수직 중앙 정렬
-    gap: 8px; // 아이콘과 텍스트 간 간격
-  }
-}
-
-.search-container {
-  display: flex;
-  flex-direction: column; // 수직 방향으로 정렬
-  gap: 10px; // 사용자 항목 간의 간격
-}
-
-.search-user {
-  display: flex;
-  align-items: flex-start; // 이미지가 위쪽에 정렬되도록
-  gap: 12px; // 사용자 이미지와 텍스트 간의 간격
-  padding: 10px 14px; // 사용자 항목 패딩
-  border-bottom: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
-  width: 100%; // 전체 너비 설정
-
-  .search-user-image {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%; // 원형으로 만들기
-    object-fit: cover; // 이미지를 비율에 맞게 자르기
-  }
-
-  .search-user-info {
+  .search-post {
     display: flex;
-    flex-direction: column; // 세로 방향으로 정렬
-    align-items: flex-start; // 왼쪽 정렬
+    padding: 8px;
+    gap: 10px;
+    .search-post-profileimg {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%; // 원형으로 만들기
+      object-fit: cover; // 이미지를 비율에 맞게 자르기
+    }
+    .search-post-detail {
+      width: 522px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin: 6px 0;
 
-    .search-user-name {
-      color: var(--colors-text-text-primary-900, #101828);
-      font-family: Pretendard;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: normal;
+      .search-post-info {
+        display: flex;
+        gap: 8px;
+        .search-post-name {
+          font-size: 14px;
+          font-family: 'Pretendard';
+          font-weight: 600;
+          word-wrap: break-word;
+        }
+        .search-post-updated {
+          font-size: 12px;
+          font-family: 'Pretendard';
+          font-weight: 300;
+          word-wrap: break-word;
+        }
+      }
+      .search-post-title {
+        font-size: 14px;
+        font-family: 'Pretendard';
+        font-weight: 300;
+        line-height: 19.6px;
+        word-wrap: break-word;
+      }
+      .search-post-image {
+        width: 522px;
+        max-height: 642px;
+        object-fit: cover;
+        margin: 10px 0 4px 0;
+      }
+      .search-post-icons {
+        display: flex;
+        font-size: 13px;
+        height: 16px;
+        line-height: 16px;
+        justify-content: space-between;
+      }
+      .search-post-icondetaile {
+        display: flex;
+        gap: 14px;
+        .search-post-likeNum,
+        .search-post-commentNum {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+      .search-post-options {
+        position: relative;
+        // position: absolute;
+        // width: 58px;
+        // height: 80px;
+        // background-color: #ffffff;
+        // font-size: 15px;
+        // font-weight: 400;
+        // top: 16px;
+        // right: 8px;
+        // display: none;
+        // box-sizing: border-box;
+      }
+    }
+  }
+
+  .search-user {
+    display: flex;
+    align-items: flex-start; // 이미지가 위쪽에 정렬되도록
+    gap: 12px; // 사용자 이미지와 텍스트 간의 간격
+    padding: 10px 14px; // 사용자 항목 패딩
+    border-bottom: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
+    width: 100vw; // 전체 너비 설정
+
+    .search-user-image {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%; // 원형으로 만들기
+      object-fit: cover; // 이미지를 비율에 맞게 자르기
     }
 
-    .search-user-message {
-      color: var(--colors-text-text-secondary-700, #344054);
-      font-family: Pretendard;
-      font-size: 14px;
-      font-weight: 300;
-      line-height: 140%;
-    }
+    .search-user-info {
+      display: flex;
+      flex-direction: column; // 세로 방향으로 정렬
+      align-items: flex-start; // 왼쪽 정렬
 
-    .search-user-followerNum {
-      font-family: Pretendard;
-      font-size: 12px;
-      color: var(--colors-text-text-secondary-500, #6f6f6f);
+      .search-user-name {
+        color: var(--colors-text-text-primary-900, #101828);
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: normal;
+      }
+
+      .search-user-message {
+        color: var(--colors-text-text-secondary-700, #344054);
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 140%;
+      }
+
+      .search-user-followerNum {
+        font-family: Pretendard;
+        font-size: 12px;
+        color: var(--colors-text-text-secondary-500, #6f6f6f);
+      }
     }
   }
 }
