@@ -5,6 +5,7 @@ $utility-purple-50: #f4f3ff;
 .scroll-container {
   overflow-y: scroll;
   scrollbar-width: none;
+  height: 100%;
 }
 .search-bar {
   display: flex;

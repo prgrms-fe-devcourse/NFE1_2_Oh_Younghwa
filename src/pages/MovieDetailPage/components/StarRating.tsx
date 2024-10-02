@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import '../scss/StarRating.scss';
 type StarIconProps = {
@@ -6,9 +6,8 @@ type StarIconProps = {
   onClick: () => void;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
-  isUpdateForm?: boolean;
 };
-const StarIcon = ({ filled, onClick, onMouseEnter, onMouseLeave, isUpdateForm }: StarIconProps) => (
+const StarIcon = ({ filled, onClick, onMouseEnter, onMouseLeave }: StarIconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox={'0 0 24 24'}
@@ -24,14 +23,13 @@ const StarIcon = ({ filled, onClick, onMouseEnter, onMouseLeave, isUpdateForm }:
 type StarRatingProps = {
   setFormData: (rating: number) => void;
   rating: number;
-  isUpdateForm?: boolean;
 };
-const StarRating = ({ setFormData, rating = 0, isUpdateForm }: StarRatingProps) => {
-  //const [rating, setRating] = useState(0);
+const StarRating = ({ setFormData, rating = 0 }: StarRatingProps) => {
   const [hover, setHover] = useState(0);
   const onRatingChange = (rating: number) => {
     setFormData(rating);
   };
+
   return (
     <div className="star-rating">
       {[...Array(5)].map((_, index) => {
@@ -43,7 +41,6 @@ const StarRating = ({ setFormData, rating = 0, isUpdateForm }: StarRatingProps) 
             onClick={() => onRatingChange(starValue)}
             onMouseEnter={() => setHover(starValue)}
             onMouseLeave={() => setHover(rating)}
-            isUpdateForm={isUpdateForm}
           />
         );
       })}

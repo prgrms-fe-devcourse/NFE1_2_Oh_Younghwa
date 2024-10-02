@@ -17,7 +17,6 @@ const titleMapping: { [key: string]: string } = {
   '/mypage': '마이페이지',
   '/posts': '포스트',
 
-
   // Add more routes and titles as needed
 };
 
@@ -25,7 +24,6 @@ function App() {
   const location = useLocation();
   const currentPath = location.pathname;
   let title = titleMapping[currentPath];
-
   if (currentPath.startsWith('/posts')) {
     title = titleMapping['/posts'];
   }
@@ -36,7 +34,6 @@ function App() {
     <>
       <div className="navigate-bar">
         <Link to={'/posts/channel/66f50d3001d4aa076bcbdb99'}>
-
           <div className="menu-icon home">
             <HomePageIconSvg />
           </div>
@@ -101,7 +98,6 @@ function App() {
           <Outlet />
         </div>
       </div>
-
     </>
   );
 }

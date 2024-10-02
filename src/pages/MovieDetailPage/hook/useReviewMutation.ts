@@ -1,7 +1,6 @@
-
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteReview, postReview, updateReview } from '../api/reviewApi';
 
+import { deleteReview, postReview, updateReview } from '../api/reviewApi';
 
 export const useReviewMutation = () => {
   const queryClient = useQueryClient();
@@ -22,7 +21,6 @@ export const useReviewMutation = () => {
     onSuccess: (data, variables, context) => {
       // Boom baby!
       queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
-      console.log(data);
     },
     onSettled: (data, error, variables, context) => {
       // Error or success... doesn't matter!
@@ -44,7 +42,6 @@ export const useReviewMutation = () => {
     onSuccess: (data, variables, context) => {
       // Boom baby!
       queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
-      console.log(data);
     },
     onSettled: (data, error, variables, context) => {
       // Error or success... doesn't matter!
