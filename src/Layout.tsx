@@ -1,14 +1,18 @@
+import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import GenreSelectButtonIcon from './shared/components/atom/icons/GenreSelectButtonIcon';
+import WriteModal from './pages/WritePostPage/components/WriteModal';
 import GoBackIconSvg from './shared/components/atom/icons/GoBackIcon';
 import HomePageIconSvg from './shared/components/atom/icons/HomePageIcon';
 import MoviePageIconSvg from './shared/components/atom/icons/MoviePageIcon';
 import MypageIconSvg from './shared/components/atom/icons/MyPageIcon';
 import NotificationPageIconSvg from './shared/components/atom/icons/NotificationPageIcon';
 import SearchPageIconSvg from './shared/components/atom/icons/SearchPageIcon';
+import WriteButtonIcon from './shared/components/atom/icons/WriteButtonIcon';
+import ChannelNavigateRemote from './shared/components/ChannelNavigateRemote';
 
 import './App.scss';
+
 const titleMapping: { [key: string]: string } = {
   '/search': '검색',
   '/result': '검색결과',
@@ -16,7 +20,6 @@ const titleMapping: { [key: string]: string } = {
   '/movie/detail': '영화 상세정보',
   '/mypage': '마이페이지',
   '/posts': '포스트',
-
 
   // Add more routes and titles as needed
 };
@@ -26,17 +29,31 @@ function App() {
   const currentPath = location.pathname;
   let title = titleMapping[currentPath];
 
+  const navigate = useNavigate();
+
+  //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
   if (currentPath.startsWith('/posts')) {
     title = titleMapping['/posts'];
   }
 
-  const navigate = useNavigate();
+  //주소에 따라서 타임라인채널 리모트 표시여부
+  const [isOn, setisOn] = useState(true);
+
+  useEffect(() => {
+    if (currentPath.startsWith('/posts/channel')) {
+      setisOn(false);
+    } else {
+      setisOn(true);
+    }
+  }, [location]);
+
+  //글쓰기 모달 표시여부 버튼 컨트롤용
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
       <div className="navigate-bar">
         <Link to={'/posts/channel/66f50d3001d4aa076bcbdb99'}>
-
           <div className="menu-icon home">
             <HomePageIconSvg />
           </div>
@@ -61,47 +78,29 @@ function App() {
         </Link>
       </div>
 
+      {/* 글쓰는 모달 온오프 */}
+      {modalOpen && <WriteModal isModalOpen={modalOpen} onClose={() => setModalOpen(false)} />}
+
       <div className="contents-wrap">
+        <button className="write-button" onClick={() => setModalOpen(true)}>
+          <WriteButtonIcon />
+        </button>
         <div className="contents-title-wrap">
-          <div className="navigate-channel">
-            <Link to={'#'}>
-              <div className="follow-channel">팔로잉</div>
-            </Link>
-            <Link to={'/posts/channel/66f50d3001d4aa076bcbdb99'}>
-              <div className="now-channel">
-                전체
-                <GenreSelectButtonIcon />
-              </div>
-            </Link>
-            <Link to={'/posts/channel/66fa6380186a007fe2c4226b'}>
-              <div className="genre-channel">액션</div>
-            </Link>
-            <Link to={'/posts/channel/66fa63d9186a007fe2c422bc'}>
-              <div className="genre-channel">로맨스</div>
-            </Link>
-            <Link to={'/posts/channel/66fa6402186a007fe2c422c5'}>
-              <div className="genre-channel">호러</div>
-            </Link>
-            <Link to={'/posts/channel/66fa641f186a007fe2c423ae'}>
-              <div className="genre-channel">SF</div>
-            </Link>
-            <Link to={'/posts/channel/66fa6452186a007fe2c425c8'}>
-              <div className="genre-channel">독립영화</div>
-            </Link>
+          <div className={`remote ${isOn ? '' : 'enter-channel'}`}>
+            <ChannelNavigateRemote />
           </div>
+
           <div className="contents-title">
-            <div className="arrow-holder" onClick={() => navigate(-1)}>
+            <div className={`arrow-holder ${isOn ? 'enter-channel' : ''}`} onClick={() => navigate(-1)}>
               <GoBackIconSvg />
             </div>
             <div>{title}</div>
-            <div className="arrow-holder"></div>
           </div>
         </div>
         <div className="contents">
           <Outlet />
         </div>
       </div>
-
     </>
   );
 }

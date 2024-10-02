@@ -43,11 +43,12 @@ a {
       display: flex;
       flex-direction: column;
       gap: 4px;
-      margin: 6px 0;
+      margin: 0 0 6px 0;
 
       .post-info{
         display: flex;
         gap: 8px;
+        line-height: 20px;
 
         .nickname{
           font-size: 14px;
@@ -107,11 +108,12 @@ a {
             right: 8px;
             display: none;
             box-sizing: border-box;
+            &.button-clicked{
+              display: block;
+            }
           }
 
-          .option-box.button-clicked{
-            display: block;
-          }
+          
         }
       }
     }

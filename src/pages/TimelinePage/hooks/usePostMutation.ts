@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { deletePost } from '../api/TimelineApi';
+import { addPost } from '../../WritePostPage/api/postModal';
+import { deletePost, updatePost } from '../api/TimelineApi';
 
 export const usePostMutation = () => {
   const queryClient = useQueryClient();
@@ -17,5 +18,31 @@ export const usePostMutation = () => {
     onSettled: (data, error, variables, context) => {},
   });
 
-  return { deletePostMutation };
+  const addPostMutation = useMutation({
+    mutationFn: addPost,
+
+    onError: (error, variables, context) => {
+      console.log(error);
+    },
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
+      console.log(data);
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+
+  const updatePostMutation = useMutation({
+    mutationFn: updatePost,
+
+    onError: (error, variables, context) => {
+      console.log(error);
+    },
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
+      console.log(data);
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+
+  return { deletePostMutation, addPostMutation, updatePostMutation };
 };

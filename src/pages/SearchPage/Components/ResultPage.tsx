@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import InputDeleteIcon from '../../../shared/components/atom/icons/InputDeleteIcon';
 import InputSearchIcon from '../../../shared/components/atom/icons/InputSearchIcon';
+import { searchPosts, searchUsers } from '../api/searchApi'; // API 호출 함수 가져오기
 
-import { searchUsers, searchPosts } from '../api/searchApi'; // API 호출 함수 가져오기
 import '../search.scss';
 
 type User = {
   userId: string;
-  nickname: string;
+  fullName: string;
   profileImage: string;
   followersCount: number;
   oneLinerMessage: string; // 한줄 메시지
@@ -41,31 +41,23 @@ const ResultPage = () => {
   // 카테고리 클릭 핸들러
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
+    fetchSearchResults();
   };
 
   // 검색 폼 제출 핸들러
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (inputValue) {
-      navigate('/result'); // 검색 결과 페이지 이동
-    }
+    navigate('/result'); // 검색 결과 페이지 이동
+    fetchSearchResults();
   };
 
   // 검색 결과를 가져오는 함수
   const fetchSearchResults = async () => {
-    try {
-      const users = await searchUsers(inputValue);
-      console.log(users); // 지워야 함
-      const posts = await searchPosts(inputValue);
-      setSearchResults({ users, posts }); // 검색 결과 업데이트
-    } catch (error) {
-      console.error('검색 결과를 가져오는 중 오류 발생:', error);
-    }
+    const users = await searchUsers(inputValue);
+    console.log(users); // 지워야 함
+    const posts = await searchPosts(inputValue);
+    setSearchResults({ users, posts }); // 검색 결과 업데이트
   };
-
-  useEffect(() => {
-    fetchSearchResults();
-  }, []);
 
   return (
     <div className="search-contents">
@@ -77,7 +69,9 @@ const ResultPage = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <InputDeleteIcon />
+        <>
+          <InputDeleteIcon />
+        </>
       </form>
 
       <div className="search-contents-button">
@@ -121,9 +115,10 @@ const ResultPage = () => {
           {searchResults.users.length > 0 ? (
             searchResults.users.map((user) => (
               <div key={user.userId} className="user-card">
-                <img src={user.profileImage} alt={user.nickname} className="user-profile-image" />
+                <img src={user.profileImage} alt={user.fullName} className="user-profile-image" />
                 <div className="user-info">
-                  <h4>사용자 명 {user.nickname}</h4>
+                  <img src={user.profileImage} alt={user.fullName} className="user-profile-image" />
+                  <h4>사용자 명 {user.fullName}</h4>
                   <p>{user.oneLinerMessage}</p>
                   <p>팔로워 수 {user.followersCount}</p>
                 </div>
