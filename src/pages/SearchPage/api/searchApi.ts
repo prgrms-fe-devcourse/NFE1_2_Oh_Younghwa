@@ -2,7 +2,7 @@ import { reviewAxiosClient } from '../../../shared/utils/axiosClient';
 
 type User = {
   userId: string;
-  nickname: string;
+  fullName: string;
   profileImage: string;
   followersCount: number;
   oneLinerMessage: string;

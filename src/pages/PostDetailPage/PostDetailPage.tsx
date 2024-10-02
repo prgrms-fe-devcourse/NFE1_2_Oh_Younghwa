@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import CommentButtonIcon from '../../shared/components/atom/icons/CommentButtonIcon';
 import LikeButtonIcon from '../../shared/components/atom/icons/LikeButtonIcon';
 import OptionButtonIcon from '../../shared/components/atom/icons/OptionButtonIcon.tsx';
+import PlaceholderIcon from '../../shared/components/atom/icons/PlaceholderIcon.tsx';
 import OptionPopup from '../TimelinePage/components/OptionPopup.tsx';
 
 import PostComment from './components/PostComment.tsx';
@@ -31,7 +32,11 @@ const PostDetailPage = () => {
   return (
     <div>
       <div key={data._id} className="post-wrap">
-        <img className="profile-img" src={data.author.image} alt={data.title} />{' '}
+        {data.author.image ? (
+          <img className="profile-img" src={data.author.image} alt={data.title} />
+        ) : (
+          <PlaceholderIcon />
+        )}
         <div className="post-box">
           <div className="post-info">
             <p className="nickname">{data.author.fullName}</p>
