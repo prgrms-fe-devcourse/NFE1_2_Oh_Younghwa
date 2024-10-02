@@ -1,21 +1,37 @@
 import { reviewAxiosClient } from '../../../shared/utils/axiosClient';
 
+type Author = {
+  _id: string; // 작성자 ID
+  fullName: string; // 작성자 이름
+  image: string; // 작성자 이미지
+};
+
+type Follow = {
+  _id: string; // 알림 ID
+  user: string; // 사용자 ID
+  follower: string; // 팔로워 ID
+  createdAt: string; // 생성일
+  updatedAt: string; // 수정일
+};
+
+type Like = {
+  author: Author;
+  postId: string;
+  postTitle: string;
+  postImage: string;
+};
+
 type Notification = {
-  userId: string;
-  id: number;
-  name: string;
-  follow: boolean;
-  like: boolean;
-  read: boolean;
-  image: string;
-  postId?: number;
-  postTitle?: string;
-  postImage?: string;
+  _id: string;
+  follow?: Follow;
+  like?: Like;
+  seen: boolean;
 };
 
 export const getAllNotifications = async (): Promise<Notification[]> => {
   const request = reviewAxiosClient();
   const response = await request.get<Notification[]>(`/notifications`);
+  console.log(response.data);
   return response.data;
 };
 
@@ -29,13 +45,8 @@ export const followUser = async (userId: string): Promise<void> => {
   await request.post('/follow/create', { userId });
 };
 
-// export const postNoti = async ({ name, follow, like }: Notification): Promise<Notification> => {
-//   const request = reviewAxiosClient();
-//   const response = await request.post<Notification>('/notifications', {
-//    name,
-//    follow,
-//    like
-//   });
-//   console.log(response.data);
-//   return response.data;
-// };
+export const getUser = async (userId: string): Promise<Author> => {
+  const request = reviewAxiosClient();
+  const response = await request.get(`/users/${userId}`);
+  return response.data;
+};

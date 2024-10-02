@@ -1,90 +1,72 @@
 import React, { useEffect, useState } from 'react';
 
-import { followUser, getAllNotifications } from './api/noticeApi';
+import { getAllNotifications } from './api/noticeApi';
 import NotificationFollow from './Components/NotificationFollow';
 import NotificationLike from './Components/NotificationLike';
 
 import './notifications.scss';
 
-type Notification = {
-  userId: string;
-  id: number;
-  name: string;
-  follow: boolean;
-  like: boolean;
-  read: boolean;
-  image: string;
-  postId?: number;
-  postTitle?: string;
-  postImage?: string;
+type Author = {
+  _id: string; // 작성자 ID
+  fullName: string; // 작성자 이름
+  image: string; // 작성자 이미지
 };
 
-const example = [
-  {
-    id: 1,
-    userId: 'user1',
-    name: '최윤성',
-    follow: true,
-    like: false,
-    read: false,
-    image: '??',
-  },
-  {
-    id: 2,
-    userId: 'user2',
-    name: '최운셩',
-    follow: false,
-    like: true,
-    read: false,
-    image: '???',
-    postId: 101,
-    postTitle: '예시',
-    postImage: '???',
-  },
-  {
-    id: 3,
-    userId: 'user3',
-    name: '최셩',
-    follow: false,
-    like: true,
-    read: false,
-    image: '???',
-    postId: 102,
-    postTitle: '예시2',
-  },
-];
+type Follow = {
+  _id: string; // 알림 ID
+  user: string; // 사용자 ID
+  follower: string; // 팔로워 ID
+  createdAt: string; // 생성일
+  updatedAt: string; // 수정일
+};
+
+// Like 타입 정의
+type Like = {
+  author: Author; // 좋아요 작성자 정보
+  postId: string; // 좋아요가 적용된 포스트 ID
+  postTitle: string; // 포스트 제목
+  postImage: string; // 포스트 이미지
+};
+
+// Notification 타입 정의
+type Notification = {
+  _id: string; // 알림 ID 추가
+  follow?: Follow; // 팔로우 알림 (optional)
+  like?: Like; // 좋아요 알림 (optional)
+  seen: boolean; // 읽음 여부
+};
 
 const NotificationsPage: React.FC = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNotifications = async () => {
-      // const data = (await getAllNotifications()) as Notification[]; // 모든 알림 가져오기
-      setNotifications(example); // data로 변경
+      try {
+        const data = await getAllNotifications();
+        setNotifications(data);
+      } catch (error) {
+        console.error('알림 데이터를 가져오는 중 오류 발생:', error);
+      }
       setLoading(false);
     };
 
     fetchNotifications();
   }, []);
 
-  const handleMarkAsRead = (notificationId: number) => {
-    setNotifications((prev) =>
-      prev.map((noti) => {
-        if (noti.id === notificationId) {
-          return { ...noti, read: true };
-        }
-        return noti;
-      }),
-    );
+  const handleMarkAsRead = (notificationId: string) => {
+    setNotifications((prev) => prev.map((noti) => (noti._id === notificationId ? { ...noti, seen: true } : noti)));
   };
 
   const handleMarkAllAsRead = () => {
-    setNotifications((prev) => prev.map((noti) => ({ ...noti, read: true })));
+    setNotifications((prev) => prev.map((noti) => ({ ...noti, seen: true })));
   };
 
   if (loading) return <div>로딩 중...</div>;
-  const sortedNotifications = [...notifications].sort((a, b) => (a.read === b.read ? 0 : a.read ? 1 : -1));
+
+  // 알림을 읽음 여부에 따라 정렬
+  const sortedNotifications = [...notifications].sort((a, b) => (a.seen === b.seen ? 0 : a.seen ? 1 : -1));
 
   return (
     <div className="notifications-container">
@@ -95,9 +77,15 @@ const NotificationsPage: React.FC = () => {
       </div>
       <div className="notifications-contents">
         {sortedNotifications.map((notification) => (
-          <div key={notification.id} className={`notifications-wrapper ${notification.read ? 'read' : 'unread'}`}>
-            <NotificationFollow notification={notification} handleMarkAsRead={handleMarkAsRead} />
-            <NotificationLike notification={notification} handleMarkAsRead={handleMarkAsRead} />
+          <div key={notification._id} className={`notifications-wrapper ${notification.seen ? 'read' : 'unread'}`}>
+            {/* 팔로우 알림이 있는 경우 */}
+            {notification.follow && (
+              <NotificationFollow notification={notification.follow} handleMarkAsRead={handleMarkAsRead} />
+            )}
+            {/* 좋아요 알림이 있는 경우 */}
+            {notification.like && (
+              <NotificationLike notification={notification.like} handleMarkAsRead={handleMarkAsRead} />
+            )}
           </div>
         ))}
       </div>

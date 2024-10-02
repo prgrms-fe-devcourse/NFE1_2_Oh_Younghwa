@@ -20,6 +20,7 @@ const titleMapping: { [key: string]: string } = {
   '/movie/detail': '영화 상세정보',
   '/mypage': '마이페이지',
   '/posts': '포스트',
+
   // Add more routes and titles as needed
 };
 
@@ -68,9 +69,11 @@ function App() {
             <MoviePageIconSvg />
           </div>
         </Link>
-        <div className="menu-icon alert">
-          <NotificationPageIconSvg />
-        </div>
+        <Link to={'/notifications'}>
+          <div className="menu-icon alert">
+            <NotificationPageIconSvg />
+          </div>
+        </Link>
         <Link to={'/mypage'}>
           <div className="menu-icon mypage">
             <MypageIconSvg />

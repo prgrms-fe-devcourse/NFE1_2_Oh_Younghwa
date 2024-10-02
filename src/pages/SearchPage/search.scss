@@ -9,6 +9,7 @@
   border: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
   background: #fff;
 }
+
 .search-text {
   color: #000;
   text-align: center;
@@ -16,8 +17,9 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; 
+  line-height: 150%;
 }
+
 .search-form {
   display: flex;
   padding: 10px 14px;
@@ -27,8 +29,8 @@
   border-bottom: 1px solid var(--Component-colors-Utility-Purple-utility-purple-500, #7a5af8);
   background: var(--Component-colors-Utility-Purple-utility-purple-50, #f4f3ff);
 
-  
   box-shadow: 0px 1px 2px 0px var(--Colors-Effects-Shadows-shadow-xs, rgba(16, 24, 40, 0.05));
+
   .search-form-input {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -44,21 +46,27 @@
     font-size: var(--Font-size-text-md, 16px);
     font-style: normal;
     font-weight: 400;
-    line-height: var(--Line-height-text-md, 24px); 
+    line-height: var(--Line-height-text-md, 24px);
   }
-  .search-form-input::-webkit-search-cancel-button{
+
+  .search-form-input::-webkit-search-cancel-button {
     -webkit-appearance: none;
   }
 }
+
 .search-contents {
   display: flex;
   width: 600px;
   flex-direction: column;
   align-items: flex-start;
+
   .search-contents-button {
     display: inline-flex;
     align-items: center;
     gap: 16px;
+    margin-top: 10px;
+    margin-left: 15px;
+
     .search-contents-button-post,
     .search-contents-button-tag,
     .search-contents-button-user {
@@ -67,10 +75,10 @@
       padding: var(--spacing-sm, 6px) var(--spacing-7xl, 64px);
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 10%;
       border: 1px solid var(--Component-colors-Utility-Purple-utility-purple-300, #bdb4fe);
-      
     }
+
     .search-result {
       display: flex;
       width: var(--width-md, 560px);
@@ -78,6 +86,151 @@
       justify-content: center;
       align-items: flex-start;
       gap: 16px;
+    }
+  }
+}
+
+.search-container {
+  font-family:
+    'Pretendard Variable',
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin-top:25px;
+
+  .search-post {
+    display: flex;
+    padding: 8px;
+    gap: 10px;
+    .search-post-profileimg {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%; // 원형으로 만들기
+      object-fit: cover; // 이미지를 비율에 맞게 자르기
+    }
+    .search-post-detail {
+      width: 522px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin: 6px 0;
+
+      .search-post-info {
+        display: flex;
+        gap: 8px;
+        .search-post-name {
+          font-size: 14px;
+          font-family: 'Pretendard';
+          font-weight: 600;
+          word-wrap: break-word;
+        }
+        .search-post-updated {
+          font-size: 12px;
+          font-family: 'Pretendard';
+          font-weight: 300;
+          word-wrap: break-word;
+        }
+      }
+      .search-post-title {
+        font-size: 14px;
+        font-family: 'Pretendard';
+        font-weight: 300;
+        line-height: 19.6px;
+        word-wrap: break-word;
+      }
+      .search-post-image {
+        width: 522px;
+        max-height: 642px;
+        object-fit: cover;
+        margin: 10px 0 4px 0;
+      }
+      .search-post-icons {
+        display: flex;
+        font-size: 13px;
+        height: 16px;
+        line-height: 16px;
+        justify-content: space-between;
+      }
+      .search-post-icondetaile {
+        display: flex;
+        gap: 14px;
+        .search-post-likeNum,
+        .search-post-commentNum {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+      .search-post-options {
+        position: relative;
+        // position: absolute;
+        // width: 58px;
+        // height: 80px;
+        // background-color: #ffffff;
+        // font-size: 15px;
+        // font-weight: 400;
+        // top: 16px;
+        // right: 8px;
+        // display: none;
+        // box-sizing: border-box;
+      }
+    }
+  }
+
+  .search-user {
+    display: flex;
+    align-items: flex-start; // 이미지가 위쪽에 정렬되도록
+    gap: 12px; // 사용자 이미지와 텍스트 간의 간격
+    padding: 10px 14px; // 사용자 항목 패딩
+    border-bottom: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
+    width: 100vw; // 전체 너비 설정
+
+    .search-user-image {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%; // 원형으로 만들기
+      object-fit: cover; // 이미지를 비율에 맞게 자르기
+    }
+
+    .search-user-info {
+      display: flex;
+      flex-direction: column; // 세로 방향으로 정렬
+      align-items: flex-start; // 왼쪽 정렬
+
+      .search-user-name {
+        color: var(--colors-text-text-primary-900, #101828);
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: normal;
+      }
+
+      .search-user-message {
+        color: var(--colors-text-text-secondary-700, #344054);
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 140%;
+      }
+
+      .search-user-followerNum {
+        font-family: Pretendard;
+        font-size: 12px;
+        color: var(--colors-text-text-secondary-500, #6f6f6f);
+      }
     }
   }
 }

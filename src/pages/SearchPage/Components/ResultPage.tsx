@@ -1,63 +1,76 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 
+import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
 import InputDeleteIcon from '../../../shared/components/atom/icons/InputDeleteIcon';
 import InputSearchIcon from '../../../shared/components/atom/icons/InputSearchIcon';
-import { searchPosts, searchUsers } from '../api/searchApi'; // API 호출 함수 가져오기
+import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
+import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon';
+import { elapsedText } from '../../TimelinePage/utility/elapsedText';
+import { searchPosts, searchUsers } from '../api/searchApi';
 
 import '../search.scss';
 
 type User = {
-  userId: string;
+  _id: string;
   fullName: string;
-  profileImage: string;
-  followersCount: number;
-  oneLinerMessage: string; // 한줄 메시지
+  followers: [];
+  messages: string;
+  image: string;
 };
 
 type Post = {
-  postId: number;
-  postTitle: string;
+  _id: string;
+  title: string;
+  updatedAt: string;
+  author: User;
+  likes: [];
+  comments: [];
+  image?: string;
 };
 
 type SearchResult = {
   users: User[];
+  tags: Post[];
   posts: Post[];
 };
 
 const ResultPage = () => {
-  const location = useLocation(); // 현재 위치 정보 가져오기
-  const navigate = useNavigate();
-  const { searchQuery: initialSearchQuery, selectedCategory: initialCategory } = location.state || {
-    searchQuery: '',
-    selectedCategory: 'post',
-  };
-
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  // 선택된 카테고리
-  const [inputValue, setInputValue] = useState(initialSearchQuery);
-  const [searchResults, setSearchResults] = useState<SearchResult>({ users: [], posts: [] });
+  const [selectedCategory, setSelectedCategory] = useState('post');
+  const [inputValue, setInputValue] = useState('');
+  const [searchResults, setSearchResults] = useState<SearchResult>({ users: [], posts: [], tags: [] });
 
   // 카테고리 클릭 핸들러
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
-    fetchSearchResults();
   };
 
-  // 검색 폼 제출 핸들러
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate('/result'); // 검색 결과 페이지 이동
-    fetchSearchResults();
+    fetchSearchResult();
+  };
+  // // 검색 결과를 가져오는 함수
+  const fetchSearchResult = async () => {
+    const users = await searchUsers(inputValue);
+    const posts = await searchPosts(inputValue);
+    const tags = await searchPosts(inputValue);
+    setSearchResults({ users, posts, tags }); // 검색 결과 업데이트
   };
 
-  // 검색 결과를 가져오는 함수
-  const fetchSearchResults = async () => {
-    const users = await searchUsers(inputValue);
-    console.log(users); // 지워야 함
-    const posts = await searchPosts(inputValue);
-    setSearchResults({ users, posts }); // 검색 결과 업데이트
-  };
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (inputValue) {
+        const users = await searchUsers(inputValue);
+        const posts = await searchPosts(inputValue);
+        const tags = await searchPosts(inputValue);
+        setSearchResults({ users, posts, tags });
+      } else {
+        setSearchResults({ users: [], posts: [], tags: [] });
+      }
+    };
+
+    fetchSearchResults();
+  }, [inputValue]);
 
   return (
     <div className="search-contents">
@@ -69,9 +82,7 @@ const ResultPage = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <>
-          <InputDeleteIcon />
-        </>
+        <InputDeleteIcon />
       </form>
 
       <div className="search-contents-button">
@@ -96,12 +107,36 @@ const ResultPage = () => {
       </div>
 
       {selectedCategory === 'post' && (
-        <div>
-          <h2>게시글 결과:</h2>
+        <div className="search-container">
           {searchResults.posts.length > 0 ? (
-            searchResults.posts.map((post) => (
-              <div key={post.postId}>
-                <h3>{post.postTitle}</h3>
+            searchResults.posts.map((post, index) => (
+              <div key={index} className="search-post">
+                <img className="search-post-profileimg" src={post.author.image} alt="profile-img" />
+                <div className="search-post-detail">
+                  <div className="search-post-info">
+                    <p className="search-post-name">{post.author.fullName}</p>
+                    <p className="search-post-updated">{elapsedText(new Date(post.updatedAt))}</p>
+                  </div>
+                  <Link to={`/posts/${post._id}`}>
+                    <h3 className="search-post-title">{post.title}</h3>
+                    {post.image ? <img className="search-post-image" src={post.image} /> : null}
+                  </Link>
+                  <div className="search-post-icons">
+                    <div className="search-post-icondetaile">
+                      <div className="search-post-likeNum">
+                        <LikeButtonIcon />
+                        {post.likes.length}
+                      </div>
+                      <div className="search-post-commentNum">
+                        <CommentButtonIcon />
+                        {post.comments.length}
+                      </div>
+                    </div>
+                    <div className="search-post-options">
+                      <OptionButtonIcon />
+                    </div>
+                  </div>
+                </div>
               </div>
             ))
           ) : (
@@ -109,21 +144,27 @@ const ResultPage = () => {
           )}
         </div>
       )}
-      {selectedCategory === 'tag' && <p>{`태그 결과: ${initialSearchQuery}`}</p>}
+
+      {selectedCategory === 'tag' && (
+        <div className="search-container">
+          {searchResults.tags.length > 0 ? <p>태그 검색 결과</p> : <p>게시글이 없습니다.</p>}
+        </div>
+      )}
+
       {selectedCategory === 'user' && (
-        <div>
+        <div className="search-container">
           {searchResults.users.length > 0 ? (
-            searchResults.users.map((user) => (
-              <div key={user.userId} className="user-card">
-                <img src={user.profileImage} alt={user.fullName} className="user-profile-image" />
-                <div className="user-info">
-                  <img src={user.profileImage} alt={user.fullName} className="user-profile-image" />
-                  <h4>사용자 명 {user.fullName}</h4>
-                  <p>{user.oneLinerMessage}</p>
-                  <p>팔로워 수 {user.followersCount}</p>
-                </div>
+            searchResults.users.map((user, index) => (
+              <div key={index} className="search-user">
+                <img src={user.image} className="search-user-image" alt="profile" />
+                <Link to={`/users/${user._id}`}>
+                  <div className="search-user-info">
+                    <h4 className="search-user-name">{user.fullName}</h4>
+                    <p className="search-user-followerNum">팔로워{user.followers.length}명</p>
+                    <p className="search-user-message">{user.messages}한줄</p>
+                  </div>
+                </Link>
               </div>
-              // 데이터가 제대로 안뜸 + 이미지 및 한줄메세지 받아와야 함
             ))
           ) : (
             <p>사용자가 없습니다.</p>
