@@ -4,7 +4,6 @@ import { useArticles } from '../../TimelinePage/hooks/useArticles';
 import { Post, User } from '../../TimelinePage/model/article';
 
 import MyPagePostList from './MyPagePostList';
-import MyPageReviews from './MyPageReviews';
 
 import '../scss/userLog.scss';
 
@@ -70,11 +69,11 @@ const UserLog = ({ user }: UserLogProps) => {
         ))}
 
       {/* 영화리뷰 결과 */}
-      {log === 'reviews' && (
+      {/* {log === 'reviews' && (
         <div>
-          <MyPageReviews />
+          <MyPageReviews userId={user._id} />
         </div>
-      )}
+      )} */}
 
       {/* 좋아요 결과 */}
       {log === 'likes' &&
