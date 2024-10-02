@@ -21,7 +21,7 @@ const Postlist = () => {
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;
 
-  //온오프세팅
+  //수정삭제 온오프세팅
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -33,20 +33,15 @@ const Postlist = () => {
   //모달온오프
   const [modalOpen, setModalOpen] = useState(false);
 
+  //postId 반영하기
+  const [nowPostId, setNowPostId] = useState('');
+  const [nowPostTitle, setNowPostTitle] = useState('');
+
   return (
     <div>
-      {modalOpen && (
-        <UpdateModal
-          listPostId={data[0]._id}
-          listChannelId={data[0].channel._id}
-          isModalOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-        />
-      )}
-
       <div className="postlist-wrap">
-        {data.map((post: Post) => (
-          <div key={post._id} className="post-wrap">
+        {data?.map((post: Post) => (
+          <div key={post?._id} className="post-wrap">
             {post.author.image ? (
               <img className="profile-img" src={post.author.image} alt={post.title} />
             ) : (
@@ -76,7 +71,15 @@ const Postlist = () => {
                   <OptionButtonIcon />
                   {isOpen && (
                     <div className="menu-items">
-                      <button className="menu-item edit" onClick={() => setModalOpen(true)}>
+                      <button
+                        className="menu-item edit"
+                        onClick={() => {
+                          setModalOpen(true);
+                          setNowPostId(post._id);
+                          setNowPostTitle(post.title);
+                          console.log(nowPostId, nowPostTitle, '체크');
+                        }}
+                      >
                         수정
                       </button>
                       <button className="menu-item delete" onClick={() => deletePostMutation.mutate(post._id)}>
@@ -90,6 +93,16 @@ const Postlist = () => {
           </div>
         ))}
       </div>
+
+      {modalOpen && (
+        <UpdateModal
+          listPostId={nowPostId}
+          listChannelId={channelId}
+          listPostTitle={nowPostTitle}
+          isModalOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

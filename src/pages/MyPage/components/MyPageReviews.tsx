@@ -1,4 +1,4 @@
-import Review from '../../MovieDetailPage/components/Review';
+import Review from '../../MovieDetailPage/components/ReviewContainer';
 import { MoviePost, Post } from '../../TimelinePage/model/article';
 import { getAllReviews } from '../api/userApi';
 

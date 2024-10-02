@@ -1,6 +1,6 @@
 import { useGetReviewsByMovieTitle } from '../hook/useGetReviewsByMovieTitle';
 
-import Review from './Review';
+import ReviewContainer from './ReviewContainer';
 
 import '../scss/Review.scss';
 type ReviewListProps = {
@@ -8,7 +8,6 @@ type ReviewListProps = {
 };
 export default function ReviewList({ title }: ReviewListProps) {
   const { data, isLoading } = useGetReviewsByMovieTitle({ title });
-  console.log('🚀 ~ ReviewList ~ data:', data);
   if (isLoading) {
     return <div>로딩 중...</div>;
   }
@@ -18,7 +17,7 @@ export default function ReviewList({ title }: ReviewListProps) {
   return (
     <div className="review-wrapper">
       {data?.map((review, index) => (
-        <Review
+        <ReviewContainer
           key={index}
           rating={review.rating}
           review={review.review}
