@@ -68,10 +68,8 @@ export default function Review({
   const isLiked = likes.map((like) => findString(likesList, like));
 
   const deleteLike = () => {
-    console.log(isLiked, likesList);
     isLiked?.map((like) => {
       if (like) {
-        console.log(like);
         deleteLikesMutation.mutate(like);
       }
     });
@@ -114,7 +112,7 @@ export default function Review({
     return (
       <div className="review-update-container">
         <div className="stars">
-          <StarRating rating={formData.rating} setFormData={ratingHandler} isUpdateForm={true} />
+          <StarRating rating={formData.rating} setFormData={ratingHandler} />
         </div>
 
         <textarea defaultValue={editedReview} onChange={onChangeHandler} className="review-text" />
@@ -194,167 +192,3 @@ export default function Review({
     </div>
   );
 }
-// import React, { useState } from 'react';
-// import { useTokenValidation } from '../../../auth/hooks/useTokenValidation';
-// import { useSession } from '../../../context/SessionProvider';
-// import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
-// import LikedButtonIcon from '../../../shared/components/atom/icons/LikedButtonIcon';
-// import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon';
-// import StarIcon from '../../../shared/components/atom/icons/StarIcon';
-// import { useLikesMutation } from '../hook/useLikesMutation';
-// import { useReviewMutation } from '../hook/useReviewMutation';
-
-// type ReviewProps = {
-//   rating: number;
-//   review: string;
-//   author: string;
-//   authorId: string;
-//   channelId: string;
-//   postId: string;
-//   title: string;
-//   createdAt: string;
-//   likes: string[];
-// };
-
-// export default function Review({
-//   rating,
-//   review,
-//   author,
-//   authorId,
-//   channelId,
-//   postId,
-//   title,
-//   createdAt,
-//   likes,
-// }: ReviewProps) {
-//   const [isOpen, setIsOpen] = useState(false);
-//   const [isEditing, setIsEditing] = useState(false);
-//   const [editedReview, setEditedReview] = useState(review);
-//   const [editedRating, setEditedRating] = useState(rating);
-//   // const { deleteReviewMutation, updateReviewMutation } = useReviewMutation();
-//   const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
-//   const { data, isLoading } = useTokenValidation();
-
-//   const session = useSession();
-
-//   const deleteReview = () => {
-//     // deleteReviewMutation.mutate(postId);
-//   };
-
-//   const toggleMenu = () => {
-//     setIsOpen(!isOpen);
-//   };
-
-//   const postLike = () => {
-//     addLikesMutation.mutate(postId);
-//   };
-
-//   const isAuthor = session?.fullName === author;
-
-//   const likesList = data?.likes?.map((like) => like._id);
-//   function findString<T>(array: T[] = [], target: T) {
-//     const found = array.find((item) => item === target);
-//     return found ? found : null;
-//   }
-
-//   const isLiked = likes.map((like) => findString(likesList, like));
-
-//   const deleteLike = () => {
-//     console.log(isLiked, likesList);
-//     isLiked?.map((like) => {
-//       if (like) {
-//         console.log(like);
-//         deleteLikesMutation.mutate(like);
-//       }
-//     });
-//   };
-
-// const handleEdit = () => {
-//   setIsEditing(true);
-//   setIsOpen(false);
-// };
-
-//   const handleSave = () => {
-//     // updateReviewMutation.mutate({
-//     //   postId,
-//     //   review: editedReview,
-//     //   rating: editedRating,
-//     // });
-//     setIsEditing(false);
-//   };
-
-//   const handleCancel = () => {
-//     setEditedReview(review);
-//     setEditedRating(rating);
-//     setIsEditing(false);
-//   };
-
-//   if (isEditing) {
-//     return (
-// <div className="review-container">
-//   <div className="stars">
-//     {[...Array(5)].map((_, i) => (
-//       <button key={i} onClick={() => setEditedRating(i + 1)} className={i < editedRating ? 'active' : ''}>
-//         <StarIcon />
-//       </button>
-//     ))}
-//   </div>
-//   <textarea value={editedReview} onChange={(e) => setEditedReview(e.target.value)} className="review-text" />
-//   <div className="review-footer">
-//     <span className="reviewer">{author}</span>
-//     <span className="review-date">{createdAt}</span>
-//   </div>
-//   <div className="edit-buttons">
-//     <button onClick={handleSave}>저장</button>
-//     <button onClick={handleCancel}>취소</button>
-//   </div>
-// </div>
-//     );
-//   }
-
-//   return (
-//     <div className="review-container">
-//       <div className="stars">
-//         {[...Array(rating)].map((_, i) => (
-//           <StarIcon key={i} />
-//         ))}
-//       </div>
-//       <p className="review-text">{review}</p>
-//       <div className="review-footer">
-//         <span className="reviewer">{author}</span>
-//         <span className="review-date">{createdAt}</span>
-//       </div>
-//       <div className="likes-hamburger-wrapper">
-//         <div className="likes">
-//           {isLiked.length !== 0 ? (
-//             <button className="likes-button" onClick={deleteLike}>
-//               <LikedButtonIcon />
-//             </button>
-//           ) : (
-//             <button className="likes-button" onClick={postLike}>
-//               <LikeButtonIcon />
-//             </button>
-//           )}
-//           <span className="like-count">{likes.length}</span>
-//         </div>
-//         <div className="hamburger-menu">
-//           {isAuthor ? (
-//             <button className="hamburger-icon" onClick={toggleMenu}>
-//               <OptionButtonIcon />
-//             </button>
-//           ) : null}
-//           {isOpen && (
-//             <div className="menu-items">
-//               <button className="menu-item edit" onClick={handleEdit}>
-//                 수정
-//               </button>
-//               <button className="menu-item delete" onClick={deleteReview}>
-//                 삭제
-//               </button>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }

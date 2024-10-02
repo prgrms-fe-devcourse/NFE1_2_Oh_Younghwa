@@ -32,6 +32,7 @@ function App() {
   const navigate = useNavigate();
 
   //현재 주소가 /posts로 시작하면 상단에 포스트로 표기
+
   if (currentPath.startsWith('/posts')) {
     title = titleMapping['/posts'];
   }
