@@ -15,7 +15,6 @@ export const useLikesMutation = () => {
       //   console.log(`rolling back optimistic update with id ${context.id}`)
     },
     onSuccess: (data, variables, context) => {
-      console.log(`invalidateQueries`);
       // Boom baby!
       queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
       queryClient.invalidateQueries({ queryKey: ['auth-user'] });
@@ -37,7 +36,6 @@ export const useLikesMutation = () => {
     },
     onSuccess: (data, variables, context) => {
       // Boom baby!
-      console.log(`invalidateQueries`);
 
       queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
       queryClient.invalidateQueries({ queryKey: ['auth-user'] });

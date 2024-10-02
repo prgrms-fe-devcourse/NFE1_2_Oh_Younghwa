@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 
 import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
 import InputDeleteIcon from '../../../shared/components/atom/icons/InputDeleteIcon';

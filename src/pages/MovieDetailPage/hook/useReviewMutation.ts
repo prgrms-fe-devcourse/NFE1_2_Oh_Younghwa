@@ -21,7 +21,6 @@ export const useReviewMutation = () => {
     onSuccess: (data, variables, context) => {
       // Boom baby!
       queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
-      console.log(data);
     },
     onSettled: (data, error, variables, context) => {
       // Error or success... doesn't matter!
@@ -43,7 +42,6 @@ export const useReviewMutation = () => {
     onSuccess: (data, variables, context) => {
       // Boom baby!
       queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
-      console.log(data);
     },
     onSettled: (data, error, variables, context) => {
       // Error or success... doesn't matter!
