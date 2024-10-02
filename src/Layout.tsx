@@ -20,7 +20,6 @@ const titleMapping: { [key: string]: string } = {
   '/movie/detail': '영화 상세정보',
   '/mypage': '마이페이지',
   '/posts': '포스트',
-
   // Add more routes and titles as needed
 };
 

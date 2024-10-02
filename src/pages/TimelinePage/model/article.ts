@@ -36,7 +36,7 @@ export interface Post {
   image: string;
   imagePublicId: string;
   title: string;
-  channel: Channel;
+  channel: string;
   author: User;
   createdAt: string;
   updatedAt: string;
