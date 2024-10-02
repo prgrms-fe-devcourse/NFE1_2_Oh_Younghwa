@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import InputDeleteIcon from '../../../shared/components/atom/icons/InputDeleteIcon';
+import InputSearchIcon from '../../../shared/components/atom/icons/InputSearchIcon';
 import { searchPosts, searchUsers } from '../api/searchApi'; // API 호출 함수 가져오기
 
 import '../search.scss';

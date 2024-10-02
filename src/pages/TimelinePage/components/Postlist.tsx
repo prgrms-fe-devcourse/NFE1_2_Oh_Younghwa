@@ -4,33 +4,54 @@ import { Link, useParams } from 'react-router-dom';
 import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon.tsx';
+import PlaceholderIcon from '../../../shared/components/atom/icons/PlaceholderIcon.tsx';
+import UpdateModal from '../../WritePostPage/components/UpdateModal';
 import { useArticles } from '../hooks/useArticles.ts';
+import { usePostMutation } from '../hooks/usePostMutation';
 import { Post } from '../model/article.ts';
 import { elapsedText } from '../utility/elapsedText.ts';
-
-import OptionPopup from './OptionPopup.tsx';
 
 import '../scss/timeline.scss';
 
 const Postlist = () => {
-  const [isOn, setisOn] = useState(true);
-  const toggleHandler = () => {
-    // isOn의 상태를 변경하는 메소드를 구현
-    setisOn(!isOn);
-  };
+  //주소창에 따른 채널아이디 받아오기
   const { channelId } = useParams() as { channelId: string };
   const { data = [], isError, isLoading } = useArticles(channelId);
-  console.log(data);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;
 
+  //온오프세팅
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  //삭제mutation불러오기
+  const { deletePostMutation } = usePostMutation();
+
+  //모달온오프
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <div>
+      {modalOpen && (
+        <UpdateModal
+          listPostId={data[0]._id}
+          listChannelId={data[0].channel._id}
+          isModalOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
+
       <div className="postlist-wrap">
         {data.map((post: Post) => (
           <div key={post._id} className="post-wrap">
-            <img className="profile-img" src={post.author.image} alt={post.title} />{' '}
+            {post.author.image ? (
+              <img className="profile-img" src={post.author.image} alt={post.title} />
+            ) : (
+              <PlaceholderIcon />
+            )}
             <div className="post-box">
               <div className="post-info">
                 <p className="nickname">{post.author.fullName}</p>
@@ -51,11 +72,18 @@ const Postlist = () => {
                     {post.comments.length}
                   </div>
                 </div>
-                <div className="option-wrap" onClick={toggleHandler}>
+                <div className="option-wrap" onClick={toggleMenu}>
                   <OptionButtonIcon />
-                  <div key={post._id} className={`option-box ${isOn ? '' : 'button-clicked'}`}>
-                    <OptionPopup id={post._id} />
-                  </div>
+                  {isOpen && (
+                    <div className="menu-items">
+                      <button className="menu-item edit" onClick={() => setModalOpen(true)}>
+                        수정
+                      </button>
+                      <button className="menu-item delete" onClick={() => deletePostMutation.mutate(post._id)}>
+                        삭제
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

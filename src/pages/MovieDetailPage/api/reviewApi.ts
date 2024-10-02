@@ -25,7 +25,6 @@ export const getReviewsByMovieTitle = async (title: string): Promise<MoviePost[]
 };
 
 export const deleteReview = async (postId: string): Promise<void> => {
-  console.log(postId);
   const request = reviewAxiosClient();
   await request.delete(`/posts/delete`, {
     data: {
