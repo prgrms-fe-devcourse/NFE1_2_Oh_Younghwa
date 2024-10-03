@@ -35,6 +35,8 @@
     }
   }
   .review-text {
+    resize: none;
+
     color: #344054;
     text-overflow: ellipsis;
     /* article/text */
