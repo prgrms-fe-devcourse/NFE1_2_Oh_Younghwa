@@ -4,6 +4,7 @@ import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButton
 import StarIcon from '../../../shared/components/atom/icons/StarIcon';
 import { useLikesMutation } from '../hook/useLikesMutation';
 import { useReviewMutation } from '../hook/useReviewMutation';
+import { useHamburgerStore } from '../store/hamburgerStore';
 type ReviewProps = {
   rating: number;
   review: string;
@@ -13,8 +14,6 @@ type ReviewProps = {
   postId: string;
   likes: number;
   isAuthor: boolean;
-  toggleMenu: () => void;
-  isOpen: boolean;
   handleEdit: () => void;
 };
 //isLiked.length,likes.length
@@ -27,12 +26,13 @@ export default function Review({
   postId,
   likes,
   isAuthor,
-  toggleMenu,
-  isOpen,
   handleEdit,
 }: ReviewProps) {
   //리뷰 삭제 로직을 담당하는 커스텀 훅입니다.
   const { deleteReviewMutation } = useReviewMutation();
+
+  const { openHamburgerId, setOpenHamburgerId } = useHamburgerStore(); // Zustand에서 상태 가져오기
+  const isOpenedHamburger = openHamburgerId === postId; // 현재 열려 있는 리뷰인지 확인
 
   //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅입니다.
   const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
@@ -50,6 +50,14 @@ export default function Review({
   //이 버튼이 보인다는 것은 이미 좋아요를 눌렀다는 뜻입니다.
   const deleteLike = () => {
     deleteLikesMutation.mutate(isLiked[0]!);
+  };
+
+  const toggleMenu = () => {
+    if (isOpenedHamburger) {
+      setOpenHamburgerId(null);
+    } else {
+      setOpenHamburgerId(postId);
+    }
   };
   return (
     <div className="review-container">
@@ -85,7 +93,7 @@ export default function Review({
               <OptionButtonIcon />
             </button>
           ) : null}
-          {isOpen && (
+          {isOpenedHamburger && (
             <div className="menu-items">
               <button className="menu-item edit" onClick={handleEdit}>
                 수정

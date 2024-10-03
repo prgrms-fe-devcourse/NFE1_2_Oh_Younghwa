@@ -7,6 +7,8 @@ import Review from './Review';
 import ReviewUpdateForm from './ReviewUpdateForm';
 
 import '../scss/UpdateReview.scss';
+import { useOpenedReviewStore } from '../store/openedReviewFormStore';
+
 type ReviewProps = {
   rating: number;
   review: string;
@@ -38,6 +40,8 @@ export default function ReviewContainer({
   //로그인 한 유저의 정보를 가져옵니다
   const { data } = useTokenValidation();
 
+  const { openedReviewId, setOpenedReviewId } = useOpenedReviewStore();
+  const isOpenedReview = openedReviewId === postId;
   //현재 로그인한 사용자의 좋아요 리스트에서 _id만 추려서 배열로 만듭니다.
   const likesList = data?.likes?.map((like) => like._id);
 
@@ -50,15 +54,13 @@ export default function ReviewContainer({
 
   //리뷰 업데이트 로직=
   //햄버거 버튼을 열고 닫는 함수입니다.
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
 
   //수정 버튼을 눌렀을 때 실행되는 함수입니다.
   //수정 폼을 보여주고, 햄버거 버튼을 닫습니다
   const handleEdit = () => {
     setIsEditing(true);
     setIsOpen(false);
+    setOpenedReviewId(postId);
   };
 
   //수정 취소 버튼을 눌렀을 때 실행되는 함수입니다.
@@ -66,6 +68,7 @@ export default function ReviewContainer({
   const handleCancel = () => {
     setIsEditing(false);
     setIsOpen(false);
+    setOpenedReviewId(null);
   };
 
   //리뷰 수정 중일 때 보이는 컴포넌트에 전달할 props입니다.
@@ -81,7 +84,6 @@ export default function ReviewContainer({
     isLiked: isLiked as string[],
     review,
     handleCancel,
-    setIsEditing,
   };
   const reviewProps = {
     rating,
@@ -92,11 +94,9 @@ export default function ReviewContainer({
     postId,
     likes: likes.length,
     isAuthor,
-    toggleMenu,
-    isOpen,
     handleEdit,
   };
 
   //평상시에 보이는 컴포넌트 입니다.
-  return <>{isEditing ? <ReviewUpdateForm {...reviewUpdateProps} /> : <Review {...reviewProps} />}</>;
+  return <>{isEditing && isOpenedReview ? <ReviewUpdateForm {...reviewUpdateProps} /> : <Review {...reviewProps} />}</>;
 }
