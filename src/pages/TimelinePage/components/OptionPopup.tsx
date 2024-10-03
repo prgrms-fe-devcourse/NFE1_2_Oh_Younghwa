@@ -11,9 +11,9 @@ const OptionPopup = ({ id }: postProp) => {
 
   return (
     <div className="option-button-wrap hidden">
-      <div className="option-button" onClick={() => setModalOpen(true)}>
+      {/* <div className="option-button" onClick={() => setModalOpen(true)}>
         수정
-      </div>
+      </div> */}
       <div className="option-button" onClick={() => deletePostMutation.mutate(id)}>
         삭제
       </div>
