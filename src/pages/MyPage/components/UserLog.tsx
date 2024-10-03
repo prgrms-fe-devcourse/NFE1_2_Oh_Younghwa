@@ -4,6 +4,7 @@ import { useArticles } from '../../TimelinePage/hooks/useArticles';
 import { Post, User } from '../../TimelinePage/model/article';
 
 import MyPagePostList from './MyPagePostList';
+import MyPageReviews from './MyPageReviews';
 
 import '../scss/userLog.scss';
 
@@ -18,8 +19,6 @@ const UserLog = ({ user }: UserLogProps) => {
 
   //유저가 작성한 게시글 - 전체타임라인 채널에서 불러오기
   const postList = user.posts.filter((channels) => channels.channel === '66f50d3001d4aa076bcbdb99');
-  //유저가 작성한 영화리뷰
-  const reviewList = user.posts.filter((channel) => channel.channel === '66f51699c7562307e3bd6223');
   //유저가 좋아요를 누른 게시글 - 전체타임라인에 있는 게시글에서 불러오기
   const likeList = data?.filter((post) => post.likes?.some((like) => like.user === user._id));
 
@@ -69,11 +68,11 @@ const UserLog = ({ user }: UserLogProps) => {
         ))}
 
       {/* 영화리뷰 결과 */}
-      {/* {log === 'reviews' && (
+      {log === 'reviews' && (
         <div>
-          <MyPageReviews userId={user._id} />
+          <MyPageReviews username={user.fullName} />
         </div>
-      )} */}
+      )}
 
       {/* 좋아요 결과 */}
       {log === 'likes' &&

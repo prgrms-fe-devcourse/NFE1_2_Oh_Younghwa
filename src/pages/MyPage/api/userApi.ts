@@ -1,6 +1,18 @@
 import { reviewAxiosClient, validateTokenAxiosClient } from '../../../shared/utils/axiosClient';
 import { Follow, MoviePost, Post, User } from '../../TimelinePage/model/article';
 
+export interface Review {
+  rating: number;
+  review: string;
+  title: string;
+  author: string;
+  createdAt: string;
+  likes: number;
+  authorId: string;
+  channelId: string;
+  postId: string;
+}
+
 //다른 유저의 마이페이지 보기
 export const getOtherUsers = async (userId: string): Promise<User> => {
   const request = reviewAxiosClient();
@@ -56,17 +68,15 @@ export const unfollowUser = async (followId: string): Promise<Follow> => {
   }
 };
 
-//영화리뷰 전체 가져오기
-export const getAllReviews = async (userId: string, channel: string): Promise<Post[] | undefined> => {
-  try {
-    const request = reviewAxiosClient();
-    const response = await request.get(`/search/all/${userId}`);
-    console.log(response.data);
+//영화리뷰 채널에서 전체 리뷰 포스트 가져오기
+export const getReviewsByUsername = async (username: string): Promise<Review[]> => {
+  const request = reviewAxiosClient();
+  const reviewChannelRes = await request.get<Review[]>(`/search/all/${username}`);
 
-    return response.data;
-  } catch (err) {
-    console.error('에러', err);
-  }
+  //undefined인 경우 걸러내기
+  const filteredData = reviewChannelRes.data.filter((item: { title?: string }) => item && item.title !== undefined);
+
+  return filteredData;
 };
 
 //로그아웃

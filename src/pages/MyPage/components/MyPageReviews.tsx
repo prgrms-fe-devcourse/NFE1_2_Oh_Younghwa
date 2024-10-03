@@ -1,47 +1,36 @@
-// import { useEffect, useState } from 'react';
+import ReviewContainer from '../../MovieDetailPage/components/ReviewContainer';
+import { useGetReviews } from '../hooks/useGetReviews';
 
-// import Review from '../../MovieDetailPage/components/Review';
-// import { MoviePost } from '../../TimelinePage/model/article';
-// import { getAllReviews } from '../api/userApi';
+import '../../MovieDetailPage/scss/Review.scss';
 
-// import '../../MovieDetailPage/scss/Review.scss';
+type info = {
+  username: string;
+};
 
-// type ReviewListProps = {
-//   title: string;
-// };
-// export default function MyPageReviews({ userId }) {
-//   const [data, setData] = useState<MoviePost[]>([]);
+export default function MyPageReviews({ username }: info) {
+  const { data, isLoading } = useGetReviews(username);
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const result = await getAllReviews(userId, '66f51699c7562307e3bd6223');
-//       setData(result);
-//       console.log('🚀 ~ ReviewList ~ data:', result);
-//     };
+  if (isLoading) <div>로딩중</div>;
 
-//     fetchData();
-//   }, []);
-// const data = getAllReviews('66f51699c7562307e3bd6223');
-// console.log('🚀 ~ ReviewList ~ data:', data);
-// const sortedByLikesLength = data?.sort((a, b) => b.likes.length - a.likes.length);
-// console.log('🚀 ~ ReviewList ~ sortedByLikesLength:', sortedByLikesLength);
-
-//   return (
-//     <div className="review-wrapper">
-//       {/* {data?.map((review, index) => (
-//         <Review
-//           key={index}
-//           rating={review.rating}
-//           review={review.review}
-//           author={review.author}
-//           authorId={review.authorId}
-//           channelId={review.channelId}
-//           postId={review.postId}
-//           title={review.title}
-//           createdAt={review.createdAt}
-//           likes={review.likes}
-//         />
-//       ))} */}
-//     </div>
-//   );
-// }
+  return (
+    <div className="review-wrapper">
+      {data?.map(
+        (review, index) =>
+          review && (
+            <ReviewContainer
+              key={index}
+              rating={review.rating}
+              review={review.review}
+              author={review.author}
+              authorId={review.authorId}
+              channelId={review.channelId}
+              postId={review.postId}
+              title={review.title}
+              createdAt={review.createdAt}
+              likes={review.likes}
+            />
+          ),
+      )}
+    </div>
+  );
+}
