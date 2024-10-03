@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
-import { getAllNotifications } from './api/noticeApi';
+import { getAllNotifications, putNotificationSeen } from './api/noticeApi';
 import NotificationFollow from './Components/NotificationFollow';
 import NotificationLike from './Components/NotificationLike';
 
@@ -20,7 +19,6 @@ type Follow = {
   updatedAt: string; // 수정일
 };
 
-// Like 타입 정의
 type Like = {
   author: Author; // 좋아요 작성자 정보
   postId: string; // 좋아요가 적용된 포스트 ID
@@ -28,7 +26,6 @@ type Like = {
   postImage: string; // 포스트 이미지
 };
 
-// Notification 타입 정의
 type Notification = {
   _id: string; // 알림 ID 추가
   follow?: Follow; // 팔로우 알림 (optional)
@@ -38,7 +35,6 @@ type Notification = {
 
 const NotificationsPage: React.FC = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -51,20 +47,41 @@ const NotificationsPage: React.FC = () => {
       }
       setLoading(false);
     };
-
     fetchNotifications();
   }, []);
 
-  const handleMarkAsRead = (notificationId: string) => {
-    setNotifications((prev) => prev.map((noti) => (noti._id === notificationId ? { ...noti, seen: true } : noti)));
+  const handleMarkAsRead = async (notificationId: string) => {
+    try {
+      await putNotificationSeen(notificationId); // API 호출하여 알림을 읽음으로 표시
+      setNotifications((prev) => {
+        return prev.map((noti) => {
+          if (noti._id === notificationId) {
+            console.log(`알림 ID: ${noti._id}, seen 상태: true`); // 읽음 상태 변경 로그
+            return { ...noti, seen: true };
+          }
+          return noti;
+        });
+      });
+    } catch (error) {
+      console.error('알림 읽음 상태로 변경 실패:', error);
+    }
   };
 
-  const handleMarkAllAsRead = () => {
-    setNotifications((prev) => prev.map((noti) => ({ ...noti, seen: true })));
+  const handleMarkAllAsRead = async () => {
+    try {
+      await Promise.all(notifications.map((noti) => putNotificationSeen(noti._id)));
+      setNotifications((prev) => prev.map((noti) => ({ ...noti, seen: true })));
+    } catch (error) {
+      console.error('모든 알림 읽음 상태로 변경 실패:', error);
+    }
+  };
+
+  const handleNotificationClick = (notificationId: string) => {
+    handleMarkAsRead(notificationId); // 클릭 시 알림을 읽음으로 처리
   };
 
   if (loading) return <div>로딩 중...</div>;
-
+console.log(notifications)
   // 알림을 읽음 여부에 따라 정렬
   const sortedNotifications = [...notifications].sort((a, b) => (a.seen === b.seen ? 0 : a.seen ? 1 : -1));
 
@@ -77,14 +94,18 @@ const NotificationsPage: React.FC = () => {
       </div>
       <div className="notifications-contents">
         {sortedNotifications.map((notification) => (
-          <div key={notification._id} className={`notifications-wrapper ${notification.seen ? 'read' : 'unread'}`}>
+          <div
+            key={notification._id}
+            className={`notifications-wrapper ${notification.seen ? 'read' : 'unread'}`}
+            onClick={() => handleNotificationClick(notification._id)} 
+          >
             {/* 팔로우 알림이 있는 경우 */}
             {notification.follow && (
-              <NotificationFollow notification={notification.follow} handleMarkAsRead={handleMarkAsRead} />
+              <NotificationFollow notification={notification.follow} />
             )}
             {/* 좋아요 알림이 있는 경우 */}
             {notification.like && (
-              <NotificationLike notification={notification.like} handleMarkAsRead={handleMarkAsRead} />
+              <NotificationLike notification={notification.like} />
             )}
           </div>
         ))}

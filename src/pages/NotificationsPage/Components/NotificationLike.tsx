@@ -19,14 +19,13 @@ type Like = {
 
 interface NotificationLikeProps {
   notification: Like;
-  handleMarkAsRead: (notificationId: string) => void; // 알림 읽음 처리 핸들러
 }
 
 const binaryToBase64 = (binaryData: string) => {
   return `data:image/png;base64,${btoa(binaryData)}`; // 이미지 형식 변경
 };
 
-const NotificationLike: React.FC<NotificationLikeProps> = ({ notification, handleMarkAsRead }) => {
+const NotificationLike: React.FC<NotificationLikeProps> = ({ notification}) => {
   const navigate = useNavigate();
 
   const handlePostClick = (postId: string) => {
@@ -38,7 +37,7 @@ const NotificationLike: React.FC<NotificationLikeProps> = ({ notification, handl
   };
 
   return (
-    <div className="notifications-like-container" onClick={() => handleMarkAsRead(notification.author._id)}>
+    <div className="notifications-like-container">
       <div className="notification-like">
         <LikeButtonIcon />
         <img src={binaryToBase64(notification.author.image)} className="notifications-image" />

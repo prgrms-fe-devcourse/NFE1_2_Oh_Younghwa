@@ -13,17 +13,12 @@ type Follow = {
   follower: string;
   _id: string;
 };
-type Notification = {
-  _id: string;
-  follow: Follow;
-  seen: boolean;
-};
+
 interface NotificationFollowProps {
   notification: Follow;
-  handleMarkAsRead: (notificationId: string) => void;
 }
 
-const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, handleMarkAsRead }) => {
+const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification,  }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<Author>();
 
@@ -43,9 +38,9 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, h
     console.log(`${userId}를 팔로우했습니다.`);
   };
   console.log(notification._id);
-  console.log(user);
+ 
   return (
-    <div className="notifications-follow" onClick={() => user && handleMarkAsRead(notification._id)}>
+    <div className="notifications-follow">
       {user ? (
         <>
           <img src={user.image} className="notifications-image" alt={`${user.fullName}의 프로필 이미지`} />

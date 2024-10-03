@@ -31,11 +31,10 @@ type Notification = {
 export const getAllNotifications = async (): Promise<Notification[]> => {
   const request = reviewAxiosClient();
   const response = await request.get<Notification[]>(`/notifications`);
-  console.log(response.data);
   return response.data;
 };
 
-export const putNotificationSeen = async (notificationId: number): Promise<void> => {
+export const putNotificationSeen = async (notificationId: string): Promise<void> => {
   const request = reviewAxiosClient();
   await request.put(`/notifications/seen`, { id: notificationId });
 };
