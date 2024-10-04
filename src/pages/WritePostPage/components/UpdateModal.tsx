@@ -9,25 +9,18 @@ import { usePostMutation } from '../../TimelinePage/hooks/usePostMutation';
 import '../scss/writeModal.scss';
 
 interface EditModalProps {
-  isModalOpen: boolean;
+  isUpdateModalOpen: boolean;
   onClose: () => void;
   listPostId: string;
   listChannelId: string;
   listPostTitle: string;
 }
 
-type Text = {
-  title: string;
-};
-
-const UpdateModal = ({ listPostId, listChannelId, listPostTitle, isModalOpen, onClose }: EditModalProps) => {
+const UpdateModal = ({ listPostId, listChannelId, listPostTitle, isUpdateModalOpen, onClose }: EditModalProps) => {
   //모달 온오프
-  if (!isModalOpen) return null;
+  if (!isUpdateModalOpen) return null;
 
   const { data, isLoading, error } = useGetUsers();
-
-  if (isLoading) return <div>로딩중...</div>;
-  if (error) return <div>에러 발생</div>;
 
   //formdata에 따라서 textarea길이변경하기
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -66,10 +59,14 @@ const UpdateModal = ({ listPostId, listChannelId, listPostTitle, isModalOpen, on
     );
   };
 
+  if (isLoading) return <div>로딩중...</div>;
+  if (error) return <div>에러 발생</div>;
+
   return (
     <>
       <div className="modal-overlay" onClick={onClose}>
         <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+          <p className="modal-box-title">포스트 수정하기</p>
           <form className="" action="" onSubmit={onSubmitHandler}>
             <div className="modal-top">
               <div className="select-channel">
@@ -102,7 +99,7 @@ const UpdateModal = ({ listPostId, listChannelId, listPostTitle, isModalOpen, on
               <label htmlFor="file"></label>
               <div className="content-img-select">
                 <input type="file" />
-                <button>게시</button>
+                <button className="submit_button">게시</button>
               </div>
             </div>
           </form>

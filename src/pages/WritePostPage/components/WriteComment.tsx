@@ -5,16 +5,29 @@ import PlaceholderIcon from '../../../shared/components/atom/icons/PlaceholderIc
 import { useGetUsers } from '../../MyPage/hooks/useGetUsers';
 import { usePostMutation } from '../../TimelinePage/hooks/usePostMutation';
 
-import '../scss/writeModal.scss';
+import '../scss/writeCommentModal.scss';
 
 interface EditModalProps {
-  isModalOpen: boolean;
+  listPostId: string;
+  listChannelId: string;
+  listFullname: string;
+  listPostTitle: string;
+  listPostImg: string;
+  isCommentModalOpen: boolean;
   onClose: () => void;
 }
 
-const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
+const WriteCommentModal = ({
+  listPostId,
+  listPostImg,
+  listFullname,
+  listPostTitle,
+  isCommentModalOpen,
+  onClose,
+}: EditModalProps) => {
   //모달 온오프
-  if (!isModalOpen) return null;
+  if (!isCommentModalOpen) return null;
+
   const { data, isLoading, error } = useGetUsers();
 
   //formdata에 따라서 textarea길이변경하기
@@ -29,11 +42,9 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
     }
   }, [text]); // text가 변경될 때마다 호출
 
-  //form data 전달하기
+  //form data 전달해서 업데이트 요청보내기
   const [formData, setFormData] = useState('');
-  const [Selected, setSelected] = useState('');
-
-  const { addPostMutation } = usePostMutation();
+  const { addCommentMutation } = usePostMutation();
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.currentTarget.value); // 상태 업데이트
@@ -44,8 +55,8 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //초기 렌더링 시 author가 undefined라서, 리뷰를 제출할 때 author에 session?.fullName을 넣어줌
-    addPostMutation.mutate(
-      { channelId: Selected, image: null, title: formData },
+    addCommentMutation.mutate(
+      { postId: listPostId, comment: formData },
       {
         onSuccess: () => {
           // 요청이 성공하면 모달 닫기
@@ -61,30 +72,32 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
   return (
     <>
       <div className="modal-overlay" onClick={onClose}>
-        <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-          <p className="modal-box-title">포스트 작성하기</p>
+        <div className="comment-modal-box" onClick={(e) => e.stopPropagation()}>
+          <p className="comment-box-title">댓글작성</p>
           <form className="" action="" onSubmit={onSubmitHandler}>
-            <div className="modal-top">
-              <div className="select-channel">
-                <select
-                  className="select-custom"
-                  onChange={(e) => {
-                    setSelected(e.target.value);
-                  }}
-                  value={Selected}
-                >
-                  <option value="66f50d3001d4aa076bcbdb99">전체</option>
-                  <option value="66fa6380186a007fe2c4226b">액션</option>
-                  <option value="66fa63d9186a007fe2c422bc">로맨스</option>
-                  <option value="66fa6402186a007fe2c422c5">호러</option>
-                  <option value="66fa641f186a007fe2c423ae">SF</option>
-                  <option value="66fa6452186a007fe2c425c8">독립영화</option>
-                </select>
-              </div>
+            <div className="comment-modal-top">
               <button onClick={onClose}>
                 <ModalCloseIcon />
               </button>
             </div>
+
+            {/* 상단 원본 글의 데이터 */}
+            <div key={listPostId} className="comment-post-wrap">
+              {listPostImg ? (
+                <img className="profile-img" src={listPostImg} alt={listPostTitle} />
+              ) : (
+                <PlaceholderIcon />
+              )}
+              <div className="post-box">
+                <div className="post-info">
+                  <p className="nickname">{listFullname}</p>
+                </div>
+                <p className="post-contents">{listPostTitle}</p>
+              </div>
+            </div>
+
+            <hr className="divide"></hr>
+
             <div className="modal-contents-wrap">
               {data?.image ? (
                 <img className="profile-img" src={data.image} alt={data?.fullName} />
@@ -92,7 +105,6 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
                 <PlaceholderIcon />
               )}
               <div className="modal-contents">
-                <p>{data?.fullName}</p>
                 <textarea
                   className="textarea"
                   ref={textareaRef}
@@ -102,10 +114,9 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
                 />
               </div>
             </div>
+
             <div className="write-modal-bottom">
-              <label htmlFor="file"></label>
-              <div className="content-img-select">
-                <input type="file" />
+              <div className="comment-img-select">
                 <button className="submit_button">게시</button>
               </div>
             </div>
@@ -116,4 +127,4 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
   );
 };
 
-export default WriteModal;
+export default WriteCommentModal;

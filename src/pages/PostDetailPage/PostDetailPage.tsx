@@ -5,9 +5,8 @@ import CommentButtonIcon from '../../shared/components/atom/icons/CommentButtonI
 import LikeButtonIcon from '../../shared/components/atom/icons/LikeButtonIcon';
 import OptionButtonIcon from '../../shared/components/atom/icons/OptionButtonIcon.tsx';
 import PlaceholderIcon from '../../shared/components/atom/icons/PlaceholderIcon.tsx';
-import OptionPopup from '../TimelinePage/components/OptionPopup.tsx';
 
-import PostComment from './components/PostComment.tsx';
+import PostCommentList from './components/PostCommentList.tsx';
 import { usePost } from './hook/usePost.ts';
 import { Post } from './model/article.ts';
 import { elapsedText } from './utility/elapsedText.ts';
@@ -26,8 +25,6 @@ const PostDetailPage = () => {
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;
-
-  console.log(data._id);
 
   return (
     <div>
@@ -62,7 +59,7 @@ const PostDetailPage = () => {
           </div>
         </div>
       </div>
-      <PostComment comments={data.comments} />
+      <PostCommentList comments={data.comments} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { addPost } from '../../WritePostPage/api/postModal';
+import { addComment, addPost } from '../../WritePostPage/api/postModal';
 import { deletePost, updatePost } from '../api/TimelineApi';
 
 export const usePostMutation = () => {
@@ -45,5 +45,18 @@ export const usePostMutation = () => {
     onSettled: (data, error, variables, context) => {},
   });
 
-  return { deletePostMutation, addPostMutation, updatePostMutation };
+  const addCommentMutation = useMutation({
+    mutationFn: addComment,
+
+    onError: (error, variables, context) => {
+      console.log(error);
+    },
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({ queryKey: ['channel'] });
+      console.log(data);
+    },
+    onSettled: (data, error, variables, context) => {},
+  });
+
+  return { deletePostMutation, addPostMutation, addCommentMutation, updatePostMutation };
 };
