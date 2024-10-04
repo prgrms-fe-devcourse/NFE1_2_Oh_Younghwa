@@ -32,16 +32,16 @@ export default function ReviewList({ title }: ReviewListProps) {
     <div className="review-wrapper">
       <div className="sort-button-wrapper">
         <button
-          className={sortType === 'like' ? 'selected-button' : 'not-selected-button'}
-          onClick={() => setSortType('like')}
-        >
-          좋아요 순
-        </button>
-        <button
           className={sortType === 'date' ? 'selected-button' : 'not-selected-button'}
           onClick={() => setSortType('date')}
         >
           최신 순
+        </button>
+        <button
+          className={sortType === 'like' ? 'selected-button' : 'not-selected-button'}
+          onClick={() => setSortType('like')}
+        >
+          좋아요 순
         </button>
       </div>
       {sortedData?.map((review, index) => (
