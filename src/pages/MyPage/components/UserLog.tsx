@@ -4,7 +4,7 @@ import { useArticles } from '../../TimelinePage/hooks/useArticles';
 import { Post, User } from '../../TimelinePage/model/article';
 
 import MyPagePostList from './MyPagePostList';
-import MyPageReviews from './MyPageReviews';
+import MyPageReviewCate from './MyPageReviewCate';
 
 import '../scss/userLog.scss';
 
@@ -61,7 +61,7 @@ const UserLog = ({ user }: UserLogProps) => {
       {log === 'articles' &&
         (postList.length > 0 ? (
           <div>
-            <MyPagePostList posts={postList} />
+            <MyPagePostList posts={postList} fullName={user.fullName} />
           </div>
         ) : (
           <p>작성한 게시글이 없습니다:&#41;</p>
@@ -70,7 +70,7 @@ const UserLog = ({ user }: UserLogProps) => {
       {/* 영화리뷰 결과 */}
       {log === 'reviews' && (
         <div>
-          <MyPageReviews username={user.fullName} />
+          <MyPageReviewCate fullName={user.fullName} />
         </div>
       )}
 

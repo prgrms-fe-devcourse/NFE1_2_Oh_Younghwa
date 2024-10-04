@@ -1,23 +1,26 @@
-import ReviewContainer from '../../MovieDetailPage/components/ReviewContainer';
+import { useEffect, useState } from 'react';
+
 import { useGetReviews } from '../hooks/useGetReviews';
+
+import MyPageReviewContainer from './MyPageReviewContainer';
 
 import '../../MovieDetailPage/scss/Review.scss';
 
-type info = {
-  username: string;
+type fullname = {
+  fullName: string;
 };
 
-export default function MyPageReviews({ username }: info) {
-  const { data, isLoading } = useGetReviews(username);
+export default function MyPageReviewCate({ fullName }: fullname) {
+  const { data, isLoading } = useGetReviews(fullName);
 
-  if (isLoading) <div>로딩중</div>;
+  if (isLoading) return <div>로딩중</div>;
 
   return (
     <div className="review-wrapper">
       {data?.map(
         (review, index) =>
           review && (
-            <ReviewContainer
+            <MyPageReviewContainer
               key={index}
               rating={review.rating}
               review={review.review}

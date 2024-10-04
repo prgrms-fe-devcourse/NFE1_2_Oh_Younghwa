@@ -1,5 +1,5 @@
 import { reviewAxiosClient, validateTokenAxiosClient } from '../../../shared/utils/axiosClient';
-import { Follow, MoviePost, Post, User } from '../../TimelinePage/model/article';
+import { Follow, User } from '../../TimelinePage/model/article';
 
 export interface Review {
   rating: number;
@@ -7,10 +7,15 @@ export interface Review {
   title: string;
   author: string;
   createdAt: string;
-  likes: number;
+  likes: string[];
   authorId: string;
   channelId: string;
   postId: string;
+}
+export interface newInfo {
+  newName: string;
+  newBio?: string;
+  newImg?: string;
 }
 
 //다른 유저의 마이페이지 보기
@@ -69,14 +74,45 @@ export const unfollowUser = async (followId: string): Promise<Follow> => {
 };
 
 //영화리뷰 채널에서 전체 리뷰 포스트 가져오기
-export const getReviewsByUsername = async (username: string): Promise<Review[]> => {
+export const getReviewsByUsername = async (fullName: string): Promise<Review[]> => {
   const request = reviewAxiosClient();
-  const reviewChannelRes = await request.get<Review[]>(`/search/all/${username}`);
+  const reviewChannelRes = await request.get<Review[]>(`/search/all/${fullName}`);
 
   //undefined인 경우 걸러내기
   const filteredData = reviewChannelRes.data.filter((item: { title?: string }) => item && item.title !== undefined);
 
   return filteredData;
+};
+
+//사용자 정보 변경
+export const changeUserInfo = async ({ newName, newBio, newImg }: newInfo): Promise<newInfo[]> => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('토큰이 없습니다');
+    }
+
+    const request = validateTokenAxiosClient(token);
+    const responses = await Promise.all([
+      newName || newBio
+        ? request.put('/settings/update-user', {
+            fullName: newName,
+            username: newBio,
+          })
+        : null,
+      newImg
+        ? request.put('/users/upload-photo', {
+            isCover: false,
+            image: newImg,
+          })
+        : null,
+    ]);
+
+    // null 제외
+    return responses.filter((response) => response !== undefined && response !== null).map((response) => response.data);
+  } catch (err) {
+    console.error('정보 변경 불가: ', err);
+  }
 };
 
 //로그아웃

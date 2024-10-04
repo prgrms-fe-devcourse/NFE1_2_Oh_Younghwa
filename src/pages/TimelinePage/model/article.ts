@@ -17,6 +17,7 @@ export interface User {
   email: string;
   createdAt: string;
   updatedAt: string;
+  username: string;
 }
 
 export interface Channel {

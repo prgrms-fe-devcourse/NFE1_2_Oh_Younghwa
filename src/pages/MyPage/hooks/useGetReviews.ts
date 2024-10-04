@@ -3,10 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getReviewsByUsername, Review } from '../api/userApi';
 
-export const useGetReviews = (username: string) => {
+export const useGetReviews = (fullName: string) => {
   const { data, isError, isLoading } = useQuery<Review[]>({
-    queryKey: ['movie_reviews', username], // 쿼리 키
-    queryFn: () => getReviewsByUsername(username), // 데이터를 가져오는 함수
+    queryKey: ['movie_reviews', fullName], // 쿼리 키
+    queryFn: () => getReviewsByUsername(fullName), // 데이터를 가져오는 함수
   });
   if (!data) return { data, isError, isLoading };
   const reviewData = data.map((data) => {
@@ -32,7 +32,7 @@ export const useGetReviews = (username: string) => {
         likes: data.likes,
         postId: data.postId,
         channelId: data.channelId,
-        authorId: data.author,
+        authorId: data.authorId,
       };
     } catch (err) {
       console.error('Failed to parse JSON:', err);
