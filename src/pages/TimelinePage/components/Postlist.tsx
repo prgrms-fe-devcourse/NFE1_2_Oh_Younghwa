@@ -12,7 +12,6 @@ import { Post } from '../model/article.ts';
 import { elapsedText } from '../utility/elapsedText.ts';
 
 import '../scss/timeline.scss';
-import { postLikes } from '../../MovieDetailPage/api/likesApi.ts';
 
 const Postlist = () => {
   //주소창에 따른 채널아이디 받아오기
@@ -73,7 +72,7 @@ const Postlist = () => {
                     {post.comments.length}
                   </div>
                 </div>
-                <div className="option-wrap" onClick={()=>{postLikes(post._id)}}>
+                <div className="option-wrap" onClick={toggleMenu}>
                   <OptionButtonIcon />
                   {isOpen && (
                     <div className="menu-items">
