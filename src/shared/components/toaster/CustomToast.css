@@ -1,0 +1,10 @@
+.msg-description {
+  color: #344054;
+  text-overflow: ellipsis;
+  /* article/text */
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 140%; /* 19.6px */
+  letter-spacing: -0.28px;
+}/*# sourceMappingURL=CustomToast.css.map */
