@@ -59,11 +59,12 @@ export default function ReviewUpdateForm({
     handleCancel();
     setOpenHamburgerId(null);
   };
+  const [hover, setHover] = useState(0);
 
   return (
     <div className="review-update-container">
       <div className="stars">
-        <StarRating rating={formData.rating} setFormData={ratingHandler} />
+        <StarRating hover={hover} setHover={setHover} rating={formData.rating} setFormData={ratingHandler} />
       </div>
       <textarea defaultValue={review} onChange={onChangeHandler} className="review-text" />
       <div className="review-footer">

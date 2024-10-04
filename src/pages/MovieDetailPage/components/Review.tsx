@@ -2,10 +2,12 @@ import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon
 import LikedButtonIcon from '../../../shared/components/atom/icons/LikedButtonIcon';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon';
 import StarIcon from '../../../shared/components/atom/icons/StarIcon';
+import { useGetUserDataById } from '../../../shared/hooks/useGetUserDataById';
 import { useLikesMutation } from '../hook/useLikesMutation';
 import { useReviewMutation } from '../hook/useReviewMutation';
 import { useHamburgerStore } from '../store/hamburgerStore';
 type ReviewProps = {
+  authorId: string;
   rating: number;
   review: string;
   author: string;
@@ -18,6 +20,7 @@ type ReviewProps = {
 };
 //isLiked.length,likes.length
 export default function Review({
+  authorId,
   rating,
   review,
   author,
@@ -28,6 +31,7 @@ export default function Review({
   isAuthor,
   handleEdit,
 }: ReviewProps) {
+  console.log(authorId);
   //리뷰 삭제 로직을 담당하는 커스텀 훅입니다.
   const { deleteReviewMutation } = useReviewMutation();
 
@@ -59,6 +63,7 @@ export default function Review({
       setOpenHamburgerId(postId);
     }
   };
+
   return (
     <div className="review-container">
       <div className="stars">

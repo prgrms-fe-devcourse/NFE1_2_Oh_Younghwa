@@ -8,6 +8,7 @@ import ReviewUpdateForm from './ReviewUpdateForm';
 
 import '../scss/UpdateReview.scss';
 import { useOpenedReviewStore } from '../store/openedReviewFormStore';
+import { useGetUserDataById } from '../../../shared/hooks/useGetUserDataById';
 
 type ReviewProps = {
   rating: number;
@@ -39,7 +40,7 @@ export default function ReviewContainer({
 
   //로그인 한 유저의 정보를 가져옵니다
   const { data } = useTokenValidation();
-
+  const { data: authorData, isLoading } = useGetUserDataById(authorId);
   const { openedReviewId, setOpenedReviewId } = useOpenedReviewStore();
   const isOpenedReview = openedReviewId === postId;
   //현재 로그인한 사용자의 좋아요 리스트에서 _id만 추려서 배열로 만듭니다.
@@ -73,22 +74,24 @@ export default function ReviewContainer({
 
   //리뷰 수정 중일 때 보이는 컴포넌트에 전달할 props입니다.
   //jsx에서 작성하면 가독성이 떨어지기 때문에 따로 분리했습니다.
+  if (isLoading) return <div>로딩중...</div>;
   const reviewUpdateProps = {
     postId,
     channelId,
     rating,
     title,
     likes: likes.length,
-    author,
+    author: authorData?.fullName ?? '',
     createdAt,
     isLiked: isLiked as string[],
     review,
     handleCancel,
   };
   const reviewProps = {
+    authorId,
     rating,
     review,
-    author,
+    author: authorData!.fullName ?? '',
     createdAt,
     isLiked: isLiked as string[],
     postId,
@@ -96,7 +99,6 @@ export default function ReviewContainer({
     isAuthor,
     handleEdit,
   };
-
   //평상시에 보이는 컴포넌트 입니다.
   return <>{isEditing && isOpenedReview ? <ReviewUpdateForm {...reviewUpdateProps} /> : <Review {...reviewProps} />}</>;
 }
