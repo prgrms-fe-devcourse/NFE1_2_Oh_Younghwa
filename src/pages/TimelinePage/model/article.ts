@@ -41,6 +41,7 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
 }
+
 export interface MoviePost {
   likes: string[];
   comments: Comment[];

@@ -3,11 +3,11 @@ import { Link, useParams } from 'react-router-dom';
 
 import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
-import LikedButtonIcon from '../../../shared/components/atom/icons/LikedButtonIcon.tsx';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon.tsx';
 import PlaceholderIcon from '../../../shared/components/atom/icons/PlaceholderIcon.tsx';
 import { useLikesMutation } from '../../MovieDetailPage/hook/useLikesMutation.ts';
 import UpdateModal from '../../WritePostPage/components/UpdateModal';
+import WriteCommentModal from '../../WritePostPage/components/WriteComment.tsx';
 import { useArticles } from '../hooks/useArticles.ts';
 import { usePostMutation } from '../hooks/usePostMutation';
 import { Post } from '../model/article.ts';
@@ -15,17 +15,10 @@ import { elapsedText } from '../utility/elapsedText.ts';
 
 import '../scss/timeline.scss';
 
-type PostProps = {
-  isfullname: boolean;
-};
-
 const Postlist = () => {
   //주소창에 따른 채널아이디 받아오기
   const { channelId } = useParams() as { channelId: string };
   const { data = [], isError, isLoading } = useArticles(channelId);
-
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError) return <div>에러 발생</div>;
 
   //이 리뷰의 주인이 현재 로그인한 사용자인지 확인합니다. 참이면 햄버거 버튼이 보입니다.
   // const isfullname = data?.author.fullName === author;
@@ -53,22 +46,32 @@ const Postlist = () => {
   const { deletePostMutation } = usePostMutation();
 
   //모달온오프
-  const [modalOpen, setModalOpen] = useState(false);
+  const [UpdateModalOpen, setUpdateModalOpen] = useState(false);
+  const [CommentModalOpen, setCommentModalOpen] = useState(false);
 
   //postId props에 반영
   const [nowPostId, setNowPostId] = useState('');
   const [nowPostTitle, setNowPostTitle] = useState('');
+  const [nowPostFullname, setNowPostFullname] = useState('');
+  const [nowPostImg, setNowPostImg] = useState('');
+
+  console.log(data);
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError) return <div>에러 발생</div>;
 
   return (
     <div>
       <div className="postlist-wrap">
         {data?.map((post: Post) => (
           <div key={post?._id} className="post-wrap">
-            {post.author.image ? (
-              <img className="profile-img" src={post.author.image} alt={post.title} />
-            ) : (
-              <PlaceholderIcon />
-            )}
+            <Link to={`/users/${post.author._id}`}>
+              {post.author.image ? (
+                <img className="profile-img" src={post.author.image} alt={post.title} />
+              ) : (
+                <PlaceholderIcon />
+              )}
+            </Link>
             <div className="post-box">
               <div className="post-info">
                 <p className="nickname">{post.author.fullName}</p>
@@ -87,7 +90,18 @@ const Postlist = () => {
                     {post.likes.length}
                   </div>
                   <div className="activity">
-                    <CommentButtonIcon />
+                    <button
+                      className="likes-button"
+                      onClick={() => {
+                        setCommentModalOpen(true);
+                        setNowPostId(post._id);
+                        setNowPostFullname(post.author.fullName);
+                        setNowPostImg(post.author.image);
+                        setNowPostTitle(post.title);
+                      }}
+                    >
+                      <CommentButtonIcon />
+                    </button>
                     {post.comments.length}
                   </div>
                 </div>
@@ -98,10 +112,9 @@ const Postlist = () => {
                       <button
                         className="menu-item edit"
                         onClick={() => {
-                          setModalOpen(true);
+                          setUpdateModalOpen(true);
                           setNowPostId(post._id);
                           setNowPostTitle(post.title);
-                          console.log(nowPostId, nowPostTitle, '체크');
                         }}
                       >
                         수정
@@ -118,13 +131,25 @@ const Postlist = () => {
         ))}
       </div>
 
-      {modalOpen && (
+      {UpdateModalOpen && (
         <UpdateModal
           listPostId={nowPostId}
           listChannelId={channelId}
           listPostTitle={nowPostTitle}
-          isModalOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
+          isUpdateModalOpen={UpdateModalOpen}
+          onClose={() => setUpdateModalOpen(false)}
+        />
+      )}
+
+      {CommentModalOpen && (
+        <WriteCommentModal
+          listPostId={nowPostId}
+          listChannelId={channelId}
+          listFullname={nowPostFullname}
+          listPostTitle={nowPostTitle}
+          isCommentModalOpen={CommentModalOpen}
+          listPostImg={nowPostImg}
+          onClose={() => setCommentModalOpen(false)}
         />
       )}
     </div>

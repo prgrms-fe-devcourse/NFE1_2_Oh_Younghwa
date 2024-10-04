@@ -9,7 +9,7 @@ type CommentProps = {
   comments: Comment[];
 };
 
-export default function PostComment({ comments }: CommentProps) {
+export default function PostCommentList({ comments }: CommentProps) {
   const comment = comments;
 
   return (
