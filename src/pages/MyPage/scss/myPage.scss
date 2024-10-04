@@ -19,7 +19,7 @@
 .mypage-header {
   position: relative;
   box-sizing: border-box;
-  padding: 70px 30px 40px 30px;
+  padding: 70px 30px 0 30px;
   @include display($direction: column);
 }
 .user-profile {
@@ -32,17 +32,18 @@
     height: 98px;
   }
 
-  // &-img-file {
-  //   object-fit: contain;
-  //   width: 100%;
-  //   height: 100%;
-  // }
+  &-img-file {
+    border-radius: 999px;
+    width: 98px;
+    height: 98px;
+    object-fit: contain;
+  }
 
   &-description {
     @include display($justify: flex-start, $direction: column);
     margin-left: 16px;
 
-    .nickname {
+    .header-nickname {
       @include font(pretendard, 22px, normal, 600, 150%, #000);
       margin: 0;
     }
@@ -90,6 +91,7 @@
 }
 
 .follow-btn {
+  @include display($justify: center, $align: center);
   background-color: #7a5af8;
   cursor: pointer;
   border-style: none;

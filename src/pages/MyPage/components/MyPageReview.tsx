@@ -1,56 +1,46 @@
+import { Link } from 'react-router-dom';
+
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import LikedButtonIcon from '../../../shared/components/atom/icons/LikedButtonIcon';
-import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon';
 import StarIcon from '../../../shared/components/atom/icons/StarIcon';
-import { useLikesMutation } from '../hook/useLikesMutation';
-import { useReviewMutation } from '../hook/useReviewMutation';
+import { useLikesMutation } from '../../MovieDetailPage/hook/useLikesMutation';
+import { useReviewMutation } from '../../MovieDetailPage/hook/useReviewMutation';
 type ReviewProps = {
   rating: number;
   review: string;
   author: string;
+  authorId: string;
   createdAt: string;
   isLiked: string[];
   postId: string;
   likes: number;
-  isAuthor: boolean;
-  toggleMenu: () => void;
-  isOpen: boolean;
-  handleEdit: () => void;
+  title: string;
 };
 //isLiked.length,likes.length
-export default function Review({
+export default function MyPageReview({
   rating,
   review,
   author,
+  authorId,
   createdAt,
   isLiked,
   postId,
   likes,
-  isAuthor,
-  toggleMenu,
-  isOpen,
-  handleEdit,
+  title,
 }: ReviewProps) {
-  //리뷰 삭제 로직을 담당하는 커스텀 훅입니다.
-  const { deleteReviewMutation } = useReviewMutation();
-
   //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅입니다.
   const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
-
-  //리뷰 삭제
-  const deleteReview = () => {
-    deleteReviewMutation.mutate(postId);
-  };
-
   //좋아요 요청 전송
   const postLike = () => {
     addLikesMutation.mutate(postId);
   };
+
   //좋아요 취소 요청 전송
   //이 버튼이 보인다는 것은 이미 좋아요를 눌렀다는 뜻입니다.
   const deleteLike = () => {
     deleteLikesMutation.mutate(isLiked[0]!);
   };
+
   return (
     <div className="review-container">
       <div className="stars">
@@ -58,6 +48,9 @@ export default function Review({
           <StarIcon key={i} />
         ))}
       </div>
+      <Link to={`/movie`}>
+        <div className="review-movie-title">{title}</div>
+      </Link>
       <p className="review-text">{review}</p>
       <div className="review-footer">
         <span className="reviewer">{author}</span>
@@ -77,24 +70,6 @@ export default function Review({
             </button>
           )}
           <span className="like-count">{likes}</span>
-        </div>
-        <div className="hamburger-menu">
-          {/* 리뷰 작성자만 보이는 버튼입니다. */}
-          {isAuthor ? (
-            <button className="hamburger-icon" onClick={toggleMenu}>
-              <OptionButtonIcon />
-            </button>
-          ) : null}
-          {isOpen && (
-            <div className="menu-items">
-              <button className="menu-item edit" onClick={handleEdit}>
-                수정
-              </button>
-              <button className="menu-item delete" onClick={deleteReview}>
-                삭제
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </div>

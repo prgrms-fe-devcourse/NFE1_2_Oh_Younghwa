@@ -32,6 +32,7 @@ export default function MyPage() {
         <>
           <MyPageHeader user={data} />
           <UserLog user={data} />
+          {/* 정보수정 버튼 */}
           <button className="edit-btn" onClick={() => setModalOpen(true)}>
             <ProfileSettingButtonIcon />
           </button>

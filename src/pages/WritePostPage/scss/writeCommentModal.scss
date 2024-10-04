@@ -13,17 +13,17 @@ $utility-purple-500: #7a5af8;
   align-items: center;
 }
 
-.modal-box {
+.comment-modal-box {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   background: white;
   border-radius: 8px;
   box-shadow: inset;
-  padding: 20px;
+  padding: 20px 20px 14px 20px;
   width: 600px;
   position: relative;
   box-sizing: border-box;
 
-  .modal-box-title{
+  .comment-box-title{
     width: 560px;
     display: flex;
     color: white;
@@ -34,13 +34,12 @@ $utility-purple-500: #7a5af8;
   }
   
 
-  .modal-top{
+  .comment-modal-top{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     font-size: 14px;
     font-weight: 500;
     line-height: 21px;
-    margin-bottom: 16px;
 
 
     button{
@@ -69,6 +68,11 @@ $utility-purple-500: #7a5af8;
       }
 
     }
+  }
+
+  .divide{
+    width: 100%;
+    margin: 20px 0 20px 0;
   }
 
   .modal-contents-wrap{
@@ -106,9 +110,10 @@ $utility-purple-500: #7a5af8;
   }
 }
 
-  .content-img-select{
+  .comment-img-select{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+
     .submit_button{
       width: 64px;
       height: 32px;
@@ -126,4 +131,84 @@ $utility-purple-500: #7a5af8;
     }
   }
 
+}
+
+.comment-post-wrap{
+  display: flex;
+  gap: 10px;
+
+  .profile-img{
+    height: 32px;
+    object-fit: cover;
+  }
+  .post-box{
+    width: 522px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0 0 6px 0;
+
+    .post-info{
+      display: flex;
+      gap: 8px;
+      line-height: 20px;
+
+      .nickname{
+        font-size: 14px;
+        font-family: 'Pretendard';
+        font-weight: 600;
+        word-Wrap: break-word;
+      }
+      .created{
+        font-size: 12px;
+        font-family: 'Pretendard';
+        font-weight: 300;
+        word-Wrap: break-word;
+      }
+    }
+    .post-contents{
+      font-size: 14px;
+      font-family: 'Pretendard';
+      font-weight: 300;
+      line-height: 19.60px;
+      word-Wrap: break-word;
+
+    }
+    .contents-image{
+      width: 522px;
+      max-height:642px;
+      object-fit: cover;
+      margin: 10px 0 4px 0;
+    }
+    .activity-wrap{
+      display: flex;
+      font-size: 13px;
+      height: 16px;
+      line-height: 16px;
+      justify-content: space-between;
+
+      .activity-side{
+        display: flex;
+        gap: 14px;
+
+        .activity{
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          
+          .likes-button{
+            border: none;
+            background: none;
+            padding: 0;
+            height: 16px;
+          }
+        }
+      }
+      .option-wrap{
+        position: relative;
+
+        
+      }
+    }
+  }
 }

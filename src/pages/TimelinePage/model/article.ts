@@ -17,6 +17,7 @@ export interface User {
   email: string;
   createdAt: string;
   updatedAt: string;
+  username: string;
 }
 
 export interface Channel {
@@ -41,6 +42,7 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
 }
+
 export interface MoviePost {
   likes: string[];
   comments: Comment[];
