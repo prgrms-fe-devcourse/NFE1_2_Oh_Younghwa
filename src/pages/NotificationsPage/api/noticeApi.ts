@@ -1,36 +1,42 @@
 import { reviewAxiosClient } from '../../../shared/utils/axiosClient';
 
 type Author = {
-  _id: string; // 작성자 ID
-  fullName: string; // 작성자 이름
-  image: string; // 작성자 이미지
+  _id: string;
+  fullName: string;
+  image: string;
+  followers : string[]
 };
 
 type Follow = {
   _id: string; // 알림 ID
   user: string; // 사용자 ID
   follower: string; // 팔로워 ID
-  createdAt: string; // 생성일
-  updatedAt: string; // 수정일
 };
 
+type Post = {
+  user : string;
+  _id : string;
+  author : string;
+  title : string
+}
 type Like = {
-  author: Author;
-  postId: string;
-  postTitle: string;
-  postImage: string;
+  author :string;
+  post : Post;
+  user : string;
 };
 
 type Notification = {
+  notificationType : string;
   _id: string;
-  follow?: Follow;
-  like?: Like;
+  follow: Follow;
+  like : Like;
   seen: boolean;
 };
 
 export const getAllNotifications = async (): Promise<Notification[]> => {
   const request = reviewAxiosClient();
   const response = await request.get<Notification[]>(`/notifications`);
+  console.log(response.data)
   return response.data;
 };
 
@@ -41,7 +47,16 @@ export const putNotificationSeen = async (notificationId: string): Promise<void>
 
 export const followUser = async (userId: string): Promise<void> => {
   const request = reviewAxiosClient();
-  await request.post('/follow/create', { userId });
+  const response = await request.post('/follow/create', {
+      userId: userId,
+    });
+  const notificationPayload = {
+      notificationType: 'FOLLOW',
+      notificationTypeId: response.data._id,
+      userId: userId,
+      postId: null,
+  };
+  await request.post('/notifications/create', notificationPayload);
 };
 
 export const getUser = async (userId: string): Promise<Author> => {

@@ -1,0 +1,45 @@
+.movie-list-container {
+  padding: 14px;
+}
+.movie-list-container .movie-list-title {
+  margin: 6px 0px 20px 0px;
+  color: #475467;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.64px;
+}
+.movie-list-container .movie-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(25%, 1fr));
+  max-width: calc(100% - 28px);
+  gap: 10px;
+}
+.movie-list-container .movie-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+.movie-list-container .movie-card .movie-poster {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.movie-list-container .movie-card .movie-title {
+  margin: 0;
+  color: #000;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 150%; /* 22.5px */
+}
+.movie-list-container .movie-card .movie-release {
+  margin: 0;
+  color: #000;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 15px */
+}/*# sourceMappingURL=PopularMovies.css.map */

@@ -6,31 +6,33 @@ import NotificationLike from './Components/NotificationLike';
 import './notifications.scss';
 
 type Author = {
-  _id: string; // 작성자 ID
-  fullName: string; // 작성자 이름
-  image: string; // 작성자 이미지
+  _id: string;
+  fullName: string;
+  image: string;
 };
-
 type Follow = {
   _id: string; // 알림 ID
   user: string; // 사용자 ID
   follower: string; // 팔로워 ID
-  createdAt: string; // 생성일
-  updatedAt: string; // 수정일
 };
 
+type Post = {
+  user : string;
+  _id : string;
+  author : string;
+  title : string
+}
 type Like = {
-  author: Author; // 좋아요 작성자 정보
-  postId: string; // 좋아요가 적용된 포스트 ID
-  postTitle: string; // 포스트 제목
-  postImage: string; // 포스트 이미지
+  author : string;
+  post : Post;
+  user : string;
 };
-
 type Notification = {
-  _id: string; // 알림 ID 추가
-  follow?: Follow; // 팔로우 알림 (optional)
-  like?: Like; // 좋아요 알림 (optional)
-  seen: boolean; // 읽음 여부
+  _id: string;
+  follow: Follow;
+  like : Like;
+  seen: boolean;
+  
 };
 
 const NotificationsPage: React.FC = () => {
@@ -41,6 +43,7 @@ const NotificationsPage: React.FC = () => {
     const fetchNotifications = async () => {
       try {
         const data = await getAllNotifications();
+        console.log(data)
         setNotifications(data);
       } catch (error) {
         console.error('알림 데이터를 가져오는 중 오류 발생:', error);
@@ -56,7 +59,6 @@ const NotificationsPage: React.FC = () => {
       setNotifications((prev) => {
         return prev.map((noti) => {
           if (noti._id === notificationId) {
-            console.log(`알림 ID: ${noti._id}, seen 상태: true`); // 읽음 상태 변경 로그
             return { ...noti, seen: true };
           }
           return noti;
@@ -81,8 +83,6 @@ const NotificationsPage: React.FC = () => {
   };
 
   if (loading) return <div>로딩 중...</div>;
-console.log(notifications)
-  // 알림을 읽음 여부에 따라 정렬
   const sortedNotifications = [...notifications].sort((a, b) => (a.seen === b.seen ? 0 : a.seen ? 1 : -1));
 
   return (
@@ -96,17 +96,25 @@ console.log(notifications)
         {sortedNotifications.map((notification) => (
           <div
             key={notification._id}
-            className={`notifications-wrapper ${notification.seen ? 'read' : 'unread'}`}
-            onClick={() => handleNotificationClick(notification._id)} 
+            className={`notifications-wrapper ${notification.seen ? 'read' : 'unread'}`} 
           >
             {/* 팔로우 알림이 있는 경우 */}
+            <div onClick={() => handleNotificationClick(notification._id)} >
             {notification.follow && (
-              <NotificationFollow notification={notification.follow} />
+              <NotificationFollow
+              notification={notification.follow}
+              userId={notification.follow.user} // userId를 전달
+            />
             )}
+            </div>
             {/* 좋아요 알림이 있는 경우 */}
+            <div onClick={() => handleNotificationClick(notification._id)} >
             {notification.like && (
-              <NotificationLike notification={notification.like} />
+              <NotificationLike 
+              notification={notification.like}
+              />
             )}
+              </div>
           </div>
         ))}
       </div>

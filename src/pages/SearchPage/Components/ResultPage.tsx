@@ -82,7 +82,9 @@ const ResultPage = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
+        <div onClick={()=> setInputValue('')}>
         <InputDeleteIcon />
+        </div>
       </form>
 
       <div className="search-contents-button">

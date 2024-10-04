@@ -7,25 +7,39 @@ type Author = {
   _id: string;
   fullName: string;
   image: string;
+  followers : string[]
 };
 
 type Follow = {
-  follower: string;
-  _id: string;
+  _id: string; // 알림 ID
+  user: string; // 사용자 ID
+  follower: string; // 팔로워 ID
 };
+
 
 interface NotificationFollowProps {
   notification: Follow;
+  userId : string
 }
 
-const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification,  }) => {
+const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, userId }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<Author>();
+  const [isFollowing, setIsFollowing] = useState(false)
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userData = await getUser(notification.follower); // 팔로우한
-      setUser(userData);
+      try {
+        const userData = await getUser(notification.follower);
+        setUser(userData);
+        
+        if (userData.followers.some(follower => 
+          Object.values(follower).includes(userId))){
+          setIsFollowing(true); // 이미 팔로우 중
+        }
+      } catch (error) {
+        console.error("사용자 정보를 가져오는 중 오류 발생:", error);
+      }
     };
     fetchUser();
   }, []);
@@ -37,13 +51,12 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification,  
     await followUser(userId); // 사용자 팔로우 요청
     console.log(`${userId}를 팔로우했습니다.`);
   };
-  console.log(notification._id);
  
   return (
     <div className="notifications-follow">
       {user ? (
         <>
-          <img src={user.image} className="notifications-image" alt={`${user.fullName}의 프로필 이미지`} />
+          <img src={user.image} className="notifications-image" alt={`${user.fullName}의 프로필 이미지`}  onClick={() => handleUserClick(user._id)} />
           <div className="notifications-info">
             <span className="notifications-name" onClick={() => handleUserClick(user._id)}>
               {user.fullName}
@@ -55,10 +68,12 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification,  
             className="notifications-followBtn"
             onClick={(e) => {
               e.stopPropagation();
-              handleFollowUser(user._id);
+              if (!isFollowing) {
+                handleFollowUser(user._id); // 팔로우 요청
+              }
             }}
-          >
-            맞팔로우
+            disabled={isFollowing}>
+             {isFollowing ? '팔로잉중' : '맞팔로우'}
           </button>
         </>
       ) : (
