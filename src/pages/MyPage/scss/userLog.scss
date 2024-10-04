@@ -14,43 +14,47 @@ li {
 li {
   text-align: center;
   box-sizing: border-box;
-  padding: 12px 0;
 }
 
 .mypage-log {
-  margin-top: 23px;
+  margin-top: 40px;
 }
 
 .user-log-list {
   box-sizing: border-box;
-  border-top: 1px solid #e7e7e7;
   display: flex;
   justify-content: space-evenly;
   color: #000;
   @include font(Pretendard, 18px, normal, 400, 150%);
   margin: 0;
-  padding-left: 0;
 
   .article {
     box-sizing: border-box;
+    padding-bottom: 10px;
     flex: 1;
     cursor: pointer;
     border-bottom: 1px solid #e7e7e7;
+    color: #667085;
   }
 
   .review {
     flex: 1;
     cursor: pointer;
+    padding-bottom: 10px;
     border-bottom: 1px solid #e7e7e7;
+    color: #667085;
   }
 
   .likes {
     flex: 1;
     cursor: pointer;
+    padding-bottom: 10px;
     border-bottom: 1px solid #e7e7e7;
+    color: #667085;
   }
 
   .active {
     border-bottom: 1px solid #7a5af8;
+    color: #344054;
   }
 }

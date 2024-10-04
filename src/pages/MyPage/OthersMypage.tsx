@@ -26,7 +26,7 @@ export default function OthersMyPage() {
     //로그인 한 유저인지 확인
     if (token) {
       //접속한 상태에서 'user/접속한 나의 id' 입력하면 '/mypage'로 이동
-      if (userId === myInfo?._id) {
+      if (myInfo && userId === myInfo._id) {
         navigate('/mypage');
       }
     }
@@ -73,7 +73,8 @@ export default function OthersMyPage() {
           {isFollowing === -1 ? (
             <>
               <button className="follow-btn" onClick={() => followHandler(data._id)}>
-                팔로우 <FollowPlusButton />
+                팔로우
+                <FollowPlusButton />
               </button>
             </>
           ) : (
