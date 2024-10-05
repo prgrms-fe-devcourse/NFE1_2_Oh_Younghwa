@@ -5,7 +5,7 @@ import { getReviewsByUsername, Review } from '../api/userApi';
 
 export const useGetReviews = (fullName: string) => {
   const { data, isError, isLoading } = useQuery<Review[]>({
-    queryKey: ['movie_reviews', fullName], // 쿼리 키
+    queryKey: ['personal_reviews', fullName], // 쿼리 키
     queryFn: () => getReviewsByUsername(fullName), // 데이터를 가져오는 함수
   });
   if (!data) return { data, isError, isLoading };

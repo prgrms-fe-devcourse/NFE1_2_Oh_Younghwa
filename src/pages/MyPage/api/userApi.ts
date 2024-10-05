@@ -14,8 +14,8 @@ export interface Review {
 }
 export interface newInfo {
   newName: string;
-  newBio?: string;
-  newImg?: string;
+  newBio?: string | null;
+  newImg?: File | null;
 }
 
 //다른 유저의 마이페이지 보기
@@ -84,7 +84,7 @@ export const getReviewsByUsername = async (fullName: string): Promise<Review[]> 
 };
 
 //사용자 정보 변경
-export const changeUserInfo = async ({ newName, newBio, newImg }: newInfo): Promise<newInfo[]> => {
+export const changeInfo = async ({ newName, newBio }: newInfo) => {
   try {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -92,25 +92,40 @@ export const changeUserInfo = async ({ newName, newBio, newImg }: newInfo): Prom
     }
 
     const request = validateTokenAxiosClient(token);
-    const responses = await Promise.all([
-      newName || newBio
-        ? request.put('/settings/update-user', {
-            fullName: newName,
-            username: newBio,
-          })
-        : null,
-      newImg
-        ? request.put('/users/upload-photo', {
-            isCover: false,
-            image: newImg,
-          })
-        : null,
-    ]);
+    const responses = await request.put('/settings/update-user', {
+      fullName: newName,
+      username: newBio,
+    });
 
-    // null 제외
-    return responses.filter((response) => response !== undefined && response !== null).map((response) => response.data);
+    return responses.data;
   } catch (err) {
     console.error('정보 변경 불가: ', err);
+  }
+};
+
+//사용자 프로필 이미지 변경
+export const changeImg = async ({ newImg }: { newImg: File }) => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('토큰이 없습니다');
+    }
+
+    const formData = new FormData();
+    formData.append('isCover', 'false'); // 문자열로 전달
+    formData.append('image', newImg); // 이미지 파일 추가
+
+    const request = validateTokenAxiosClient(token);
+    const response = await request.post('/users/upload-photo', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      timeout: 5000,
+    });
+
+    return response.data;
+  } catch (err) {
+    console.error('이미지 변경 불가: ', err);
   }
 };
 

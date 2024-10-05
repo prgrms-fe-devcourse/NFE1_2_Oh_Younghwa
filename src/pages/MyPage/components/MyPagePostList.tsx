@@ -1,27 +1,29 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon.tsx';
-
 import PlaceholderIcon from '../../../shared/components/atom/icons/PlaceholderIcon.tsx';
-import { useArticles } from '../../TimelinePage/hooks/useArticles.ts';
+import { useLikesMutation } from '../../MovieDetailPage/hook/useLikesMutation.ts';
 import { usePostMutation } from '../../TimelinePage/hooks/usePostMutation.ts';
-
-import { Post } from '../../TimelinePage/model/article.ts';
+import { Post, User } from '../../TimelinePage/model/article.ts';
 import { elapsedText } from '../../TimelinePage/utility/elapsedText.ts';
 import UpdateModal from '../../WritePostPage/components/UpdateModal.tsx';
+import WriteCommentModal from '../../WritePostPage/components/WriteComment.tsx';
 
 import '../../TimelinePage/scss/timeline.scss';
 
 interface info {
   posts: Post[];
-  fullName?: string;
+  user: User;
 }
 
-const MyPagePostList = ({ posts, fullName }: info) => {
+const MyPagePostList = ({ posts, user }: info) => {
+  //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅
+  const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
   const { channelId } = useParams() as { channelId: string };
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => {
@@ -32,11 +34,22 @@ const MyPagePostList = ({ posts, fullName }: info) => {
   const { deletePostMutation } = usePostMutation();
 
   //모달온오프
-  const [modalOpen, setModalOpen] = useState(false);
+  const [UpdateModalOpen, setUpdateModalOpen] = useState(false);
+  const [CommentModalOpen, setCommentModalOpen] = useState(false);
 
   //postId 반영하기
   const [nowPostId, setNowPostId] = useState('');
   const [nowPostTitle, setNowPostTitle] = useState('');
+  const [nowPostFullname, setNowPostFullname] = useState('');
+  const [nowPostImg, setNowPostImg] = useState('');
+
+  const moveToPage = (otherUserId: string) => {
+    if (user._id !== undefined) {
+      if (user._id !== otherUserId) {
+        navigate(`/users/${otherUserId}`);
+      }
+    }
+  };
 
   return (
     <div>
@@ -44,17 +57,17 @@ const MyPagePostList = ({ posts, fullName }: info) => {
         {posts &&
           posts.map((post: Post) => (
             <div key={post?._id} className="post-wrap">
-              <Link to={`/users/${post.author._id}`}>
+              <div className="img-box" onClick={() => moveToPage(post.author._id)}>
                 {post.author.image ? (
                   <img className="profile-img" src={post.author.image} alt={post.title} />
                 ) : (
                   <PlaceholderIcon />
                 )}
-              </Link>
+              </div>
               <div className="post-box">
                 <div className="post-info">
-                  {fullName ? (
-                    <p className="nickname">{fullName}</p>
+                  {user ? (
+                    <p className="nickname">{user.fullName}</p>
                   ) : (
                     <p className="nickname">{post.author.fullName}</p>
                   )}
@@ -68,11 +81,24 @@ const MyPagePostList = ({ posts, fullName }: info) => {
                 <div className="activity-wrap">
                   <div className="activity-side">
                     <div className="activity">
-                      <LikeButtonIcon />
+                      <button className="likes-button" onClick={() => addLikesMutation.mutate(post._id)}>
+                        <LikeButtonIcon />
+                      </button>
                       {post.likes.length}
                     </div>
                     <div className="activity">
-                      <CommentButtonIcon />
+                      <button
+                        className="likes-button"
+                        onClick={() => {
+                          setCommentModalOpen(true);
+                          setNowPostId(post._id);
+                          setNowPostFullname(post.author.fullName);
+                          setNowPostImg(post.author.image);
+                          setNowPostTitle(post.title);
+                        }}
+                      >
+                        <CommentButtonIcon />
+                      </button>
                       {post.comments.length}
                     </div>
                   </div>
@@ -83,10 +109,9 @@ const MyPagePostList = ({ posts, fullName }: info) => {
                         <button
                           className="menu-item edit"
                           onClick={() => {
-                            setModalOpen(true);
+                            setUpdateModalOpen(true);
                             setNowPostId(post._id);
                             setNowPostTitle(post.title);
-                            console.log(nowPostId, nowPostTitle, '체크');
                           }}
                         >
                           수정
@@ -97,20 +122,31 @@ const MyPagePostList = ({ posts, fullName }: info) => {
                       </div>
                     )}
                   </div>
-
                 </div>
               </div>
             </div>
           ))}
       </div>
 
-      {modalOpen && (
+      {UpdateModalOpen && (
         <UpdateModal
           listPostId={nowPostId}
           listChannelId={channelId}
           listPostTitle={nowPostTitle}
-          isModalOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
+          isUpdateModalOpen={UpdateModalOpen}
+          onClose={() => setUpdateModalOpen(false)}
+        />
+      )}
+
+      {CommentModalOpen && (
+        <WriteCommentModal
+          listPostId={nowPostId}
+          listChannelId={channelId}
+          listFullname={nowPostFullname}
+          listPostTitle={nowPostTitle}
+          isCommentModalOpen={CommentModalOpen}
+          listPostImg={nowPostImg}
+          onClose={() => setCommentModalOpen(false)}
         />
       )}
     </div>

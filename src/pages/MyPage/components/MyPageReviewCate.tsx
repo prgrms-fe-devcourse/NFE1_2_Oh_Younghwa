@@ -12,6 +12,8 @@ type fullname = {
 
 export default function MyPageReviewCate({ fullName }: fullname) {
   const { data, isLoading } = useGetReviews(fullName);
+  const check = data?.map((data) => data?.author);
+  console.log(check);
 
   if (isLoading) return <div>로딩중</div>;
 

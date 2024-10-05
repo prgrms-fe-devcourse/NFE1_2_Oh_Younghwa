@@ -34,13 +34,11 @@ export default function MyPageReview({
   const postLike = () => {
     addLikesMutation.mutate(postId);
   };
-
   //좋아요 취소 요청 전송
   //이 버튼이 보인다는 것은 이미 좋아요를 눌렀다는 뜻입니다.
   const deleteLike = () => {
     deleteLikesMutation.mutate(isLiked[0]!);
   };
-
   return (
     <div className="review-container">
       <div className="stars">

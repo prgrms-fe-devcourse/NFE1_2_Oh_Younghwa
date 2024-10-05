@@ -1,12 +1,21 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { changeUserInfo, newInfo } from '../api/userApi';
+import { changeImg, changeInfo, newInfo } from '../api/userApi';
 
 export const useEditProfile = () => {
   const queryClient = useQueryClient();
 
   const editMutation = useMutation({
-    mutationFn: ({ newName, newBio, newImg }: newInfo) => changeUserInfo({ newName, newBio, newImg }),
+    mutationFn: async ({ newName, newBio, newImg }: newInfo) => {
+      // 첫 번째 함수 호출 (사용자 정보 변경)
+      if (newName || newBio) {
+        await changeInfo({ newName, newBio });
+      }
+      // 두 번째 함수 호출 (이미지 변경)
+      if (newImg) {
+        await changeImg({ newImg });
+      }
+    },
 
     onSuccess: (result) => {
       console.log(`프로필이 변경되었습니다.`, result);

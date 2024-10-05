@@ -43,3 +43,53 @@
     }
   }
 }
+
+.profile-img-select {
+  &-preview {
+    width: 63px;
+    height: 63px;
+    object-fit: cover;
+    border-radius: 999px;
+  }
+}
+
+.submit-btn {
+  position: absolute;
+  display: flex;
+  width: 559px;
+  height: 42px;
+  padding: 10px 259px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #182230;
+  color: #ffffff;
+  bottom: 14px;
+}
+
+input[type='text'] {
+  border-style: none;
+  outline: none;
+  width: 559px;
+  border-bottom: 1px solid #e7e7e7;
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 18px */
+  letter-spacing: -0.228px;
+  box-sizing: border-box;
+  padding: 9px 0;
+}
+
+label {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 18px */
+  letter-spacing: -0.228px;
+}

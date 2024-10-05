@@ -61,7 +61,7 @@ const UserLog = ({ user }: UserLogProps) => {
       {log === 'articles' &&
         (postList.length > 0 ? (
           <div>
-            <MyPagePostList posts={postList} fullName={user.fullName} />
+            <MyPagePostList posts={postList} user={user} />
           </div>
         ) : (
           <p>작성한 게시글이 없습니다:&#41;</p>
@@ -70,7 +70,7 @@ const UserLog = ({ user }: UserLogProps) => {
       {/* 영화리뷰 결과 */}
       {log === 'reviews' && (
         <div>
-          <MyPageReviewCate fullName={user.fullName} />
+          <MyPageReviewCate fullName={user._id} />
         </div>
       )}
 
@@ -78,7 +78,7 @@ const UserLog = ({ user }: UserLogProps) => {
       {log === 'likes' &&
         (likeList.length > 0 ? (
           <div>
-            <MyPagePostList posts={likeList} />
+            <MyPagePostList posts={likeList} user={user} />
           </div>
         ) : (
           <p>조회된 게시글이 없습니다:&#41;</p>
