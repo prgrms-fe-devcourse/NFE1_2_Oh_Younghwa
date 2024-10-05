@@ -85,7 +85,22 @@
 }
 
 .search-container {
-  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family:
+    'Pretendard Variable',
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
   display: flex;
   flex-direction: column;
   margin-top: 25px;
@@ -100,7 +115,7 @@
   height: 32px;
   border-radius: 50%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .search-container .search-post .search-post-detail {
   width: 522px;
@@ -115,19 +130,19 @@
 }
 .search-container .search-post .search-post-detail .search-post-info .search-post-name {
   font-size: 14px;
-  font-family: "Pretendard";
+  font-family: 'Pretendard';
   font-weight: 600;
   word-wrap: break-word;
 }
 .search-container .search-post .search-post-detail .search-post-info .search-post-updated {
   font-size: 12px;
-  font-family: "Pretendard";
+  font-family: 'Pretendard';
   font-weight: 300;
   word-wrap: break-word;
 }
 .search-container .search-post .search-post-detail .search-post-title {
   font-size: 14px;
-  font-family: "Pretendard";
+  font-family: 'Pretendard';
   font-weight: 300;
   line-height: 19.6px;
   word-wrap: break-word;
@@ -136,7 +151,7 @@
   width: 522px;
   max-height: 642px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   margin: 10px 0 4px 0;
 }
 .search-container .search-post .search-post-detail .search-post-icons {
@@ -172,7 +187,7 @@
   height: 32px;
   border-radius: 50%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 .search-container .search-user .search-user-info {
   display: flex;
@@ -197,4 +212,4 @@
   font-family: Pretendard;
   font-size: 12px;
   color: var(--colors-text-text-secondary-500, #6f6f6f);
-}/*# sourceMappingURL=search.css.map */
+} /*# sourceMappingURL=search.css.map */

@@ -19,7 +19,6 @@ const SearchPage = () => {
       </form>
 
       <div className="recommend-post">
-        <h3>추천 게시물</h3>
         <RecommendPost />
       </div>
     </div>
