@@ -19,7 +19,7 @@ type User = {
   _id: string;
   fullName: string;
   followers: [];
-  messages: string;
+  username: string;
   image: string;
 };
 
@@ -224,7 +224,7 @@ const ResultPage = () => {
                   <div className="search-user-info">
                     <h4 className="search-user-name">{user.fullName}</h4>
                     <p className="search-user-followerNum">팔로워{user.followers.length}명</p>
-                    <p className="search-user-message">{user.messages}</p>
+                    <p className="search-user-message">{user.username}</p>
                   </div>
                 </Link>
               </div>

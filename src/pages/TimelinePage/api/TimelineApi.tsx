@@ -12,7 +12,6 @@ type PostRequest = {
 export const getArticles = async (channelId: string): Promise<Post[]> => {
   try {
     const response = await postApiAxiosClient.get<Post[]>(`/posts/channel/${channelId}`);
-    console.log('🚀 ~ getArticles ~ response:', response);
     return response.data;
   } catch (error) {
     console.error('Error fetching articles:', error);

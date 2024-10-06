@@ -9,7 +9,6 @@ import { useLikesMutation } from '../../MovieDetailPage/hook/useLikesMutation.ts
 import UpdateModal from '../../WritePostPage/components/UpdateModal';
 import WriteCommentModal from '../../WritePostPage/components/WriteComment.tsx';
 import { useArticles } from '../hooks/useArticles.ts';
-import { useLikesMutationInTimeLine } from '../hooks/useLikesMutationInTimeLine.ts';
 import { usePostMutation } from '../hooks/usePostMutation';
 import { Post } from '../model/article.ts';
 import { elapsedText } from '../utility/elapsedText.ts';
@@ -29,7 +28,7 @@ const Postlist = () => {
   // const isLiked = data.likes.map((like) => findString(likesList, like));
 
   //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅
-  const { addLikesMutation, deleteLikesMutation } = useLikesMutationInTimeLine();
+  const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
 
   //좋아요 취소 요청 전송
   //이 버튼이 보인다는 것은 이미 좋아요를 눌렀다는 뜻입니다.

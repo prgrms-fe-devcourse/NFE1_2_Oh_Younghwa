@@ -49,7 +49,7 @@ const NotificationLike: React.FC<NotificationLikeProps> = ({ notification }) => 
           <div className="notification-like">
             <LikeButtonIcon />
             <Link to={`/users/${user._id}`}>
-              {user.image ? <img className="profile-img" src={user.image} /> : <PlaceholderIcon />}
+              {user.image ? <img className="notifications-image" src={user.image} /> : <PlaceholderIcon />}
             </Link>
 
             <span className="notifications-name">

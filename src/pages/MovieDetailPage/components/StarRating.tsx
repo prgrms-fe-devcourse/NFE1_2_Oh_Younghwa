@@ -23,10 +23,9 @@ const StarIcon = ({ filled, onClick, onMouseEnter, onMouseLeave }: StarIconProps
 type StarRatingProps = {
   setFormData: (rating: number) => void;
   rating: number;
-  hover: number;
-  setHover: (rating: number) => void;
 };
-const StarRating = ({ setFormData, rating, hover, setHover }: StarRatingProps) => {
+const StarRating = ({ setFormData, rating = 0 }: StarRatingProps) => {
+  const [hover, setHover] = useState(0);
   const onRatingChange = (rating: number) => {
     setFormData(rating);
   };

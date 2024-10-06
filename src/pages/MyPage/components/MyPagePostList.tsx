@@ -1,30 +1,25 @@
 import { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon.tsx';
 import PlaceholderIcon from '../../../shared/components/atom/icons/PlaceholderIcon.tsx';
-import { useLikesMutation } from '../../MovieDetailPage/hook/useLikesMutation.ts';
+import { useArticles } from '../../TimelinePage/hooks/useArticles.ts';
 import { usePostMutation } from '../../TimelinePage/hooks/usePostMutation.ts';
-import { Post, User } from '../../TimelinePage/model/article.ts';
+import { Post } from '../../TimelinePage/model/article.ts';
 import { elapsedText } from '../../TimelinePage/utility/elapsedText.ts';
 import UpdateModal from '../../WritePostPage/components/UpdateModal.tsx';
-import WriteCommentModal from '../../WritePostPage/components/WriteComment.tsx';
 
 import '../../TimelinePage/scss/timeline.scss';
 
 interface info {
   posts: Post[];
-  user?: User;
+  fullName?: string;
 }
 
-const MyPagePostList = ({ posts, user }: info) => {
-  const { userId } = useParams();
-  //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅
-  const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
+const MyPagePostList = ({ posts, fullName }: info) => {
   const { channelId } = useParams() as { channelId: string };
-  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => {
@@ -35,16 +30,11 @@ const MyPagePostList = ({ posts, user }: info) => {
   const { deletePostMutation } = usePostMutation();
 
   //모달온오프
-  const [UpdateModalOpen, setUpdateModalOpen] = useState(false);
-  const [CommentModalOpen, setCommentModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   //postId 반영하기
   const [nowPostId, setNowPostId] = useState('');
   const [nowPostTitle, setNowPostTitle] = useState('');
-  const [nowPostFullname, setNowPostFullname] = useState('');
-  const [nowPostImg, setNowPostImg] = useState('');
-
-  console.log(user?.image);
 
   return (
     <div>
@@ -52,12 +42,20 @@ const MyPagePostList = ({ posts, user }: info) => {
         {posts &&
           posts.map((post: Post) => (
             <div key={post?._id} className="post-wrap">
-              <div className="img-box">
-                {user?.image ? <img className="profile-img" src={user?.image} alt={post.title} /> : <PlaceholderIcon />}
-              </div>
+              <Link to={`/users/${post.author._id}`}>
+                {post.author.image ? (
+                  <img className="profile-img" src={post.author.image} alt={post.title} />
+                ) : (
+                  <PlaceholderIcon />
+                )}
+              </Link>
               <div className="post-box">
                 <div className="post-info">
-                  <p className="nickname">{user?.fullName}</p>
+                  {fullName ? (
+                    <p className="nickname">{fullName}</p>
+                  ) : (
+                    <p className="nickname">{post.author.fullName}</p>
+                  )}
                   <p className="created">{elapsedText(new Date(post.createdAt))}</p>
                 </div>
 
@@ -68,24 +66,11 @@ const MyPagePostList = ({ posts, user }: info) => {
                 <div className="activity-wrap">
                   <div className="activity-side">
                     <div className="activity">
-                      <button className="likes-button" onClick={() => addLikesMutation.mutate(post._id)}>
-                        <LikeButtonIcon />
-                      </button>
+                      <LikeButtonIcon />
                       {post.likes.length}
                     </div>
                     <div className="activity">
-                      <button
-                        className="likes-button"
-                        onClick={() => {
-                          setCommentModalOpen(true);
-                          setNowPostId(post._id);
-                          setNowPostFullname(post.author.fullName);
-                          setNowPostImg(post.author.image);
-                          setNowPostTitle(post.title);
-                        }}
-                      >
-                        <CommentButtonIcon />
-                      </button>
+                      <CommentButtonIcon />
                       {post.comments.length}
                     </div>
                   </div>
@@ -96,9 +81,10 @@ const MyPagePostList = ({ posts, user }: info) => {
                         <button
                           className="menu-item edit"
                           onClick={() => {
-                            setUpdateModalOpen(true);
+                            setModalOpen(true);
                             setNowPostId(post._id);
                             setNowPostTitle(post.title);
+                            console.log(nowPostId, nowPostTitle, '체크');
                           }}
                         >
                           수정
@@ -115,25 +101,13 @@ const MyPagePostList = ({ posts, user }: info) => {
           ))}
       </div>
 
-      {UpdateModalOpen && (
+      {modalOpen && (
         <UpdateModal
           listPostId={nowPostId}
           listChannelId={channelId}
           listPostTitle={nowPostTitle}
-          isUpdateModalOpen={UpdateModalOpen}
-          onClose={() => setUpdateModalOpen(false)}
-        />
-      )}
-
-      {CommentModalOpen && (
-        <WriteCommentModal
-          listPostId={nowPostId}
-          listChannelId={channelId}
-          listFullname={nowPostFullname}
-          listPostTitle={nowPostTitle}
-          isCommentModalOpen={CommentModalOpen}
-          listPostImg={nowPostImg}
-          onClose={() => setCommentModalOpen(false)}
+          isModalOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
         />
       )}
     </div>

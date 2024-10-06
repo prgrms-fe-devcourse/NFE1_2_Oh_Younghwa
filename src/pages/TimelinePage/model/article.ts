@@ -54,7 +54,6 @@ export interface MoviePost {
   author: string;
   createdAt: string;
   updatedAt: string;
-  detailDate: string;
 }
 export interface PostListResponse {
   results: Post[];

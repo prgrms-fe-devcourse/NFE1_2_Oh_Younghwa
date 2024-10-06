@@ -19,6 +19,7 @@ import ResultPage from './pages/SearchPage/Components/ResultPage.tsx';
 import SearchPage from './pages/SearchPage/SearchPage.tsx';
 import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
 import TimelinePage from './pages/TimelinePage/TimelinePage.tsx';
+import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
 
 import './reset.css';
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
         errorElement: <div>404 Not Found</div>,
       },
       {
-        path: '/movie/detail',
+        path: '/movie/:movieId',
         element: <MovieDetailPage />,
         errorElement: <div>404 Not Found</div>,
       },
@@ -91,8 +92,10 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <CookiesProvider>
-      <RouterProvider router={router} />
-      <ToastContainer limit={5} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+        <ToastContainer limit={5} />
+      </Provider>
     </CookiesProvider>
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>,
