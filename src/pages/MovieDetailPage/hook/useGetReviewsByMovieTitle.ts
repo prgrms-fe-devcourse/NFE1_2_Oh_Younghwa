@@ -35,7 +35,6 @@ export const useGetReviewsByMovieTitle = ({ title }: MovieTitle) => {
       postId: data._id,
       channelId: data.channel,
       authorId: data.author,
-      detailData: data.createdAt,
     };
   });
 

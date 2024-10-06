@@ -15,7 +15,7 @@ export const Msg = ({ text }: ToastProps) => {
 };
 const defaultToastProps: ToastOptions<unknown> = {
   position: 'bottom-right',
-  autoClose: 2500,
+  autoClose: 2000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,

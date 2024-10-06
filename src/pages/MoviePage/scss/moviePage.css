@@ -1,0 +1,35 @@
+.scroll-container {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  height: 100%;
+}
+
+.search-bar {
+  display: flex;
+  padding: 10px 14px;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #7a5af8;
+  background: #f4f3ff;
+}
+.search-bar .search-icon {
+  width: 20px;
+  height: 20px;
+}
+.search-bar .search-input {
+  flex: 1;
+  overflow: hidden;
+  color: #98a2b3;
+  background: #f4f3ff;
+  border: none;
+  /* Text md/Regular */
+  font-size: 16ox;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  outline: none;
+}
+
+.a-movie-card {
+  text-decoration-line: none;
+}/*# sourceMappingURL=moviePage.css.map */

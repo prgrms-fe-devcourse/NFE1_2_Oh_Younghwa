@@ -12,12 +12,11 @@
       position: absolute;
       top: 50%; /* 버튼 높이의 50%에서 시작 */
       transform: translateY(-50%); /* 중앙 정렬 */
-      left: 62px;
+      left: 75px;
       height: 45%; /* 버튼 높이의 50%로 줄임 */
       border-right: 1px solid #000000; /* 선의 스타일과 색상 */
     }
     .selected-button {
-      cursor: pointer;
       border: none;
       background: none;
       color: #7a5af8;
@@ -26,15 +25,15 @@
       font-style: normal;
       font-weight: 600;
       line-height: 150%;
-
+      // padding-right: 11px;
       position: relative;
     }
     .not-selected-button {
-      cursor: pointer;
       border: none;
       background: none;
       color: #afafaf;
-
+      // padding-left: 11px;
+      // border-left: 1px solid #000000;
       font-family: Inter;
       font-size: 14px;
       font-style: normal;

@@ -3,7 +3,6 @@ import { ChangeEvent, useState } from 'react';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import LikedButtonIcon from '../../../shared/components/atom/icons/LikedButtonIcon';
 import { useReviewMutation } from '../hook/useReviewMutation';
-import { useHamburgerStore } from '../store/hamburgerStore';
 
 import StarRating from './StarRating';
 type ReviewUpdateFormProps = {
@@ -17,6 +16,7 @@ type ReviewUpdateFormProps = {
   isLiked: string[];
   review: string;
   handleCancel: () => void;
+  setIsEditing: (value: boolean) => void;
 };
 export default function ReviewUpdateForm({
   postId,
@@ -29,9 +29,9 @@ export default function ReviewUpdateForm({
   isLiked,
   review,
   handleCancel,
+  setIsEditing,
 }: ReviewUpdateFormProps) {
   const { updateReviewMutation } = useReviewMutation();
-  const { setOpenHamburgerId } = useHamburgerStore();
 
   //리뷰 수정 중일 때, 수정할 데이터를 담는 state입니다.
   const [formData, setFormData] = useState({ rating, review, title, author });
@@ -51,20 +51,12 @@ export default function ReviewUpdateForm({
   //리뷰 수정 중, 저장 버튼을 눌렀을 때 실행되는 함수입니다.
   const handleSave = () => {
     updateReviewMutation.mutate({ channelId, image: null, title: JSON.stringify(formData), postId });
-    handleCancel();
-    setOpenHamburgerId(null);
+    setIsEditing(false);
   };
-
-  const updateCancelAndCloseHamburger = () => {
-    handleCancel();
-    setOpenHamburgerId(null);
-  };
-  const [hover, setHover] = useState(0);
-
   return (
     <div className="review-update-container">
       <div className="stars">
-        <StarRating hover={hover} setHover={setHover} rating={formData.rating} setFormData={ratingHandler} />
+        <StarRating rating={formData.rating} setFormData={ratingHandler} />
       </div>
       <textarea defaultValue={review} onChange={onChangeHandler} className="review-text" />
       <div className="review-footer">
@@ -85,7 +77,7 @@ export default function ReviewUpdateForm({
           <span className="like-count">{likes}</span>
         </div>
         <div className="buttons">
-          <button className="cancel-button" onClick={updateCancelAndCloseHamburger}>
+          <button className="cancel-button" onClick={handleCancel}>
             취소하기
           </button>
           <button className="edit-button" onClick={handleSave}>
