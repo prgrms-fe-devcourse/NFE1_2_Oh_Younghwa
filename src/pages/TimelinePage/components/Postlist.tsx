@@ -9,12 +9,12 @@ import { useLikesMutation } from '../../MovieDetailPage/hook/useLikesMutation.ts
 import UpdateModal from '../../WritePostPage/components/UpdateModal';
 import WriteCommentModal from '../../WritePostPage/components/WriteComment.tsx';
 import { useArticles } from '../hooks/useArticles.ts';
+import { useLikesMutationInTimeLine } from '../hooks/useLikesMutationInTimeLine.ts';
 import { usePostMutation } from '../hooks/usePostMutation';
 import { Post } from '../model/article.ts';
 import { elapsedText } from '../utility/elapsedText.ts';
 
 import '../scss/timeline.scss';
-import { useLikesMutationInTimeLine } from '../hooks/useLikesMutationInTimeLine.ts';
 
 const Postlist = () => {
   //주소창에 따른 채널아이디 받아오기

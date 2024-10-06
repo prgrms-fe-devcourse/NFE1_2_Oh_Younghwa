@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import useDebounce from '../../../shared/hooks/useDebounce';
 import { useSearchedMovies } from '../hooks/useSearchMovies';
 
 import MovieListContainer from './MovieListContainer';
-import SearchLoadPage from './SearchLoadPage';
 import NoResult from './NoResult';
+import SearchLoadPage from './SearchLoadPage';
 
 type MovieSearchResultProps = {
   searchKeyword: string;

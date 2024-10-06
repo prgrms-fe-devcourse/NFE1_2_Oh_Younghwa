@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
@@ -6,8 +6,12 @@ import InputDeleteIcon from '../../../shared/components/atom/icons/InputDeleteIc
 import InputSearchIcon from '../../../shared/components/atom/icons/InputSearchIcon';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon';
+import PlaceholderIcon from '../../../shared/components/atom/icons/PlaceholderIcon';
+import { useLikesMutation } from '../../MovieDetailPage/hook/useLikesMutation';
 import { elapsedText } from '../../TimelinePage/utility/elapsedText';
-import { searchPosts, searchUsers } from '../api/searchApi';
+import UpdateModal from '../../WritePostPage/components/UpdateModal';
+import WriteCommentModal from '../../WritePostPage/components/WriteComment';
+import { searchPosts, searchTags, searchUsers } from '../api/searchApi';
 
 import '../search.scss';
 
@@ -39,6 +43,7 @@ const ResultPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('post');
   const [inputValue, setInputValue] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult>({ users: [], posts: [], tags: [] });
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // 카테고리 클릭 핸들러
   const handleCategoryClick = (category: string) => {
@@ -53,19 +58,24 @@ const ResultPage = () => {
   const fetchSearchResult = async () => {
     const users = await searchUsers(inputValue);
     const posts = await searchPosts(inputValue);
-    const tags = await searchPosts(inputValue);
+    const tags = await searchTags(inputValue);
     setSearchResults({ users, posts, tags }); // 검색 결과 업데이트
   };
 
   useEffect(() => {
     const fetchSearchResults = async () => {
-      if (inputValue) {
+      if (inputValue === '') {
+        // 입력값이 비어있을 때 검색 결과 초기화
+        setSearchResults({ users: [], posts: [], tags: [] });
+      } else {
         const users = await searchUsers(inputValue);
         const posts = await searchPosts(inputValue);
-        const tags = await searchPosts(inputValue);
+        const tags = await searchTags(inputValue);
         setSearchResults({ users, posts, tags });
-      } else {
-        setSearchResults({ users: [], posts: [], tags: [] });
+      }
+
+      if (inputRef.current) {
+        inputRef.current.focus();
       }
     };
 
@@ -81,9 +91,15 @@ const ResultPage = () => {
           type="search"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
+          ref={inputRef}
         />
-        <div onClick={()=> setInputValue('')}>
-        <InputDeleteIcon />
+        <div
+          onClick={() => {
+            setInputValue('');
+            setSearchResults({ users: [], posts: [], tags: [] });
+          }}
+        >
+          <InputDeleteIcon />
         </div>
       </form>
 
@@ -107,18 +123,25 @@ const ResultPage = () => {
           사용자
         </button>
       </div>
-
       {selectedCategory === 'post' && (
         <div className="search-container">
           {searchResults.posts.length > 0 ? (
             searchResults.posts.map((post, index) => (
               <div key={index} className="search-post">
-                <img className="search-post-profileimg" src={post.author.image} alt="profile-img" />
+                <Link to={`/users/${post.author._id}`}>
+                  {post.author.image ? (
+                    <img className="search-post-profileimg" src={post.author.image} />
+                  ) : (
+                    <PlaceholderIcon />
+                  )}
+                </Link>
                 <div className="search-post-detail">
-                  <div className="search-post-info">
-                    <p className="search-post-name">{post.author.fullName}</p>
-                    <p className="search-post-updated">{elapsedText(new Date(post.updatedAt))}</p>
-                  </div>
+                  <Link to={`/users/${post.author._id}`}>
+                    <div className="search-post-info">
+                      <p className="search-post-name">{post.author.fullName}</p>
+                      <p className="search-post-updated">{elapsedText(new Date(post.updatedAt))}</p>
+                    </div>
+                  </Link>
                   <Link to={`/posts/${post._id}`}>
                     <h3 className="search-post-title">{post.title}</h3>
                     {post.image ? <img className="search-post-image" src={post.image} /> : null}
@@ -134,9 +157,6 @@ const ResultPage = () => {
                         {post.comments.length}
                       </div>
                     </div>
-                    <div className="search-post-options">
-                      <OptionButtonIcon />
-                    </div>
                   </div>
                 </div>
               </div>
@@ -149,7 +169,45 @@ const ResultPage = () => {
 
       {selectedCategory === 'tag' && (
         <div className="search-container">
-          {searchResults.tags.length > 0 ? <p>태그 검색 결과</p> : <p>게시글이 없습니다.</p>}
+          {searchResults.tags.length > 0 ? (
+            searchResults.tags.map((post, index) => (
+              <div key={index} className="search-post">
+                <Link to={`/users/${post.author._id}`}>
+                  {post.author.image ? (
+                    <img className="search-post-profileimg" src={post.author.image} />
+                  ) : (
+                    <PlaceholderIcon />
+                  )}
+                </Link>
+                <div className="search-post-detail">
+                  <Link to={`/users/${post.author._id}`}>
+                    <div className="search-post-info">
+                      <p className="search-post-name">{post.author.fullName}</p>
+                      <p className="search-post-updated">{elapsedText(new Date(post.updatedAt))}</p>
+                    </div>
+                  </Link>
+                  <Link to={`/posts/${post._id}`}>
+                    <h3 className="search-post-title">{post.title}</h3>
+                    {post.image ? <img className="search-post-image" src={post.image} /> : null}
+                  </Link>
+                  <div className="search-post-icons">
+                    <div className="search-post-icondetaile">
+                      <div className="search-post-likeNum">
+                        <LikeButtonIcon />
+                        {post.likes.length}
+                      </div>
+                      <div className="search-post-commentNum">
+                        <CommentButtonIcon />
+                        {post.comments.length}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>태그가 없습니다.</p>
+          )}
         </div>
       )}
 
@@ -158,12 +216,15 @@ const ResultPage = () => {
           {searchResults.users.length > 0 ? (
             searchResults.users.map((user, index) => (
               <div key={index} className="search-user">
-                <img src={user.image} className="search-user-image" alt="profile" />
+                <Link to={`/users/${user._id}`}>
+                  {user.image ? <img className="search-user-image" src={user.image} /> : <PlaceholderIcon />}
+                </Link>
+
                 <Link to={`/users/${user._id}`}>
                   <div className="search-user-info">
                     <h4 className="search-user-name">{user.fullName}</h4>
                     <p className="search-user-followerNum">팔로워{user.followers.length}명</p>
-                    <p className="search-user-message">{user.messages}한줄</p>
+                    <p className="search-user-message">{user.messages}</p>
                   </div>
                 </Link>
               </div>
@@ -173,6 +234,28 @@ const ResultPage = () => {
           )}
         </div>
       )}
+
+      {/* {UpdateModalOpen && (
+        <UpdateModal
+          listPostId={nowPostId}
+          listChannelId={'66f50d3001d4aa076bcbdb99'}
+          listPostTitle={nowPostTitle}
+          isUpdateModalOpen={UpdateModalOpen}
+          onClose={() => setUpdateModalOpen(false)}
+        />
+      )}
+
+      {CommentModalOpen && (
+        <WriteCommentModal
+          listPostId={nowPostId}
+          listChannelId={'66f50d3001d4aa076bcbdb99'}
+          listFullname={nowPostFullname}
+          listPostTitle={nowPostTitle}
+          isCommentModalOpen={CommentModalOpen}
+          listPostImg={nowPostImg}
+          onClose={() => setCommentModalOpen(false)}
+        />
+      )} */}
     </div>
   );
 };

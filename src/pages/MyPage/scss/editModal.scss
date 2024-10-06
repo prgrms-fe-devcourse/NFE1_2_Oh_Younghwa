@@ -1,3 +1,18 @@
+@mixin font($family, $size, $style, $weight, $height, $color) {
+  font-family: $family;
+  font-size: $size;
+  font-style: $style;
+  font-weight: $weight;
+  line-height: $height;
+  color: $color;
+}
+@mixin display($justify: flex-start, $align: stretch, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -5,9 +20,7 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include display(center, center);
 }
 
 .modal {
@@ -16,30 +29,92 @@
   box-shadow: inset;
   padding: 20px;
   position: relative;
-  width: 603px;
-  height: 306px;
-  position: relative;
+  width: 600px;
+  height: 338px;
   box-sizing: border-box;
 
   &-logout {
     color: #000;
+    @include font(Inter, 12px, normal, 600, 150%, #000000);
     text-align: center;
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 150%; /* 18px */
     letter-spacing: -0.228px;
     border-style: none;
     background-color: transparent;
     cursor: pointer;
     position: absolute;
-    top: 20px;
-    right: 30px;
+    bottom: 76px;
+    right: 32px;
     padding: 0;
 
     &:hover {
       text-decoration: underline;
     }
   }
+}
+
+.profile-img-select {
+  background-color: #d9d9d9;
+  @include display(center, center);
+  width: 63px;
+  height: 63px;
+  gap: 10px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+
+  &-preview {
+    width: 63px;
+    height: 63px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 999px;
+    }
+  }
+}
+
+.check-nickname {
+  margin-top: 5px;
+  text-align: start;
+  font-size: 12px;
+}
+
+.submit-btn {
+  position: absolute;
+  width: 559px;
+  height: 42px;
+  padding: 10px 240px;
+  @include display(center, center);
+  gap: 10px;
+  bottom: 14px;
+  border-style: none;
+  border-radius: 4px;
+  background: #182230;
+  @include font(Inter, 16px, normal, 600, 150%, #ffffff);
+  text-align: center;
+  letter-spacing: -0.304px;
+}
+
+input[type='text'] {
+  border-style: none;
+  outline: none;
+  width: 559px;
+  border-bottom: 1px solid #e7e7e7;
+  @include font(Inter, 12px, normal, 400, 150%, #000);
+  letter-spacing: -0.228px;
+  box-sizing: border-box;
+  padding: 13px 0 9px 0;
+}
+
+label {
+  @include font(Inter, 12px, normal, 600, 150%, #000);
+  text-align: center;
+  letter-spacing: -0.228px;
+}
+
+.check-nickname {
+  margin-bottom: 16px;
 }

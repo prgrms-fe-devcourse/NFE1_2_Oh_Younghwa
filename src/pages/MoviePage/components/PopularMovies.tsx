@@ -1,10 +1,13 @@
 import { usePopularMovies } from '../hooks/usePopularMovies';
 
 import MovieListContainer from './MovieListContainer';
+import SearchLoadPage from './SearchLoadPage';
 
 import '../scss/PopularMovies.scss';
+
 import SearchLoadPage from './SearchLoadPage';
 import { useMovieAws } from '../hooks/useMovieAws';
+
 export default function PopularMovies() {
   const { data = { page: 0, results: [], total_pages: 0, total_results: 0 }, isError, isLoading } = usePopularMovies();
   console.log('🚀 ~ PopularMovies ~ data:', data);

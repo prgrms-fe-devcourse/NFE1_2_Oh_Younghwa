@@ -1,9 +1,10 @@
+import { useState } from 'react';
+
 import { useGetReviewsByMovieTitle } from '../hook/useGetReviewsByMovieTitle';
 
 import ReviewContainer from './ReviewContainer';
 
 import '../scss/Review.scss';
-import { useState } from 'react';
 type ReviewListProps = {
   title: string;
 };
