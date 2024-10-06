@@ -3,7 +3,7 @@ type User = {
   _id: string;
   fullName: string;
   followers: [];
-  messages: string;
+  username: string;
   image: string;
 };
 

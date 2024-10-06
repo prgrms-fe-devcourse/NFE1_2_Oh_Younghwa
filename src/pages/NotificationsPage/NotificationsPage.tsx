@@ -95,26 +95,36 @@ const NotificationsPage: React.FC = () => {
         </button>
       </div>
       <div className="notifications-contents">
-        {sortedNotifications.map((notification) => (
-          <div key={notification._id} className={`notifications-wrapper ${notification.seen ? 'read' : 'unread'}`}>
-            {/* 팔로우 알림이 있는 경우 */}
-            <div onClick={() => handleNotificationClick(notification._id)}>
+        {sortedNotifications.map((notification) => {
+          // follow 또는 like가 없으면 null 반환하여 렌더링 생략
+          if (!notification.follow && !notification.like) {
+            return null;
+          }
+  
+          return (
+            <div key={notification._id} className={`notifications-wrapper ${notification.seen ? 'read' : 'unread'}`}>
+              {/* 팔로우 알림이 있는 경우 */}
               {notification.follow && (
-                <NotificationFollow
-                  notification={notification.follow}
-                  userId={notification.follow.user} // userId를 전달
-                />
+                <div onClick={() => handleNotificationClick(notification._id)}>
+                  <NotificationFollow
+                    notification={notification.follow}
+                    userId={notification.follow.user} 
+                  />
+                </div>
+              )}
+              {/* 좋아요 알림이 있는 경우 */}
+              {notification.like && (
+                <div onClick={() => handleNotificationClick(notification._id)}>
+                  <NotificationLike notification={notification.like} />
+                </div>
               )}
             </div>
-            {/* 좋아요 알림이 있는 경우 */}
-            <div onClick={() => handleNotificationClick(notification._id)}>
-              {notification.like && <NotificationLike notification={notification.like} />}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
+  
 };
 
 export default NotificationsPage;
