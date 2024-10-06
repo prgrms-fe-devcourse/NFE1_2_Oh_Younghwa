@@ -12,7 +12,6 @@ export const postLikes = async ({ postId, authorId }: Id): Promise<void> => {
     postId,
   });
 
-  console.log(response, '알림체크');
   const notificationPayload = {
     notificationType: 'LIKE',
     notificationTypeId: response.data._id,

@@ -19,7 +19,11 @@ const AllPostlist = () => {
   //주소창에 따른 채널아이디 받아오기
   const { channelId } = useParams() as { channelId: string };
   const { data = [], isError, isLoading } = getAllChannel();
-  const flattenedArray = data?.flat();
+  const flattenedArray = data?.flat().sort((a, b) => {
+    const dateA = new Date(a.createdAt as string); // string으로 단언
+    const dateB = new Date(b.createdAt as string); // string으로 단언
+    return dateB.getTime() - dateA.getTime();
+  });
 
   //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅
   const { addLikesMutation, deleteLikesMutation } = useLikesMutationInTimeLine();

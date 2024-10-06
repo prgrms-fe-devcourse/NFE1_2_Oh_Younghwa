@@ -9,26 +9,29 @@ const ChannelNavigateRemote = () => {
         <Link to={'#'}>
           <div className="follow-channel">팔로잉</div>
         </Link>
-        <Link to={'/posts/channel/66f50d3001d4aa076bcbdb99'}>
+        <Link to={'/posts/channel/home'}>
           <div className="now-channel">
             전체
             <GenreSelectButtonIcon />
           </div>
         </Link>
-        <Link to={'../posts/channel/66fa6380186a007fe2c4226b'}>
+        <Link to={'../posts/channel/6701580f426f72722a790504'}>
           <div className="genre-channel">액션</div>
         </Link>
-        <Link to={'/posts/channel/66fa63d9186a007fe2c422bc'}>
+        <Link to={'/posts/channel/67015828426f72722a790527'}>
           <div className="genre-channel">로맨스</div>
         </Link>
-        <Link to={'/posts/channel/66fa6402186a007fe2c422c5'}>
+        <Link to={'/posts/channel/67015836426f72722a790542'}>
           <div className="genre-channel">호러</div>
         </Link>
-        <Link to={'/posts/channel/66fa641f186a007fe2c423ae'}>
+        <Link to={'/posts/channel/67015845426f72722a790546'}>
           <div className="genre-channel">SF</div>
         </Link>
-        <Link to={'/posts/channel/66fa6452186a007fe2c425c8'}>
+        <Link to={'/posts/channel/67015856426f72722a79054a'}>
           <div className="genre-channel">독립영화</div>
+        </Link>
+        <Link to={'/posts/channel/6701579b426f72722a7904cf'}>
+          <div className="genre-channel">일반</div>
         </Link>
       </div>
     </div>
