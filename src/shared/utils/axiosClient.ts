@@ -69,7 +69,6 @@ export const postApiAxiosClient: AxiosInstance = axios.create({
   },
 });
 
-
 export const postFormAxiosClient = (): AxiosInstance => {
   const token = localStorage.getItem('token');
   if (!token) {
@@ -84,6 +83,7 @@ export const postFormAxiosClient = (): AxiosInstance => {
     },
   });
   return validateTokenRequest;
+};
 
 /**회원가입, 로그인 전용 axios instance */
 export const awsAxiosClient: AxiosInstance = axios.create({
@@ -93,4 +93,3 @@ export const awsAxiosClient: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
-

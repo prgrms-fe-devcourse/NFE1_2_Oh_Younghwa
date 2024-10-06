@@ -84,14 +84,14 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
                   onChange={(e) => {
                     setSelected(e.target.value);
                   }}
-                  defaultValue="66f50d3001d4aa076bcbdb99"
+                  value={Selected}
                 >
-                  <option value="66f50d3001d4aa076bcbdb99">전체</option>
-                  <option value="66fa6380186a007fe2c4226b">액션</option>
-                  <option value="66fa63d9186a007fe2c422bc">로맨스</option>
-                  <option value="66fa6402186a007fe2c422c5">호러</option>
-                  <option value="66fa641f186a007fe2c423ae">SF</option>
-                  <option value="66fa6452186a007fe2c425c8">독립영화</option>
+                  <option value="6701580f426f72722a790504">액션</option>
+                  <option value="67015828426f72722a790527">로맨스</option>
+                  <option value="67015836426f72722a790542">호러</option>
+                  <option value="67015845426f72722a790546">SF</option>
+                  <option value="67015856426f72722a79054a">독립영화</option>
+                  <option value="6701579b426f72722a7904cf">일반</option>
                 </select>
               </div>
               <button onClick={onClose}>

@@ -22,12 +22,12 @@ export const getArticles = async (channelId: string): Promise<Post[]> => {
 };
 
 const channelList = [
-  '/posts/channel/66f50d3001d4aa076bcbdb99',
-  '/posts/channel/66fa6380186a007fe2c4226b',
-  '/posts/channel/66fa63d9186a007fe2c422bc',
-  '/posts/channel/66fa6402186a007fe2c422c5',
-  '/posts/channel/66fa641f186a007fe2c423ae',
-  '/posts/channel/66fa6452186a007fe2c425c8',
+  '/posts/channel/6701580f426f72722a790504',
+  '/posts/channel/67015828426f72722a790527',
+  '/posts/channel/67015836426f72722a790542',
+  '/posts/channel/67015845426f72722a790546',
+  '/posts/channel/67015856426f72722a79054a',
+  '/posts/channel/6701579b426f72722a7904cf',
 ];
 
 export const getAllPosts = async () => {
