@@ -16,6 +16,7 @@ type Post = {
   user: string;
   title: string;
   image: string;
+
 };
 type Like = {
   author: string;

@@ -1,12 +1,26 @@
 import { reviewAxiosClient } from '../../../shared/utils/axiosClient';
 import { Like } from '../model/article';
 
-export const postLikes = async (postId: string): Promise<Like> => {
+type Id = {
+  postId: string;
+  authorId: string;
+};
+
+export const postLikes = async ({ postId, authorId }: Id): Promise<void> => {
   const request = reviewAxiosClient();
   const response = await request.post('/likes/create', {
     postId,
   });
-  return response.data;
+
+  console.log(response, '알림체크');
+  const notificationPayload = {
+    notificationType: 'LIKE',
+    notificationTypeId: response.data._id,
+    userId: authorId,
+    postId: postId,
+  };
+  console.log(notificationPayload, 'Payload체크');
+  await request.post('/notifications/create', notificationPayload);
 };
 
 export const deleteLikes = async (postId: string): Promise<void> => {

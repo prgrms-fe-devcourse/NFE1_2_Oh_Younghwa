@@ -30,22 +30,38 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
   }, [text]); // text가 변경될 때마다 호출
 
   //form data 전달하기
-  const [formData, setFormData] = useState('');
+  const [textData, setTextData] = useState('');
   const [Selected, setSelected] = useState('');
+  const [image, setImage] = useState<File | null>(null);
 
   const { addPostMutation } = usePostMutation();
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.currentTarget.value); // 상태 업데이트
-    setFormData(text);
+    const newText = e.currentTarget.value;
+    setText(newText); // 상태 업데이트
+    setTextData(text);
+  };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    if (file) {
+      setImage(file); // 파일 객체를 상태에 설정
+    } else {
+      setImage(null); // 파일이 없을 경우 상태 초기화
+    }
   };
 
   //submit 요청보내기
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //초기 렌더링 시 author가 undefined라서, 리뷰를 제출할 때 author에 session?.fullName을 넣어줌
+
+    if (!textData.trim()) {
+      alert('내용을 입력하세요.');
+      return;
+    }
+
     addPostMutation.mutate(
-      { channelId: Selected, image: null, title: formData },
+      { channelId: Selected, image: image, title: textData },
       {
         onSuccess: () => {
           // 요청이 성공하면 모달 닫기
@@ -54,9 +70,6 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
       },
     );
   };
-
-  if (isLoading) return <div>로딩중...</div>;
-  if (error) return <div>에러 발생</div>;
 
   return (
     <>
@@ -71,7 +84,7 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
                   onChange={(e) => {
                     setSelected(e.target.value);
                   }}
-                  value={Selected}
+                  defaultValue="66f50d3001d4aa076bcbdb99"
                 >
                   <option value="66f50d3001d4aa076bcbdb99">전체</option>
                   <option value="66fa6380186a007fe2c4226b">액션</option>
@@ -103,9 +116,10 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
               </div>
             </div>
             <div className="write-modal-bottom">
-              <label htmlFor="file"></label>
               <div className="content-img-select">
-                <input type="file" />
+                <label htmlFor="file">
+                  <input type="file" accept="image/jpg, umage/jpeg, image/png" onChange={handleFileChange} id="file" />
+                </label>
                 <button className="submit_button">게시</button>
               </div>
             </div>

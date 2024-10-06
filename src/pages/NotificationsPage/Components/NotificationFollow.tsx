@@ -77,6 +77,7 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
             }}
             disabled={isFollowing}
           >
+
             {isFollowing ? '팔로잉중' : '맞팔로우'}
           </button>
         </>
