@@ -1,5 +1,5 @@
 import { movieApiAxiosClient, reviewAxiosClient, validateTokenAxiosClient } from '../../../shared/utils/axiosClient';
-import { MovieListResponse } from '../../MoviePage/model/movie';
+import { MovieListResponse, SearchMovieListResponse } from '../../MoviePage/model/movie';
 import { Channel, Follow, User } from '../../TimelinePage/model/article';
 
 export interface Review {
@@ -162,9 +162,9 @@ export const logoutUser = async (): Promise<void> => {
 };
 
 //마이페이지에서 영화 상세페이지로 이동하기
-export const moveToMovies = async (searchKeyword: string): Promise<MovieListResponse> => {
+export const moveToMovies = async (searchKeyword: string): Promise<SearchMovieListResponse> => {
   const encodedStr = encodeURIComponent(searchKeyword);
-  const response = await movieApiAxiosClient.get<MovieListResponse>(
+  const response = await movieApiAxiosClient.get<SearchMovieListResponse>(
     `/search/movie?query=${encodedStr}&include_adult=false&language=ko-KR&page=1`,
   );
 

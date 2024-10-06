@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { MovieListResponse } from '../../MoviePage/model/movie';
+import { MovieListResponse, SearchMovieListResponse } from '../../MoviePage/model/movie';
 import { moveToMovies } from '../api/userApi';
 
 type SearchedMovies = {
-  data: MovieListResponse | undefined;
+  data: SearchMovieListResponse | undefined;
   isError: boolean;
   isLoading: boolean;
 };

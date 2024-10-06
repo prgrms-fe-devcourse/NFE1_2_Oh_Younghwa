@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 
 import { POSTER_IMAGE_BASE_URL } from '../../../shared/utils/baseUrl';
-import { Movie } from '../model/movie';
+import { Movie, MovieListResponse } from '../model/movie';
 
 type MovieCardProps = {
-  movie: Movie;
+  movie: MovieListResponse;
 };
 export default function MovieCard({ movie }: MovieCardProps) {
   return (

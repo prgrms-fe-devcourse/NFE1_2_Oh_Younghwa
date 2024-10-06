@@ -1,7 +1,6 @@
 // src/hooks/usePopularMovies.ts
 import { useQuery } from '@tanstack/react-query';
 
-import { getPopularMovies } from '../api/tmdbApi';
 import { getMovieAwsApi } from '../api/movieAwsApi';
 
 export const useMovieAws = () => {

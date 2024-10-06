@@ -15,7 +15,6 @@ type ReviewProps = {
 export default function MyPageReview({ rating, review, author, createdAt, title }: ReviewProps) {
   const { data } = useMoveToMovie(title);
 
-
   const titleStyle: React.CSSProperties = {
     position: 'absolute',
     fontSize: 12,
@@ -23,7 +22,7 @@ export default function MyPageReview({ rating, review, author, createdAt, title 
     marginBottom: 10,
     right: 20,
   };
-
+  console.log(`mypage`, data);
   return (
     <div className="review-container">
       <Link to={`/movie/detail`} state={{ movie: data?.results[0].id }}>
