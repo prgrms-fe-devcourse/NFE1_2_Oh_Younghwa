@@ -5,7 +5,7 @@ import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButt
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon.tsx';
 import PlaceholderIcon from '../../../shared/components/atom/icons/PlaceholderIcon.tsx';
-import { useLikesMutation } from '../../MovieDetailPage/hook/useLikesMutation.ts';
+import { useLikesMutationInTimeLine } from '../../TimelinePage/hooks/useLikesMutationInTimeLine.ts';
 import { usePostMutation } from '../../TimelinePage/hooks/usePostMutation.ts';
 import { Post, User } from '../../TimelinePage/model/article.ts';
 import { elapsedText } from '../../TimelinePage/utility/elapsedText.ts';
@@ -21,7 +21,7 @@ interface info {
 
 const MyPageLikesList = ({ posts, user }: info) => {
   //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅
-  const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
+  const { addLikesMutation, deleteLikesMutation } = useLikesMutationInTimeLine();
   const { channelId } = useParams() as { channelId: string };
   const navigate = useNavigate();
 
@@ -88,7 +88,10 @@ const MyPageLikesList = ({ posts, user }: info) => {
                 <div className="activity-wrap">
                   <div className="activity-side">
                     <div className="activity">
-                      <button className="likes-button" onClick={() => addLikesMutation.mutate(post._id)}>
+                      <button
+                        className="likes-button"
+                        onClick={() => addLikesMutation.mutate({ postId: post._id, authorId: post.author._id })}
+                      >
                         <LikeButtonIcon />
                       </button>
                       {post.likes.length}

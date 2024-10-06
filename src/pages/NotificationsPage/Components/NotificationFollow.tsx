@@ -33,7 +33,7 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
         setUser(userData);
 
         if (userData.followers.some((follower) => Object.values(follower).includes(userId))) {
-          setIsFollowing(true); 
+          setIsFollowing(true);
         }
       } catch (error) {
         console.error('사용자 정보를 가져오는 중 오류 발생:', error);
@@ -46,7 +46,7 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
     navigate(`/users/${userId}`); // 사용자 프로필로 이동
   };
   const handleFollowUser = async (userId: string) => {
-    await followUser(userId); 
+    await followUser(userId);
     console.log(`${userId}를 팔로우했습니다.`);
   };
 
@@ -54,11 +54,7 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
     <div className="notifications-follow">
       {user ? (
         <>
-          <img
-            src={user.image}
-            className="notifications-image"
-            onClick={() => handleUserClick(user._id)}
-          />
+          <img src={user.image} className="notifications-image" onClick={() => handleUserClick(user._id)} />
           <div className="notifications-info">
             <span className="notifications-name" onClick={() => handleUserClick(user._id)}>
               {user.fullName}
@@ -71,9 +67,8 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
             onClick={(e) => {
               e.stopPropagation();
               if (!isFollowing) {
-               
                 handleFollowUser(user._id); // 팔로우 요청
-                setIsFollowing(true)
+                setIsFollowing(true);
               }
             }}
             disabled={isFollowing}
