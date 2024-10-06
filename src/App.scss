@@ -81,6 +81,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
 
   .contents-title-wrap {
@@ -96,7 +97,7 @@ body {
 
     .navigate-channel {
       width: 87px;
-      height: 224px;
+      height: 256px;
       position: absolute;
       top: 46px;
       right: -103px;
@@ -125,6 +126,12 @@ body {
         border-left: 1px #d0d5dd solid;
         border-right: 1px #d0d5dd solid;
         border-bottom: 1px #d0d5dd solid;
+
+        &:hover{
+          color: white;
+          background: #9B8AFB;
+          border: 1px solid #7A5AF8;
+        }
       }
     }
 

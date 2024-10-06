@@ -100,7 +100,6 @@ const ResultPage = () => {
             setSearchResults({ users: [], posts: [], tags: [] });
           }}
         >
-
           <InputDeleteIcon />
         </div>
       </form>

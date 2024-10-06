@@ -54,7 +54,7 @@ function App() {
   return (
     <>
       <div className="navigate-bar">
-        <Link to={'/posts/channel/66f50d3001d4aa076bcbdb99'}>
+        <Link to={'/posts/channel/home'}>
           <div className="menu-icon home">
             <HomePageIconSvg />
           </div>

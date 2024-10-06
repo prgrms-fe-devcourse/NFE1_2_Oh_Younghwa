@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
+import LikeButtonIconNoti from '../../../shared/asset/LikedButtonIconNoti.svg';
 import PlaceholderIcon from '../../../shared/components/atom/icons/PlaceholderIcon';
 import { getUser } from '../api/noticeApi';
 
@@ -16,7 +16,6 @@ type Post = {
   user: string;
   title: string;
   image: string;
-
 };
 type Like = {
   author: string;
@@ -48,9 +47,9 @@ const NotificationLike: React.FC<NotificationLikeProps> = ({ notification }) => 
       {user ? (
         <>
           <div className="notification-like">
-            <LikeButtonIcon />
+            <LikeButtonIconNoti />
             <Link to={`/users/${user._id}`}>
-              {user.image ? <img className="profile-img" src={user.image} /> : <PlaceholderIcon />}
+              {user.image ? <img className="notifications-image" src={user.image} /> : <PlaceholderIcon />}
             </Link>
 
             <span className="notifications-name">
