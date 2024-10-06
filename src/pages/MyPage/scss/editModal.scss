@@ -35,7 +35,7 @@
 
   &-logout {
     color: #000;
-    @include font(Inter, 12px, normal, 600, 150%, #000000);
+    @include font(pretendard, 12px, normal, 600, 150%, #000000);
     text-align: center;
     letter-spacing: -0.228px;
     border-style: none;
@@ -93,7 +93,7 @@
   border-style: none;
   border-radius: 4px;
   background: #182230;
-  @include font(Inter, 16px, normal, 600, 150%, #ffffff);
+  @include font(pretendard, 16px, normal, 600, 150%, #ffffff);
   text-align: center;
   letter-spacing: -0.304px;
 }
@@ -103,14 +103,14 @@ input[type='text'] {
   outline: none;
   width: 559px;
   border-bottom: 1px solid #e7e7e7;
-  @include font(Inter, 12px, normal, 400, 150%, #000);
+  @include font(pretendard, 12px, normal, 400, 150%, #000);
   letter-spacing: -0.228px;
   box-sizing: border-box;
   padding: 13px 0 9px 0;
 }
 
 label {
-  @include font(Inter, 12px, normal, 600, 150%, #000);
+  @include font(pretendard, 12px, normal, 600, 150%, #000);
   text-align: center;
   letter-spacing: -0.228px;
 }

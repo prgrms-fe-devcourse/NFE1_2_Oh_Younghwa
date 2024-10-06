@@ -1,5 +1,4 @@
 import { useMovieAws } from '../hooks/useMovieAws';
-import { usePopularMovies } from '../hooks/usePopularMovies';
 
 import MovieListContainer from './MovieListContainer';
 import SearchLoadPage from './SearchLoadPage';
@@ -7,12 +6,8 @@ import SearchLoadPage from './SearchLoadPage';
 import '../scss/PopularMovies.scss';
 
 export default function PopularMovies() {
-  const { data = { page: 0, results: [], total_pages: 0, total_results: 0 }, isError, isLoading } = usePopularMovies();
-  console.log('🚀 ~ PopularMovies ~ data:', data);
   const { data: awsData, isError: awsIsError, isLoading: awsIsLoading } = useMovieAws();
-  console.log(awsData);
-  if (isLoading) return <SearchLoadPage />;
-  if (isError) return <div>에러 발생</div>;
-
-  return <MovieListContainer data={data} />;
+  if (awsIsLoading) return <SearchLoadPage />;
+  if (awsData === undefined) return <SearchLoadPage />;
+  return <MovieListContainer data={awsData} />;
 }

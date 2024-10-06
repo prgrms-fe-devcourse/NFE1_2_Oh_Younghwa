@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@tanstack/react-query';
 
+import LogoIcon from '../../../shared/components/atom/icons/LogoIcon';
 import { postLoginRequest } from '../api/login';
+
+import '../scss/loginform.scss';
 
 // 폼 타입 정의
 interface FormState {
@@ -91,21 +94,29 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" name="email" value={form.email} onChange={handleChange} required />
-        {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
+    <div className="form-wrapper">
+      <div className="form-title">
+        <LogoIcon />
+        <h1>로그인</h1>
       </div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">Email</label>
+          <br />
+          <input type="email" id="email" name="email" value={form.email} onChange={handleChange} required />
+          {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
+        </div>
 
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" value={form.password} onChange={handleChange} required />
-        {errors.password && <span style={{ color: 'red' }}>{errors.password}</span>}
-      </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <br />
+          <input type="password" id="password" name="password" value={form.password} onChange={handleChange} required />
+          {errors.password && <span style={{ color: 'red' }}>{errors.password}</span>}
+        </div>
 
-      <button type="submit">Login</button>
-    </form>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
 

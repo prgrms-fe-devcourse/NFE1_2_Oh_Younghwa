@@ -162,6 +162,7 @@
 
         .menu-items {
           position: absolute;
+
           z-index: 9999;
           bottom: 0px;
           right: 35px;
@@ -172,13 +173,10 @@
           .menu-item {
             border: none;
             background: none;
-
             text-wrap: nowrap;
             cursor: pointer;
             transition: background-color 0.3s ease;
-
             height: 50px;
-            padding: 9px 32px;
 
             align-self: stretch;
             &:hover {

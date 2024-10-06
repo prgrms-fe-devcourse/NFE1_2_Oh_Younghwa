@@ -6,7 +6,6 @@
   justify-content: flex-end;
   align-items: flex-start;
   gap: 20px;
-  border: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
   background: #fff;
 }
 
@@ -76,7 +75,12 @@
       justify-content: center;
       align-items: center;
       gap: 10%;
-      border: 1px solid var(--Component-colors-Utility-Purple-utility-purple-300, #bdb4fe);
+      border: 1px dotted var(--Component-colors-Utility-Purple-utility-purple-300, #bdb4fe);
+      background: none;
+
+      &:active{
+        color:#7a5af8
+      }
     }
 
     .search-result {
@@ -88,6 +92,10 @@
       gap: 16px;
     }
   }
+}
+
+.recommend-post{
+  width: 100%;
 }
 .recommend-container {
   font-family:
@@ -121,9 +129,10 @@
   }
   .search-post {
     display: flex;
-    padding: 8px 8px 8px 14px;
+    padding: 16px 8px 16px 14px;
     gap: 10px;
-    border-bottom: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
+    border-bottom: 1px #d0d5dd dotted;
+    
     .search-post-profileimg {
       width: 32px;
       height: 32px;
@@ -304,7 +313,7 @@
     align-items: flex-start; // 이미지가 위쪽에 정렬되도록
     gap: 12px; // 사용자 이미지와 텍스트 간의 간격
     padding: 10px 14px; // 사용자 항목 패딩
-    border-bottom: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
+    border-bottom: 1px solid #d0d5dd;
     width: 100vw; // 전체 너비 설정
 
     .search-user-image {
