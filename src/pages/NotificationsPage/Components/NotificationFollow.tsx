@@ -33,20 +33,20 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
         setUser(userData);
 
         if (userData.followers.some((follower) => Object.values(follower).includes(userId))) {
-          setIsFollowing(true); // 이미 팔로우 중
+          setIsFollowing(true); 
         }
       } catch (error) {
         console.error('사용자 정보를 가져오는 중 오류 발생:', error);
       }
     };
     fetchUser();
-  }, []);
+  }, [isFollowing]);
 
   const handleUserClick = (userId: string) => {
     navigate(`/users/${userId}`); // 사용자 프로필로 이동
   };
   const handleFollowUser = async (userId: string) => {
-    await followUser(userId); // 사용자 팔로우 요청
+    await followUser(userId); 
     console.log(`${userId}를 팔로우했습니다.`);
   };
 
@@ -57,7 +57,6 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
           <img
             src={user.image}
             className="notifications-image"
-            alt={`${user.fullName}의 프로필 이미지`}
             onClick={() => handleUserClick(user._id)}
           />
           <div className="notifications-info">
@@ -72,7 +71,9 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
             onClick={(e) => {
               e.stopPropagation();
               if (!isFollowing) {
+               
                 handleFollowUser(user._id); // 팔로우 요청
+                setIsFollowing(true)
               }
             }}
             disabled={isFollowing}

@@ -74,7 +74,7 @@ export default function ReviewContainer({
 
   //리뷰 수정 중일 때 보이는 컴포넌트에 전달할 props입니다.
   //jsx에서 작성하면 가독성이 떨어지기 때문에 따로 분리했습니다.
-  if (isLoading) return <div>로딩중...</div>;
+  if (isLoading) return <></>;
   const reviewUpdateProps = {
     postId,
     channelId,

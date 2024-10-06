@@ -21,7 +21,7 @@ export default function ReviewList({ title }: ReviewListProps) {
     }
   });
   if (isLoading) {
-    return <div>로딩 중...</div>;
+    return <></>;
   }
   //sort로 정렬을 하고나서 리렌더링을 하기위해선 state를 사용해야함.
   //데이터를 가져온 다음, state에 저장하고, state의 복사본을 만들어서 정렬로 새로운 데이터를 만들고, setState를 통해 리렌더링을 하려했음.
