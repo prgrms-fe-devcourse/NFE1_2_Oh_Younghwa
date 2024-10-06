@@ -118,7 +118,14 @@ const WriteModal = ({ isModalOpen, onClose }: EditModalProps) => {
             <div className="write-modal-bottom">
               <div className="content-img-select">
                 <label htmlFor="file">
-                  <input type="file" accept="image/jpg, umage/jpeg, image/png" onChange={handleFileChange} id="file" />
+                  <input
+                    className="file-input-button"
+                    type="file"
+                    accept="image/jpg, umage/jpeg, image/png"
+                    onChange={handleFileChange}
+                    name="file"
+                    id="file"
+                  />
                 </label>
                 <button className="submit_button">게시</button>
               </div>

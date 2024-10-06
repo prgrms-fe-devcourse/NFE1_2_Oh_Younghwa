@@ -82,6 +82,10 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
+    &:hover{
+      background: $utility-purple-600;
+    }
   }
 
   .contents-title-wrap {
@@ -102,22 +106,26 @@ body {
       top: 46px;
       right: -103px;
 
+      &:first-child{
+        border-top: 1px #d0d5dd solid;
+      }
+
       .follow-channel {
         background-image: url('../src/shared/asset/FollowChannelButtonBG.svg');
         color: #98a2b3;
         padding: 8px 0 8px 0;
         @include channel-basic();
       }
-      .now-channel {
-        background-image: url('../src/shared/asset/NowChannelButtonBG.svg');
-        color: #e4e7ec;
-        padding: 10px 11px 8px 0;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 10px;
-        @include channel-basic();
-      }
+      // .now-channel {
+      //   background-image: url('../src/shared/asset/NowChannelButtonBG.svg');
+      //   color: #e4e7ec;
+      //   padding: 10px 11px 8px 0;
+      //   display: flex;
+      //   justify-content: flex-end;
+      //   align-items: center;
+      //   gap: 10px;
+      //   @include channel-basic();
+      // }
       .genre-channel {
         background: #f2f4f7;
         color: #98a2b3;
@@ -126,6 +134,12 @@ body {
         border-left: 1px #d0d5dd solid;
         border-right: 1px #d0d5dd solid;
         border-bottom: 1px #d0d5dd solid;
+
+        &.active{
+          color: #e4e7ec;
+          background: #7A5AF8;
+          border: 1px solid #6938ef
+        }
 
         &:hover{
           color: white;

@@ -20,7 +20,7 @@ const titleMapping: { [key: string]: string } = {
   '/movie/detail': '영화 상세정보',
   '/mypage': '마이페이지',
   '/posts': '포스트',
-
+  '/notifications': '알림',
   // Add more routes and titles as needed
 };
 
@@ -38,14 +38,30 @@ function App() {
   }
 
   //주소에 따라서 타임라인채널 리모트 표시여부
-  const [isOn, setisOn] = useState(true);
+  const [isArrowOn, setisArrowOn] = useState(true);
 
   useEffect(() => {
     if (currentPath.startsWith('/posts/channel')) {
-      setisOn(false);
+      setisArrowOn(false);
+    } else if (currentPath.startsWith('/search')) {
+      setisArrowOn(false);
+    } else if (currentPath.startsWith('/movie')) {
+      setisArrowOn(false);
+    } else if (currentPath.startsWith('/notifications')) {
+      setisArrowOn(false);
+    } else if (currentPath.startsWith('/mypage')) {
+      setisArrowOn(false);
     } else {
-      setisOn(true);
+      setisArrowOn(true);
     }
+  }, [location]);
+
+  const [isNavOn, setisNavOn] = useState(true);
+
+  useEffect(() => {
+    if (currentPath.startsWith('/posts/channel')) {
+      setisNavOn(false);
+    else{setisNavOn(true);}
   }, [location]);
 
   //글쓰기 모달 표시여부 버튼 컨트롤용
@@ -86,12 +102,12 @@ function App() {
           <WriteButtonIcon />
         </button>
         <div className="contents-title-wrap">
-          <div className={`remote ${isOn ? '' : 'enter-channel'}`}>
+          <div className={`remote ${isNavOn ? '' : 'enter-channel'}`}>
             <ChannelNavigateRemote />
           </div>
 
           <div className="contents-title">
-            <div className={`arrow-holder ${isOn ? 'enter-channel' : ''}`} onClick={() => navigate(-1)}>
+            <div className={`arrow-holder ${isArrowOn ? 'enter-channel' : ''}`} onClick={() => navigate(-1)}>
               <GoBackIconSvg />
             </div>
             <div>{title}</div>

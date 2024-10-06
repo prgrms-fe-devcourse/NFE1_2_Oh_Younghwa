@@ -5,6 +5,7 @@ type User = {
   followers: [];
   username: string;
   image: string;
+  messages: string;
 };
 
 type Post = {
