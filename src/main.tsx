@@ -19,7 +19,6 @@ import ResultPage from './pages/SearchPage/Components/ResultPage.tsx';
 import SearchPage from './pages/SearchPage/SearchPage.tsx';
 import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
 import TimelinePage from './pages/TimelinePage/TimelinePage.tsx';
-import { store } from './shared/store/store.ts';
 import Layout from './Layout.tsx';
 
 import './reset.css';
@@ -92,10 +91,8 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <CookiesProvider>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-        <ToastContainer limit={5} />
-      </Provider>
+      <RouterProvider router={router} />
+      <ToastContainer limit={5} />
     </CookiesProvider>
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>,

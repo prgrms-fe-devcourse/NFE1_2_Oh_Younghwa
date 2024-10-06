@@ -2,9 +2,12 @@ import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon
 import LikedButtonIcon from '../../../shared/components/atom/icons/LikedButtonIcon';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon';
 import StarIcon from '../../../shared/components/atom/icons/StarIcon';
+import { useGetUserDataById } from '../../../shared/hooks/useGetUserDataById';
 import { useLikesMutation } from '../hook/useLikesMutation';
 import { useReviewMutation } from '../hook/useReviewMutation';
+import { useHamburgerStore } from '../store/hamburgerStore';
 type ReviewProps = {
+  authorId: string;
   rating: number;
   review: string;
   author: string;
@@ -13,12 +16,11 @@ type ReviewProps = {
   postId: string;
   likes: number;
   isAuthor: boolean;
-  toggleMenu: () => void;
-  isOpen: boolean;
   handleEdit: () => void;
 };
 //isLiked.length,likes.length
 export default function Review({
+  authorId,
   rating,
   review,
   author,
@@ -27,12 +29,14 @@ export default function Review({
   postId,
   likes,
   isAuthor,
-  toggleMenu,
-  isOpen,
   handleEdit,
 }: ReviewProps) {
+  console.log(authorId);
   //리뷰 삭제 로직을 담당하는 커스텀 훅입니다.
   const { deleteReviewMutation } = useReviewMutation();
+
+  const { openHamburgerId, setOpenHamburgerId } = useHamburgerStore(); // Zustand에서 상태 가져오기
+  const isOpenedHamburger = openHamburgerId === postId; // 현재 열려 있는 리뷰인지 확인
 
   //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅입니다.
   const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
@@ -51,6 +55,15 @@ export default function Review({
   const deleteLike = () => {
     deleteLikesMutation.mutate(isLiked[0]!);
   };
+
+  const toggleMenu = () => {
+    if (isOpenedHamburger) {
+      setOpenHamburgerId(null);
+    } else {
+      setOpenHamburgerId(postId);
+    }
+  };
+
   return (
     <div className="review-container">
       <div className="stars">
@@ -85,7 +98,7 @@ export default function Review({
               <OptionButtonIcon />
             </button>
           ) : null}
-          {isOpen && (
+          {isOpenedHamburger && (
             <div className="menu-items">
               <button className="menu-item edit" onClick={handleEdit}>
                 수정

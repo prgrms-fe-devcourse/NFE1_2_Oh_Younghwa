@@ -19,7 +19,6 @@ export const postReview = async ({ title, image, channelId }: Review): Promise<R
 
 export const getReviewsByMovieTitle = async (title: string): Promise<MoviePost[]> => {
   const request = reviewAxiosClient();
-
   const response = await request.get(`/search/all/${title}`);
   return response.data;
 };

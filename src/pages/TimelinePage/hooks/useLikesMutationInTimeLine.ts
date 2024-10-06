@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { deleteLikes, postLikes } from '../api/likesApi';
+import { deleteLikes, postLikes } from '../api/likesApiInTimeLine';
 
-export const useLikesMutation = () => {
+export const useLikesMutationInTimeLine = () => {
   const queryClient = useQueryClient();
   const addLikesMutation = useMutation({
     mutationFn: postLikes,
@@ -16,8 +16,8 @@ export const useLikesMutation = () => {
     },
     onSuccess: (data, variables, context) => {
       // Boom baby!
-      queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
       queryClient.invalidateQueries({ queryKey: ['auth-user'] });
+      queryClient.invalidateQueries({ queryKey: ['channel'] });
     },
     onSettled: (data, error, variables, context) => {
       // Error or success... doesn't matter!

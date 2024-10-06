@@ -14,6 +14,7 @@ import { Post } from '../model/article.ts';
 import { elapsedText } from '../utility/elapsedText.ts';
 
 import '../scss/timeline.scss';
+import { useLikesMutationInTimeLine } from '../hooks/useLikesMutationInTimeLine.ts';
 
 const Postlist = () => {
   //주소창에 따른 채널아이디 받아오기
@@ -28,7 +29,7 @@ const Postlist = () => {
   // const isLiked = data.likes.map((like) => findString(likesList, like));
 
   //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅
-  const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
+  const { addLikesMutation, deleteLikesMutation } = useLikesMutationInTimeLine();
 
   //좋아요 취소 요청 전송
   //이 버튼이 보인다는 것은 이미 좋아요를 눌렀다는 뜻입니다.
