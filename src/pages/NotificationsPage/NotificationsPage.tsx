@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { getAllNotifications, putNotificationSeen } from './api/noticeApi';
 import NotificationFollow from './Components/NotificationFollow';
 import NotificationLike from './Components/NotificationLike';
@@ -17,22 +18,21 @@ type Follow = {
 };
 
 type Post = {
-  user : string;
-  _id : string;
-  author : string;
-  title : string
-}
+  user: string;
+  _id: string;
+  author: string;
+  title: string;
+};
 type Like = {
-  author : string;
-  post : Post;
-  user : string;
+  author: string;
+  post: Post;
+  user: string;
 };
 type Notification = {
   _id: string;
   follow: Follow;
-  like : Like;
+  like: Like;
   seen: boolean;
-  
 };
 
 const NotificationsPage: React.FC = () => {
@@ -43,7 +43,7 @@ const NotificationsPage: React.FC = () => {
     const fetchNotifications = async () => {
       try {
         const data = await getAllNotifications();
-        console.log(data)
+        console.log(data);
         setNotifications(data);
       } catch (error) {
         console.error('알림 데이터를 가져오는 중 오류 발생:', error);
@@ -94,27 +94,20 @@ const NotificationsPage: React.FC = () => {
       </div>
       <div className="notifications-contents">
         {sortedNotifications.map((notification) => (
-          <div
-            key={notification._id}
-            className={`notifications-wrapper ${notification.seen ? 'read' : 'unread'}`} 
-          >
+          <div key={notification._id} className={`notifications-wrapper ${notification.seen ? 'read' : 'unread'}`}>
             {/* 팔로우 알림이 있는 경우 */}
-            <div onClick={() => handleNotificationClick(notification._id)} >
-            {notification.follow && (
-              <NotificationFollow
-              notification={notification.follow}
-              userId={notification.follow.user} // userId를 전달
-            />
-            )}
+            <div onClick={() => handleNotificationClick(notification._id)}>
+              {notification.follow && (
+                <NotificationFollow
+                  notification={notification.follow}
+                  userId={notification.follow.user} // userId를 전달
+                />
+              )}
             </div>
             {/* 좋아요 알림이 있는 경우 */}
-            <div onClick={() => handleNotificationClick(notification._id)} >
-            {notification.like && (
-              <NotificationLike 
-              notification={notification.like}
-              />
-            )}
-              </div>
+            <div onClick={() => handleNotificationClick(notification._id)}>
+              {notification.like && <NotificationLike notification={notification.like} />}
+            </div>
           </div>
         ))}
       </div>

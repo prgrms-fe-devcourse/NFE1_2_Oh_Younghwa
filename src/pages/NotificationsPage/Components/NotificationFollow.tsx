@@ -7,7 +7,7 @@ type Author = {
   _id: string;
   fullName: string;
   image: string;
-  followers : string[]
+  followers: string[];
 };
 
 type Follow = {
@@ -16,29 +16,27 @@ type Follow = {
   follower: string; // 팔로워 ID
 };
 
-
 interface NotificationFollowProps {
   notification: Follow;
-  userId : string
+  userId: string;
 }
 
 const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, userId }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<Author>();
-  const [isFollowing, setIsFollowing] = useState(false)
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const userData = await getUser(notification.follower);
         setUser(userData);
-        
-        if (userData.followers.some(follower => 
-          Object.values(follower).includes(userId))){
+
+        if (userData.followers.some((follower) => Object.values(follower).includes(userId))) {
           setIsFollowing(true); // 이미 팔로우 중
         }
       } catch (error) {
-        console.error("사용자 정보를 가져오는 중 오류 발생:", error);
+        console.error('사용자 정보를 가져오는 중 오류 발생:', error);
       }
     };
     fetchUser();
@@ -51,12 +49,17 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
     await followUser(userId); // 사용자 팔로우 요청
     console.log(`${userId}를 팔로우했습니다.`);
   };
- 
+
   return (
     <div className="notifications-follow">
       {user ? (
         <>
-          <img src={user.image} className="notifications-image" alt={`${user.fullName}의 프로필 이미지`}  onClick={() => handleUserClick(user._id)} />
+          <img
+            src={user.image}
+            className="notifications-image"
+            alt={`${user.fullName}의 프로필 이미지`}
+            onClick={() => handleUserClick(user._id)}
+          />
           <div className="notifications-info">
             <span className="notifications-name" onClick={() => handleUserClick(user._id)}>
               {user.fullName}
@@ -72,8 +75,8 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
                 handleFollowUser(user._id); // 팔로우 요청
               }
             }}
-            disabled={isFollowing}>
-             {isFollowing ? '팔로잉중' : '맞팔로우'}
+            disabled={isFollowing}
+            {isFollowing ? '팔로잉중' : '맞팔로우'}
           </button>
         </>
       ) : (

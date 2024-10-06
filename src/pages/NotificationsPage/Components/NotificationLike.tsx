@@ -10,20 +10,19 @@ type Author = {
   image: string;
 };
 type Post = {
-  _id : string;
-  author : string;
-  user : string
-  title : string
-}
+  _id: string;
+  author: string;
+  user: string;
+  title: string;
+};
 type Like = {
-  author : string;
-  post : Post;
-  user : string;
+  author: string;
+  post: Post;
+  user: string;
 };
 
 interface NotificationLikeProps {
   notification: Like;
-  
 }
 
 const NotificationLike: React.FC<NotificationLikeProps> = ({ notification }) => {

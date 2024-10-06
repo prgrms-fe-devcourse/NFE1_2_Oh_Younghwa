@@ -73,6 +73,8 @@ a {
     gap: 10px;
 
     .profile-img{
+      border-radius: 40px;
+      width:32px;
       height: 32px;
       object-fit: cover;
     }

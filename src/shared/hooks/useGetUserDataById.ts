@@ -1,5 +1,6 @@
 // src/hooks/usePopularMovies.ts
 import { useQuery } from '@tanstack/react-query';
+
 import { User } from '../../pages/TimelinePage/model/article';
 import { getUserDataById } from '../api/userApi';
 

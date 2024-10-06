@@ -4,11 +4,9 @@ import { Link, useParams } from 'react-router-dom';
 import CommentButtonIcon from '../../../shared/components/atom/icons/CommentButtonIcon';
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
 import OptionButtonIcon from '../../../shared/components/atom/icons/OptionButtonIcon.tsx';
-
 import PlaceholderIcon from '../../../shared/components/atom/icons/PlaceholderIcon.tsx';
 import { useArticles } from '../../TimelinePage/hooks/useArticles.ts';
 import { usePostMutation } from '../../TimelinePage/hooks/usePostMutation.ts';
-
 import { Post } from '../../TimelinePage/model/article.ts';
 import { elapsedText } from '../../TimelinePage/utility/elapsedText.ts';
 import UpdateModal from '../../WritePostPage/components/UpdateModal.tsx';
@@ -97,7 +95,6 @@ const MyPagePostList = ({ posts, fullName }: info) => {
                       </div>
                     )}
                   </div>
-
                 </div>
               </div>
             </div>

@@ -1,9 +1,9 @@
 import { usePopularMovies } from '../hooks/usePopularMovies';
 
 import MovieListContainer from './MovieListContainer';
+import SearchLoadPage from './SearchLoadPage';
 
 import '../scss/PopularMovies.scss';
-import SearchLoadPage from './SearchLoadPage';
 export default function PopularMovies() {
   const { data = { page: 0, results: [], total_pages: 0, total_results: 0 }, isError, isLoading } = usePopularMovies();
 
