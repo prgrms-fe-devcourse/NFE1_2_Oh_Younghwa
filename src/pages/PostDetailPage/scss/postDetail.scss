@@ -17,7 +17,10 @@ $utility-purple-400:#9B8AFB;
   display: flex;
   padding: 16px;
   gap: 10px;
+  
   .profile-img{
+    border-radius: 32px;
+    width: 32px;
     height: 32px;
     object-fit: cover;
   }

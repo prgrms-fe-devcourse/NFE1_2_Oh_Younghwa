@@ -23,17 +23,8 @@ const UserLog = ({ user }: UserLogProps) => {
     return dateB.getTime() - dateA.getTime();
   });
 
-  const channelIds = [
-    '6701579b426f72722a7904cf',
-    '6701580f426f72722a790504',
-    '67015828426f72722a790527',
-    '67015836426f72722a790542',
-    '67015845426f72722a790546',
-    '67015856426f72722a79054a',
-  ];
-
   //유저가 작성한 게시글 - 전체 채널에서 불러오기
-  const postList = user.posts.filter((channels) => channelIds.includes(channels.channel));
+  const postList = flattenedArray.filter((post) => post.author._id === user._id);
   //유저가 좋아요를 누른 게시글 - 전체타임라인에 있는 게시글에서 불러오기
   const likeList = flattenedArray?.filter((post) => post.likes?.some((like) => like.user === user._id));
   console.log(likeList);

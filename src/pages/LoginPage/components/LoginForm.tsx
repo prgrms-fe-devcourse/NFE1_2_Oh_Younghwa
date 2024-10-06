@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useMutation } from '@tanstack/react-query';
 
@@ -27,7 +27,7 @@ const LoginForm: React.FC = () => {
     onSuccess: (data) => {
       const { token } = data;
       localStorage.setItem('token', token);
-      navigate('/');
+      navigate('/posts/channel/home');
     },
     onError: (error) => {
       console.log(error);
@@ -94,28 +94,57 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="form-wrapper">
-      <div className="form-title">
-        <LogoIcon />
-        <h1>로그인</h1>
+    <div className="background">
+      <div className="background-cover"></div>
+      <div className="form-wrapper">
+        <div className="form-title">
+          <LogoIcon />
+          <h1>로그인</h1>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-content-wrapper">
+            <div className="form-content">
+              <label htmlFor="email">Email</label>
+              <br />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                placeholder="oh@movie.com"
+              />
+              {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
+            </div>
+
+            <div className="form-content">
+              <label htmlFor="password">Password</label>
+              <br />
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                required
+                placeholder="********"
+              />
+              {errors.password && <span style={{ color: 'red' }}>{errors.password}</span>}
+            </div>
+          </div>
+
+          <button className="submit-button" type="submit">
+            로그인
+          </button>
+
+          <div className="link-to-signup">
+            <Link to="/signup">
+              <span className="active">아직 오!영화 회원이 아닌가요?</span>
+            </Link>
+          </div>
+        </form>
       </div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <br />
-          <input type="email" id="email" name="email" value={form.email} onChange={handleChange} required />
-          {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
-        </div>
-
-        <div>
-          <label htmlFor="password">Password</label>
-          <br />
-          <input type="password" id="password" name="password" value={form.password} onChange={handleChange} required />
-          {errors.password && <span style={{ color: 'red' }}>{errors.password}</span>}
-        </div>
-
-        <button type="submit">Login</button>
-      </form>
     </div>
   );
 };

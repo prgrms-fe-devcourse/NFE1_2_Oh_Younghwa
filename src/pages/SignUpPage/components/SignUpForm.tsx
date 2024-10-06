@@ -1,8 +1,12 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { useMutation } from '@tanstack/react-query';
 
+import LogoIcon from '../../../shared/components/atom/icons/LogoIcon';
 import { postSignUpRequest } from '../api/signup';
+
+import '../scss/signup.scss';
 
 // 폼 타입 정의
 interface FormState {
@@ -94,27 +98,76 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" name="email" value={form.email} onChange={handleChange} required />
-        {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
-      </div>
+    <div className="background">
+      <div className="background-cover"></div>
+      <div className="form-wrapper">
+        <div className="form-title">
+          <LogoIcon />
+          <h1>회원가입</h1>
+        </div>
 
-      <div>
-        <label htmlFor="fullName">Full Name:</label>
-        <input type="text" id="fullName" name="fullName" value={form.fullName} onChange={handleChange} required />
-        {errors.fullName && <span style={{ color: 'red' }}>{errors.fullName}</span>}
-      </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-content-wrapper">
+            <div className="form-content">
+              <div>
+                <label htmlFor="email">Email</label>
+                <br />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="oh@movie.com"
+                />
+                {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
+              </div>
+            </div>
+            <div className="form-content">
+              <label htmlFor="fullName">닉네임</label>
+              <br />
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                value={form.fullName}
+                onChange={handleChange}
+                required
+                placeholder="한글 또는 영문 닉네임"
+              />
+              {errors.fullName && <span style={{ color: 'red' }}>{errors.fullName}</span>}
+            </div>
 
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" value={form.password} onChange={handleChange} required />
-        {errors.password && <span style={{ color: 'red' }}>{errors.password}</span>}
+            <div className="form-content">
+              <label htmlFor="password">Password</label>
+              <br />
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                required
+                placeholder="8글자이상 특수문자포함"
+              />
+              {errors.password && <span style={{ color: 'red' }}>{errors.password}</span>}
+            </div>
+          </div>
+          <div>
+            <button className="submit-button" type="submit">
+              가입하기
+            </button>
+          </div>
+          <div className="link">
+            <p>이미 가입하셨나요?</p>
+            <Link to="/login">
+              <span className="active">로그인</span>
+            </Link>
+          </div>
+        </form>
       </div>
-
-      <button type="submit">Sign Up</button>
-    </form>
+    </div>
   );
 };
 

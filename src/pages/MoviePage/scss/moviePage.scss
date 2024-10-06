@@ -9,8 +9,7 @@ $utility-purple-50: #f4f3ff;
 }
 .search-bar {
   display: flex;
-
-  padding: 10px 14px;
+  padding: 0 14px;
   align-items: center;
   gap: 8px;
   border-bottom: 1px solid $utility-purple-500;
@@ -26,7 +25,7 @@ $utility-purple-50: #f4f3ff;
     background: $utility-purple-50;
     border: none;
     /* Text md/Regular */
-    font-size: 16ox;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;

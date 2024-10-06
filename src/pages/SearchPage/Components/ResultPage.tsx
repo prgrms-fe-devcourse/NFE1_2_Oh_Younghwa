@@ -163,7 +163,9 @@ const ResultPage = () => {
               </div>
             ))
           ) : (
-            <p>게시글이 없습니다.</p>
+            <div className="no-contents">
+              <p>게시글이 없습니다.</p>
+            </div>
           )}
         </div>
       )}
@@ -207,7 +209,9 @@ const ResultPage = () => {
               </div>
             ))
           ) : (
-            <p>태그가 없습니다.</p>
+            <div className="no-contents">
+              <p>태그가 없습니다.</p>
+            </div>
           )}
         </div>
       )}
@@ -231,7 +235,9 @@ const ResultPage = () => {
               </div>
             ))
           ) : (
-            <p>사용자가 없습니다.</p>
+            <div className="no-contents">
+              <p>사용자가 없습니다.</p>
+            </div>
           )}
         </div>
       )}

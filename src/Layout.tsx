@@ -45,7 +45,7 @@ function App() {
       setisArrowOn(false);
     } else if (currentPath.startsWith('/search')) {
       setisArrowOn(false);
-    } else if (currentPath.startsWith('/movie')) {
+    } else if (currentPath.endsWith('/movie')) {
       setisArrowOn(false);
     } else if (currentPath.startsWith('/notifications')) {
       setisArrowOn(false);
@@ -61,7 +61,9 @@ function App() {
   useEffect(() => {
     if (currentPath.startsWith('/posts/channel')) {
       setisNavOn(false);
-    else{setisNavOn(true);}
+    } else {
+      setisNavOn(true);
+    }
   }, [location]);
 
   //글쓰기 모달 표시여부 버튼 컨트롤용

@@ -117,6 +117,8 @@
   display: flex;
   flex-direction: column;
   margin-top: 0px;
+
+
   .recommend-post-text {
     color:#475467;
     font-family: pretendard;
@@ -228,10 +230,16 @@
   display: flex;
   flex-direction: column;
   margin-top: 25px;
-
+  .no-contents{
+    margin-top: 300px;
+    display: flex;
+    width: 600px;
+    justify-content: center;
+    color: #c5c5c5;
+  }
   .search-post {
     display: flex;
-    padding: 8px;
+    padding: 20px;
     gap: 10px;
     .search-post-profileimg {
       width: 32px;
@@ -352,3 +360,4 @@
     }
   }
 }
+
