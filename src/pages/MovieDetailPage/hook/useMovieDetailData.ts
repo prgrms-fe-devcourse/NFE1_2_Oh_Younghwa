@@ -8,6 +8,7 @@ export const useMovieDetailData = (movieId: string) => {
     queryKey: ['movie_detail', movieId], // 쿼리 키
     queryFn: () => getMovieDetailData(movieId), // 데이터를 가져오는 함수
   });
+
   const genreArray = data?.genres.map((genre) => genre.name) || [];
   const originCountry = getCountryNameByIso(data?.origin_country[0]);
   const runtime = calculateRuntime(data?.runtime);

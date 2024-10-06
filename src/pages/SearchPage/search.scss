@@ -89,7 +89,115 @@
     }
   }
 }
+.recommend-container {
+  font-family:
+    'Pretendard Variable',
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0px;
+  .recommend-post-text {
+    color: var(--colors-text-text-tertiary-600, #475467);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 150% */
+    letter-spacing: -0.64px;
+  }
+  .search-post {
+    display: flex;
+    padding: 8px;
+    gap: 10px;
+    border-bottom: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
+    .search-post-profileimg {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%; // 원형으로 만들기
+      object-fit: cover; // 이미지를 비율에 맞게 자르기
+    }
+    .search-post-detail {
+      width: 522px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin: 6px 0;
 
+      .search-post-info {
+        display: flex;
+        gap: 8px;
+        .search-post-name {
+          font-size: 14px;
+          font-family: 'Pretendard';
+          font-weight: 600;
+          word-wrap: break-word;
+        }
+        .search-post-updated {
+          font-size: 12px;
+          font-family: 'Pretendard';
+          font-weight: 300;
+          word-wrap: break-word;
+        }
+      }
+      .search-post-title {
+        font-size: 14px;
+        font-family: 'Pretendard';
+        font-weight: 300;
+        line-height: 19.6px;
+        word-wrap: break-word;
+      }
+      .search-post-image {
+        width: 522px;
+        max-height: 642px;
+        object-fit: cover;
+        margin: 10px 0 4px 0;
+      }
+      .search-post-icons {
+        display: flex;
+        font-size: 13px;
+        height: 16px;
+        line-height: 16px;
+        justify-content: space-between;
+      }
+      .search-post-icondetaile {
+        display: flex;
+        gap: 14px;
+        .search-post-likeNum,
+        .search-post-commentNum {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+      .search-post-options {
+        position: relative;
+        // position: absolute;
+        // width: 58px;
+        // height: 80px;
+        // background-color: #ffffff;
+        // font-size: 15px;
+        // font-weight: 400;
+        // top: 16px;
+        // right: 8px;
+        // display: none;
+        // box-sizing: border-box;
+      }
+    }
+  }
+}
 .search-container {
   font-family:
     'Pretendard Variable',
@@ -109,7 +217,7 @@
     sans-serif;
   display: flex;
   flex-direction: column;
-  margin-top:25px;
+  margin-top: 25px;
 
   .search-post {
     display: flex;

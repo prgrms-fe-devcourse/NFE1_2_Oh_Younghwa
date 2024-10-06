@@ -1,5 +1,6 @@
-import { reviewAxiosClient, validateTokenAxiosClient } from '../../../shared/utils/axiosClient';
-import { Follow, User } from '../../TimelinePage/model/article';
+import { movieApiAxiosClient, reviewAxiosClient, validateTokenAxiosClient } from '../../../shared/utils/axiosClient';
+import { MovieListResponse } from '../../MoviePage/model/movie';
+import { Channel, Follow, User } from '../../TimelinePage/model/article';
 
 export interface Review {
   rating: number;
@@ -7,16 +8,20 @@ export interface Review {
   title: string;
   author: string;
   createdAt: string;
-  likes: string[];
-  authorId: string;
-  channelId: string;
-  postId: string;
 }
 export interface newInfo {
   newName: string;
-  newBio?: string;
-  newImg?: string;
+  newBio?: string | null;
+  newImg?: File | null;
 }
+
+//전체 유저 불러오기
+export const getAllUsers = async (): Promise<User[]> => {
+  const request = reviewAxiosClient();
+  const response = await request.get(`/users/get-users?offset=0`);
+
+  return response.data;
+};
 
 //다른 유저의 마이페이지 보기
 export const getOtherUsers = async (userId: string): Promise<User> => {
@@ -74,17 +79,19 @@ export const unfollowUser = async (followId: string): Promise<Follow> => {
 
 //영화리뷰 채널에서 전체 리뷰 포스트 가져오기
 export const getReviewsByUsername = async (fullName: string): Promise<Review[]> => {
+  console.log(fullName);
   const request = reviewAxiosClient();
-  const reviewChannelRes = await request.get<Review[]>(`/search/all/${fullName}`);
+
+  const reviewChannelRes = await request.get(`/search/all/${fullName}`);
 
   //undefined인 경우 걸러내기
+  console.log('🚀 ~ getReviewsByUsername ~ reviewChannelRes:', reviewChannelRes);
   const filteredData = reviewChannelRes.data.filter((item: { title?: string }) => item && item.title !== undefined);
-
   return filteredData;
 };
 
 //사용자 정보 변경
-export const changeUserInfo = async ({ newName, newBio, newImg }: newInfo): Promise<newInfo[]> => {
+export const changeInfo = async ({ newName, newBio }: newInfo) => {
   try {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -92,25 +99,40 @@ export const changeUserInfo = async ({ newName, newBio, newImg }: newInfo): Prom
     }
 
     const request = validateTokenAxiosClient(token);
-    const responses = await Promise.all([
-      newName || newBio
-        ? request.put('/settings/update-user', {
-            fullName: newName,
-            username: newBio,
-          })
-        : null,
-      newImg
-        ? request.put('/users/upload-photo', {
-            isCover: false,
-            image: newImg,
-          })
-        : null,
-    ]);
+    const responses = await request.put('/settings/update-user', {
+      fullName: newName,
+      username: newBio,
+    });
 
-    // null 제외
-    return responses.filter((response) => response !== undefined && response !== null).map((response) => response.data);
+    return responses.data;
   } catch (err) {
     console.error('정보 변경 불가: ', err);
+  }
+};
+
+//사용자 프로필 이미지 변경
+export const changeImg = async ({ newImg }: { newImg: File }) => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('토큰이 없습니다');
+    }
+
+    const formData = new FormData();
+    formData.append('isCover', 'false'); // 문자열로 전달
+    formData.append('image', newImg); // 이미지 파일 추가
+
+    const request = validateTokenAxiosClient(token);
+    const response = await request.post('/users/upload-photo', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      timeout: 4000,
+    });
+
+    return response.data;
+  } catch (err) {
+    console.error('이미지 변경 불가: ', err);
   }
 };
 
@@ -137,4 +159,32 @@ export const logoutUser = async (): Promise<void> => {
     console.log('로그아웃 실패');
     throw new Error('로그아웃 실패');
   }
+};
+
+//마이페이지에서 영화 상세페이지로 이동하기
+export const moveToMovies = async (searchKeyword: string): Promise<MovieListResponse> => {
+  const encodedStr = encodeURIComponent(searchKeyword);
+  const response = await movieApiAxiosClient.get<MovieListResponse>(
+    `/search/movie?query=${encodedStr}&include_adult=false&language=ko-KR&page=1`,
+  );
+
+  return response.data;
+};
+
+//전체 게시글 불러오기
+export const getAllArticles = async (): Promise<Channel[]> => {
+  const request = reviewAxiosClient();
+  const response = await request.get<Channel[]>(`/channels`);
+  //5010포트에서 생성한 채널들
+  const channels = response.data.filter(
+    (channel) =>
+      channel._id === '6701579b426f72722a7904cf' ||
+      channel._id === '6701580f426f72722a790504' ||
+      channel._id === '67015828426f72722a790527' ||
+      channel._id === '67015836426f72722a790542' ||
+      channel._id === '67015845426f72722a790546' ||
+      channel._id === '67015856426f72722a79054a',
+  );
+
+  return channels;
 };

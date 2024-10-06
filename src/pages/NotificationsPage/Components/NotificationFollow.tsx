@@ -11,9 +11,9 @@ type Author = {
 };
 
 type Follow = {
-  _id: string; // 알림 ID
-  user: string; // 사용자 ID
-  follower: string; // 팔로워 ID
+  _id: string;
+  user: string;
+  follower: string;
 };
 
 interface NotificationFollowProps {
@@ -76,6 +76,8 @@ const NotificationFollow: React.FC<NotificationFollowProps> = ({ notification, u
               }
             }}
             disabled={isFollowing}
+          >
+
             {isFollowing ? '팔로잉중' : '맞팔로우'}
           </button>
         </>

@@ -31,7 +31,6 @@ export default function Review({
   isAuthor,
   handleEdit,
 }: ReviewProps) {
-  console.log(authorId);
   //리뷰 삭제 로직을 담당하는 커스텀 훅입니다.
   const { deleteReviewMutation } = useReviewMutation();
 

@@ -8,12 +8,13 @@ type Author = {
 };
 
 type Follow = {
-  _id: string; // 알림 ID
-  user: string; // 사용자 ID
-  follower: string; // 팔로워 ID
+  _id: string;
+  user: string;
+  follower: string;
 };
 
 type Post = {
+  image: string;
   user: string;
   _id: string;
   author: string;

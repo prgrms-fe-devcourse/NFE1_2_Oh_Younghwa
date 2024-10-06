@@ -17,7 +17,7 @@ export default function ReviewList({ title }: ReviewListProps) {
     if (sortType === 'like') {
       return b.likes.length - a.likes.length; // 좋아요 순
     } else {
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); // 최신 순
+      return new Date(b.detailData).getTime() - new Date(a.detailData).getTime(); // 최신 순
     }
   });
   if (isLoading) {

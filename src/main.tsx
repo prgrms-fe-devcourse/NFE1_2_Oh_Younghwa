@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         errorElement: <div>404 Not Found</div>,
       },
       {
-        path: '/movie/:movieId',
+        path: '/movie/detail',
         element: <MovieDetailPage />,
         errorElement: <div>404 Not Found</div>,
       },

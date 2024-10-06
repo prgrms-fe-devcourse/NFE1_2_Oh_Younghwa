@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import LikeButtonIcon from '../../../shared/components/atom/icons/LikeButtonIcon';
+import PlaceholderIcon from '../../../shared/components/atom/icons/PlaceholderIcon';
 import { getUser } from '../api/noticeApi';
 
 type Author = {
@@ -14,6 +15,8 @@ type Post = {
   author: string;
   user: string;
   title: string;
+  image: string;
+
 };
 type Like = {
   author: string;
@@ -31,8 +34,6 @@ const NotificationLike: React.FC<NotificationLikeProps> = ({ notification }) => 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // console.log(notification.post.author)
-        // console.log(notification.user)
         const userData = await getUser(notification.user);
         setUser(userData);
       } catch (error) {
@@ -41,13 +42,6 @@ const NotificationLike: React.FC<NotificationLikeProps> = ({ notification }) => 
     };
     fetchUser();
   }, []);
-  const handlePostClick = (postId: string) => {
-    navigate(`/posts/${postId}`);
-  };
-
-  const handleUserClick = (userId: string) => {
-    navigate(`/users/${userId}`);
-  };
 
   return (
     <div className="notifications-like-container">
@@ -55,18 +49,25 @@ const NotificationLike: React.FC<NotificationLikeProps> = ({ notification }) => 
         <>
           <div className="notification-like">
             <LikeButtonIcon />
-            <img src={user.image} className="notifications-image" />
-            <span className="notifications-name" onClick={() => handleUserClick(user._id)}>
-              {user.fullName}
+            <Link to={`/users/${user._id}`}>
+              {user.image ? <img className="profile-img" src={user.image} /> : <PlaceholderIcon />}
+            </Link>
+
+            <span className="notifications-name">
+              <Link to={`/users/${user._id}`}>{user.fullName}</Link>
             </span>
+
             <p className="notifications-text">님이 내 게시물을 마음에 들어합니다.</p>
           </div>
-          <p className="notifications-post-title" onClick={() => handlePostClick(notification.post._id)}>
-            {notification.post.title}
+
+          <p className="notifications-post-title">
+            <Link to={`/posts/${notification.post._id}`}>{notification.post.title}</Link>
           </p>
-          {/* {notification.postImage && (
-            <img src={notification.postImage} alt="Post Image" className="notifications-post-image" />
-          )} */}
+          <Link to={`/posts/${notification.post._id}`}>
+            {notification.post.image && (
+              <img src={notification.post.image} alt="Post Image" className="notifications-post-image" />
+            )}
+          </Link>
         </>
       ) : (
         <p></p>
