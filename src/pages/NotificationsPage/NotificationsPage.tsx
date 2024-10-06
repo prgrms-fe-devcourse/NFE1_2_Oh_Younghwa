@@ -23,7 +23,6 @@ type Post = {
   author: string;
   title: string;
   image: string;
-
 };
 type Like = {
   author: string;

@@ -22,10 +22,11 @@
   }
 
   .notifications-contents {
+
     .notifications-wrapper {
       border-bottom: 1px solid var(--Colors-Border-border-secondary, #e4e7ec);
       display: flex;
-      padding: 16px var(--spacing-2xl, 20px);
+      padding: 16px 20px 20px 20px;
       align-items: center;
       align-self: stretch;
 
@@ -42,11 +43,12 @@
         display: flex;
         align-items: center;
         .notifications-image {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%; // 원형으로 만들기
-          object-fit: cover; // 이미지를 비율에 맞게 자르기
-          margin-right: 10px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: lightgray;
+          margin-right: 12px; // 이미지와 텍스트 간격
+          object-fit: cover; // 이미지 비율 유지
         }
 
         .notifications-name {
@@ -96,10 +98,7 @@
     align-items: flex-end;
     align-self: stretch;
     .notifications-post-title {
-      display: -webkit-box;
       width: 465px;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 5;
       overflow: hidden;
       color: var(--colors-text-text-secondary-700, #344054);
       text-overflow: ellipsis;
@@ -108,7 +107,7 @@
       font-weight: 300;
       line-height: 140%;
       letter-spacing: -0.28px;
-      margin-left: 40%;
+      margin-left: 92px;
     }
     .notifications-post-image {
       width: 460px;
@@ -122,9 +121,12 @@
 
   .notification-like {
     display: flex;
-    padding: 16px var(--spacing-2xl, 20px) var(--spacing-none, 0) var(--spacing-2xl, 20px);
     align-items: center;
     align-self: stretch;
+
+    svg{
+      padding-right: 20px;
+    }
 
     .notifications-image {
       width: 32px;

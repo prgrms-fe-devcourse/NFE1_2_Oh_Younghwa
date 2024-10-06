@@ -110,17 +110,18 @@
   flex-direction: column;
   margin-top: 0px;
   .recommend-post-text {
-    color: var(--colors-text-text-tertiary-600, #475467);
-    font-family: Inter;
+    color:#475467;
+    font-family: pretendard;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 24px; /* 150% */
     letter-spacing: -0.64px;
+    padding-left: 14px;
   }
   .search-post {
     display: flex;
-    padding: 8px;
+    padding: 8px 8px 8px 14px;
     gap: 10px;
     border-bottom: 1px solid var(--Colors-Border-border-primary, #d0d5dd);
     .search-post-profileimg {
