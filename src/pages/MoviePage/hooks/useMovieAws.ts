@@ -8,6 +8,7 @@ export const useMovieAws = () => {
   const { data, isError, isLoading } = useQuery({
     queryKey: ['aws_movie_data'], // 쿼리 키
     queryFn: getMovieAwsApi, // 데이터를 가져오는 함수
+    staleTime: 1000 * 60 * 60 * 24, // 24시간
   });
   return { data, isError, isLoading };
 };
