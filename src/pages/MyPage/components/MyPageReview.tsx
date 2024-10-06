@@ -11,8 +11,10 @@ type ReviewProps = {
   title: string;
 };
 //isLiked.length,likes.length
+
 export default function MyPageReview({ rating, review, author, createdAt, title }: ReviewProps) {
   const { data } = useMoveToMovie(title);
+
 
   const titleStyle: React.CSSProperties = {
     position: 'absolute',

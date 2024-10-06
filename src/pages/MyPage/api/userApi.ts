@@ -81,11 +81,12 @@ export const unfollowUser = async (followId: string): Promise<Follow> => {
 export const getReviewsByUsername = async (fullName: string): Promise<Review[]> => {
   console.log(fullName);
   const request = reviewAxiosClient();
+
   const reviewChannelRes = await request.get(`/search/all/${fullName}`);
 
   //undefined인 경우 걸러내기
+  console.log('🚀 ~ getReviewsByUsername ~ reviewChannelRes:', reviewChannelRes);
   const filteredData = reviewChannelRes.data.filter((item: { title?: string }) => item && item.title !== undefined);
-
   return filteredData;
 };
 

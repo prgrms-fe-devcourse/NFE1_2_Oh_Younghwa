@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-import { LMS_API_BASE_URL, TMDB_API_BASE_URL } from './baseUrl';
+import { AWS_MOVIE_API_URL, LMS_API_BASE_URL, TMDB_API_BASE_URL } from './baseUrl';
 /**영화api전용 axios instance */
 export const movieApiAxiosClient: AxiosInstance = axios.create({
   baseURL: TMDB_API_BASE_URL,
@@ -16,7 +16,7 @@ export const authAxiosClient: AxiosInstance = axios.create({
   baseURL: LMS_API_BASE_URL,
   timeout: 2000,
   headers: {
-    accept: 'application',
+    accept: 'application/json',
   },
 });
 
@@ -66,5 +66,14 @@ export const postApiAxiosClient: AxiosInstance = axios.create({
   timeout: 2000,
   headers: {
     accept: 'application/json',
+  },
+});
+
+/**회원가입, 로그인 전용 axios instance */
+export const awsAxiosClient: AxiosInstance = axios.create({
+  baseURL: AWS_MOVIE_API_URL,
+  timeout: 1000,
+  headers: {
+    'Content-Type': 'application/json',
   },
 });
