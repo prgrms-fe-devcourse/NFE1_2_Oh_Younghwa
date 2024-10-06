@@ -23,7 +23,6 @@ type Post = {
   author: string;
   title: string;
   image: string;
-
 };
 type Like = {
   author: string;
@@ -100,16 +99,13 @@ const NotificationsPage: React.FC = () => {
           if (!notification.follow && !notification.like) {
             return null;
           }
-  
+
           return (
             <div key={notification._id} className={`notifications-wrapper ${notification.seen ? 'read' : 'unread'}`}>
               {/* 팔로우 알림이 있는 경우 */}
               {notification.follow && (
                 <div onClick={() => handleNotificationClick(notification._id)}>
-                  <NotificationFollow
-                    notification={notification.follow}
-                    userId={notification.follow.user} 
-                  />
+                  <NotificationFollow notification={notification.follow} userId={notification.follow.user} />
                 </div>
               )}
               {/* 좋아요 알림이 있는 경우 */}
@@ -124,7 +120,6 @@ const NotificationsPage: React.FC = () => {
       </div>
     </div>
   );
-  
 };
 
 export default NotificationsPage;

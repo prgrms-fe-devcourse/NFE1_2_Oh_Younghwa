@@ -16,7 +16,7 @@ type UserLogProps = {
 const UserLog = ({ user }: UserLogProps) => {
   const [log, setLog] = useState('articles'); //초기값은 'articles'
   //좋아요 누른 글 보기 위해 전체 타임라인에서 게시글 전부 불러오기
-  const { data = [], isError, isLoading } = getAllChannel();
+  const { data = [] } = getAllChannel();
   const flattenedArray = data?.flat();
 
   const channelIds = [
