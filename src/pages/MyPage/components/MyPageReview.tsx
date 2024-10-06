@@ -29,6 +29,7 @@ export default function MyPageReview({
   title,
 }: ReviewProps) {
   //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅입니다.
+  console.log({ review, postId, title });
   const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
   //좋아요 요청 전송
   const postLike = () => {

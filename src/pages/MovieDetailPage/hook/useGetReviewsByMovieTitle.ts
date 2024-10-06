@@ -13,7 +13,6 @@ export const useGetReviewsByMovieTitle = ({ title }: MovieTitle) => {
     queryFn: () => getReviewsByMovieTitle(title), // 데이터를 가져오는 함수
   });
   if (!data) return { data, isError, isLoading };
-  console.log('🚀 ~ useGetReviewsByMovieTitle ~ data:', data);
   const reviewData = data.map((data) => {
     const { rating, review, title, author } = JSON.parse(data.title);
     const isoDate = data.createdAt;
@@ -36,6 +35,7 @@ export const useGetReviewsByMovieTitle = ({ title }: MovieTitle) => {
       postId: data._id,
       channelId: data.channel,
       authorId: data.author,
+      detailData: data.createdAt,
     };
   });
 
