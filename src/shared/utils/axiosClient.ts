@@ -68,3 +68,31 @@ export const postApiAxiosClient: AxiosInstance = axios.create({
     accept: 'application/json',
   },
 });
+
+
+
+export const postFormAxiosClient = (): AxiosInstance => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('토큰이 없습니다');
+  }
+  const validateTokenRequest = axios.create({
+    baseURL: LMS_API_BASE_URL,
+    headers: {
+      accept: 'multipart/form-data',
+      Authorization: `bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return validateTokenRequest;
+
+/**회원가입, 로그인 전용 axios instance */
+export const awsAxiosClient: AxiosInstance = axios.create({
+  baseURL: AWS_MOVIE_API_URL,
+  timeout: 1000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+

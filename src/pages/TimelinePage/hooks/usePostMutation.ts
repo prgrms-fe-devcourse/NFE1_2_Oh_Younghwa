@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { addComment, addPost } from '../../WritePostPage/api/postModal';
-import { deletePost, updatePost } from '../api/TimelineApi';
+import { addComment, addPost, deletePost, updatePost } from '../api/TimelineApi';
 
 export const usePostMutation = () => {
   const queryClient = useQueryClient();

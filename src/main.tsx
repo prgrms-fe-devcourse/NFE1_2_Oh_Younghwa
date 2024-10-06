@@ -19,7 +19,11 @@ import ResultPage from './pages/SearchPage/Components/ResultPage.tsx';
 import SearchPage from './pages/SearchPage/SearchPage.tsx';
 import SignUpPage from './pages/SignUpPage/components/SignUpForm.tsx';
 import TimelinePage from './pages/TimelinePage/TimelinePage.tsx';
+
 import { store } from './shared/store/store.ts';
+
+import TotalTimelinePage from './pages/TimelinePage/TotalTimelinePage.tsx';
+
 import Layout from './Layout.tsx';
 
 import './reset.css';
@@ -34,6 +38,11 @@ const router = createBrowserRouter([
     ),
     errorElement: <div>404 Not Found</div>,
     children: [
+      {
+        path: '/home',
+        element: <TotalTimelinePage />,
+        errorElement: <div>404 Not Found</div>,
+      },
       {
         path: '/posts/channel/:channelId',
         element: <TimelinePage />,

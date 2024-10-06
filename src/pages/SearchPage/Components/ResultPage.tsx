@@ -93,12 +93,14 @@ const ResultPage = () => {
           onChange={(e) => setInputValue(e.target.value)}
           ref={inputRef}
         />
+
         <div
           onClick={() => {
             setInputValue('');
             setSearchResults({ users: [], posts: [], tags: [] });
           }}
         >
+
           <InputDeleteIcon />
         </div>
       </form>

@@ -76,8 +76,10 @@ $utility-purple-500: #7a5af8;
     gap: 15px;
   
     .profile-img{
+      width: 32px;
       height: 32px;
       object-fit: cover;
+      border-radius: 50px;
     }
 
   .modal-contents{
