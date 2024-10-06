@@ -1,9 +1,9 @@
-import { useMovieAws } from '../hooks/useMovieAws';
 
 import MovieListContainer from './MovieListContainer';
-import SearchLoadPage from './SearchLoadPage';
 
 import '../scss/PopularMovies.scss';
+import { useMovieAws } from '../hooks/useMovieAws';
+import SearchLoadPage from './SearchLoadPage';
 
 export default function PopularMovies() {
   const { data: awsData, isError: awsIsError, isLoading: awsIsLoading } = useMovieAws();

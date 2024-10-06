@@ -1,6 +1,5 @@
 import { movieApiAxiosClient } from '../../../shared/utils/axiosClient';
 import { MovieListResponse, SearchMovieListResponse } from '../model/movie';
-
 import { getMovieAwsApi } from './movieAwsApi';
 
 // fetch 함수들을 여기에 작성
