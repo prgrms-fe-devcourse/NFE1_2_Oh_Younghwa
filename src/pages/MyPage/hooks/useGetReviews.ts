@@ -12,7 +12,6 @@ export const useGetReviews = (fullName: string) => {
   const reviewData = data.map((data) => {
     try {
       const { rating, review, title, author } = JSON.parse(data.title);
-
       const isoDate = data.createdAt;
       const date = new Date(isoDate);
 
@@ -29,10 +28,6 @@ export const useGetReviews = (fullName: string) => {
         title,
         author,
         createdAt: formattedDate,
-        likes: data.likes,
-        postId: data.postId,
-        channelId: data.channelId,
-        authorId: data.authorId,
       };
     } catch (err) {
       console.error('Failed to parse JSON:', err);

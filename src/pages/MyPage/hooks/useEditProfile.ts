@@ -20,6 +20,7 @@ export const useEditProfile = () => {
     onSuccess: (result) => {
       console.log(`프로필이 변경되었습니다.`, result);
       queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ['auth-user'] });
     },
     onError: (error) => {
       console.error('프로필을 변경할 수 없습니다.', error);

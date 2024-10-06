@@ -2,25 +2,39 @@ import { useState } from 'react';
 
 import { useArticles } from '../../TimelinePage/hooks/useArticles';
 import { Post, User } from '../../TimelinePage/model/article';
+import { useGetAllArticles } from '../hooks/useGetAllArticles';
 
+import MyPageLikesList from './MyPageLikesList';
 import MyPagePostList from './MyPagePostList';
 import MyPageReviewCate from './MyPageReviewCate';
 
 import '../scss/userLog.scss';
 
-interface UserLogProps {
+type UserLogProps = {
   user: User;
-}
+};
 
 const UserLog = ({ user }: UserLogProps) => {
   const [log, setLog] = useState('articles'); //초기값은 'articles'
   //좋아요 누른 글 보기 위해 전체 타임라인에서 게시글 전부 불러오기
-  const { data = [] }: { data: Post[] | undefined } = useArticles('66f50d3001d4aa076bcbdb99');
+  const { data = [] }: { data: Post[] | undefined } = useArticles('6701579b426f72722a7904cf');
+  // 각각의 채널 ID로 useArticles 호출
+  const { data: allArticles } = useGetAllArticles();
 
-  //유저가 작성한 게시글 - 전체타임라인 채널에서 불러오기
-  const postList = user.posts.filter((channels) => channels.channel === '66f50d3001d4aa076bcbdb99');
+  const channelIds = [
+    '6701579b426f72722a7904cf',
+    '6701580f426f72722a790504',
+    '67015828426f72722a790527',
+    '67015836426f72722a790542',
+    '67015845426f72722a790546',
+    '67015856426f72722a79054a',
+  ];
+
+  //유저가 작성한 게시글 - 전체 채널에서 불러오기
+  const postList = user.posts.filter((channels) => channelIds.includes(channels.channel));
   //유저가 좋아요를 누른 게시글 - 전체타임라인에 있는 게시글에서 불러오기
   const likeList = data?.filter((post) => post.likes?.some((like) => like.user === user._id));
+  console.log(likeList);
 
   //카테고리에 따라 다른 결과 보여주기
   const showLog = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -64,13 +78,13 @@ const UserLog = ({ user }: UserLogProps) => {
             <MyPagePostList posts={postList} user={user} />
           </div>
         ) : (
-          <p>작성한 게시글이 없습니다:&#41;</p>
+          <p className="none">작성한 게시글이 없습니다 :&#41;</p>
         ))}
 
       {/* 영화리뷰 결과 */}
       {log === 'reviews' && (
         <div>
-          <MyPageReviewCate fullName={user._id} />
+          <MyPageReviewCate fullName={user.fullName} />
         </div>
       )}
 
@@ -78,10 +92,10 @@ const UserLog = ({ user }: UserLogProps) => {
       {log === 'likes' &&
         (likeList.length > 0 ? (
           <div>
-            <MyPagePostList posts={likeList} user={user} />
+            <MyPageLikesList posts={likeList} />
           </div>
         ) : (
-          <p>조회된 게시글이 없습니다:&#41;</p>
+          <p className="none">조회된 게시글이 없습니다 :&#41;</p>
         ))}
     </div>
   );

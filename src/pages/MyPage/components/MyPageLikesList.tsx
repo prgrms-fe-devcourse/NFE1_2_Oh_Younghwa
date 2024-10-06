@@ -19,8 +19,7 @@ interface info {
   user?: User;
 }
 
-const MyPagePostList = ({ posts, user }: info) => {
-  const { userId } = useParams();
+const MyPageLikesList = ({ posts, user }: info) => {
   //좋아요, 좋아요 취소 로직을 담당하는 커스텀 훅
   const { addLikesMutation, deleteLikesMutation } = useLikesMutation();
   const { channelId } = useParams() as { channelId: string };
@@ -44,7 +43,17 @@ const MyPagePostList = ({ posts, user }: info) => {
   const [nowPostFullname, setNowPostFullname] = useState('');
   const [nowPostImg, setNowPostImg] = useState('');
 
-  console.log(user?.image);
+  const moveToPage = (postUser: string) => {
+    // console.log(user?.fullName, postUser.fullName, userId, postUser._id);
+    console.log(user?._id, postUser);
+    if (user?._id !== postUser) {
+      navigate(`/users/${postUser}`);
+    } else {
+      navigate(`/users/mypage`);
+    }
+  };
+
+  console.log(posts.map((post) => post.author));
 
   return (
     <div>
@@ -53,11 +62,22 @@ const MyPagePostList = ({ posts, user }: info) => {
           posts.map((post: Post) => (
             <div key={post?._id} className="post-wrap">
               <div className="img-box">
-                {user?.image ? <img className="profile-img" src={user?.image} alt={post.title} /> : <PlaceholderIcon />}
+                {post.author.image ? (
+                  <img
+                    className="profile-img"
+                    src={post.author.image}
+                    alt={post.title}
+                    onClick={() => moveToPage(post.author._id)}
+                  />
+                ) : (
+                  <div onClick={() => moveToPage(post.author._id)}>
+                    <PlaceholderIcon />
+                  </div>
+                )}
               </div>
               <div className="post-box">
                 <div className="post-info">
-                  <p className="nickname">{user?.fullName}</p>
+                  <p className="nickname">{post.author.fullName}</p>
                   <p className="created">{elapsedText(new Date(post.createdAt))}</p>
                 </div>
 
@@ -140,4 +160,4 @@ const MyPagePostList = ({ posts, user }: info) => {
   );
 };
 
-export default MyPagePostList;
+export default MyPageLikesList;

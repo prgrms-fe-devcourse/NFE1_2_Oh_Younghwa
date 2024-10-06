@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 import { useTokenValidation } from '../../../auth/hooks/useTokenValidation';
+import { useGetUserDataById } from '../../../shared/hooks/useGetUserDataById';
+import { useOpenedReviewStore } from '../store/openedReviewFormStore';
 import { findString } from '../utils/findString';
 
 import Review from './Review';
 import ReviewUpdateForm from './ReviewUpdateForm';
 
 import '../scss/UpdateReview.scss';
-import { useOpenedReviewStore } from '../store/openedReviewFormStore';
-import { useGetUserDataById } from '../../../shared/hooks/useGetUserDataById';
 
 type ReviewProps = {
   rating: number;

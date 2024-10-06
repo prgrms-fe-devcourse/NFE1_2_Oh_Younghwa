@@ -36,7 +36,7 @@
     border-radius: 999px;
     width: 98px;
     height: 98px;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   &-description {
@@ -46,11 +46,14 @@
     .header-nickname {
       @include font(pretendard, 22px, normal, 600, 150%, #000);
       margin: 0;
+      height: 33px;
     }
     .bio {
       @include font(inter, 12px, normal, 400, 150%, #000);
       letter-spacing: -0.132px;
-      margin: 1px 0 0 0;
+      height: 18px;
+      width: 290px;
+      margin: 1px 0 26px 0;
     }
   }
 }
@@ -60,7 +63,6 @@
   width: max-content;
   max-width: 300px;
   height: 20px;
-  margin-top: 26px;
   @include font(pretendard, 13px, normal, 400, 150%, #000);
 
   .follower {
@@ -111,13 +113,11 @@
 
 .following-btn {
   cursor: pointer;
-  display: flex;
+  @include display(center, center);
   max-width: 110px;
   min-width: 101px;
   height: 42px;
   padding: var(--spacing-sm, 6px) 27px;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
   border: 1px solid #98a2b3;
   position: absolute;

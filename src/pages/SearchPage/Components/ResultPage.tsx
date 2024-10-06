@@ -82,8 +82,8 @@ const ResultPage = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <div onClick={()=> setInputValue('')}>
-        <InputDeleteIcon />
+        <div onClick={() => setInputValue('')}>
+          <InputDeleteIcon />
         </div>
       </form>
 
