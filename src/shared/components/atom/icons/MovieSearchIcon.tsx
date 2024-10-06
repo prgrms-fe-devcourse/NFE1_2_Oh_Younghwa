@@ -2,5 +2,5 @@ import React from 'react';
 
 import MovieSearchsvg from '../../../asset/MovieSearchIcon.svg';
 export default function MovieSearchIcon() {
-  return <MovieSearchsvg />;
+  return <img src={MovieSearchsvg} />;
 }

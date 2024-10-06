@@ -42,13 +42,11 @@
         display: flex;
         align-items: center;
         .notifications-image {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background: lightgray;
-          margin-right: 5px; // 이미지와 텍스트 간격
-          object-fit: cover; // 이미지 비율 유지
-          margin-left: 3%;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%; // 원형으로 만들기
+          object-fit: cover; // 이미지를 비율에 맞게 자르기
+          margin-right: 10px;
         }
 
         .notifications-name {
@@ -129,11 +127,10 @@
     align-self: stretch;
 
     .notifications-image {
-      display: flex;
-      width: 40px;
-      height: 40px;
-      justify-content: center;
-      align-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%; // 원형으로 만들기
+      object-fit: cover; // 이미지를 비율에 맞게 자르기
     }
 
     .notifications-name {

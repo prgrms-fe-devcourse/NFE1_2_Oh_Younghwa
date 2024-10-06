@@ -18,6 +18,7 @@ export const useLikesMutation = () => {
       // Boom baby!
       queryClient.invalidateQueries({ queryKey: ['movie_reviews'] });
       queryClient.invalidateQueries({ queryKey: ['auth-user'] });
+      queryClient.invalidateQueries({ queryKey: ['channel'] });
     },
     onSettled: (data, error, variables, context) => {
       // Error or success... doesn't matter!

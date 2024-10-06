@@ -37,7 +37,7 @@ export default function MyPage() {
             <ProfileSettingButtonIcon />
           </button>
 
-          {modalOpen && <EditModal isModalOpen={modalOpen} onClose={() => setModalOpen(false)} user={data} />}
+          {modalOpen && <EditModal isModalOpen={modalOpen} onClose={() => setModalOpen(false)} />}
         </>
       )}
     </div>
