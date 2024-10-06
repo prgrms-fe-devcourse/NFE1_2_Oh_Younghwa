@@ -22,7 +22,7 @@ export default function MyPageReview({ rating, review, author, createdAt, title 
     marginBottom: 10,
     right: 20,
   };
-
+  console.log(`mypage`, data);
   return (
     <div className="review-container">
       <Link to={`/movie/detail`} state={{ movie: data?.results[0].id }}>

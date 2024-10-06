@@ -13,13 +13,9 @@ type MovieSearchResultProps = {
 
 export default function MovieSearchResult({ searchKeyword }: MovieSearchResultProps) {
   const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
-  const {
-    data = { page: 0, results: [], total_pages: 0, total_results: 0 },
-    isError,
-    isLoading,
-  } = useSearchedMovies(debouncedSearchKeyword);
-
-  const isNull = data?.results.length === 0;
+  const { data = [], isError, isLoading } = useSearchedMovies(debouncedSearchKeyword);
+  console.log(data);
+  const isNull = data?.length === 0;
   const [showNoDataMessage, setShowNoDataMessage] = useState(false);
 
   useEffect(() => {
@@ -41,4 +37,5 @@ export default function MovieSearchResult({ searchKeyword }: MovieSearchResultPr
   if (isError) return <div>에러 발생</div>;
 
   return <>{showNoDataMessage ? <NoResult /> : <MovieListContainer data={data} />}</>;
+  // return <>{showNoDataMessage ? <NoResult /> : <> </>}</>;
 }
