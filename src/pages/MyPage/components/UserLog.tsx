@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
-import { useArticles } from '../../TimelinePage/hooks/useArticles';
+import { getAllChannel, useArticles } from '../../TimelinePage/hooks/useArticles';
 import { Post, User } from '../../TimelinePage/model/article';
-import { useGetAllArticles } from '../hooks/useGetAllArticles';
 
 import MyPageLikesList from './MyPageLikesList';
 import MyPagePostList from './MyPagePostList';
@@ -17,9 +16,8 @@ type UserLogProps = {
 const UserLog = ({ user }: UserLogProps) => {
   const [log, setLog] = useState('articles'); //초기값은 'articles'
   //좋아요 누른 글 보기 위해 전체 타임라인에서 게시글 전부 불러오기
-  const { data = [] }: { data: Post[] | undefined } = useArticles('6701579b426f72722a7904cf');
-  // 각각의 채널 ID로 useArticles 호출
-  const { data: allArticles } = useGetAllArticles();
+  const { data = [], isError, isLoading } = getAllChannel();
+  const flattenedArray = data?.flat();
 
   const channelIds = [
     '6701579b426f72722a7904cf',
@@ -33,7 +31,7 @@ const UserLog = ({ user }: UserLogProps) => {
   //유저가 작성한 게시글 - 전체 채널에서 불러오기
   const postList = user.posts.filter((channels) => channelIds.includes(channels.channel));
   //유저가 좋아요를 누른 게시글 - 전체타임라인에 있는 게시글에서 불러오기
-  const likeList = data?.filter((post) => post.likes?.some((like) => like.user === user._id));
+  const likeList = flattenedArray?.filter((post) => post.likes?.some((like) => like.user === user._id));
   console.log(likeList);
 
   //카테고리에 따라 다른 결과 보여주기

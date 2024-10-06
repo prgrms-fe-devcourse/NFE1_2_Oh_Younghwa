@@ -170,21 +170,3 @@ export const moveToMovies = async (searchKeyword: string): Promise<MovieListResp
 
   return response.data;
 };
-
-//전체 게시글 불러오기
-export const getAllArticles = async (): Promise<Channel[]> => {
-  const request = reviewAxiosClient();
-  const response = await request.get<Channel[]>(`/channels`);
-  //5010포트에서 생성한 채널들
-  const channels = response.data.filter(
-    (channel) =>
-      channel._id === '6701579b426f72722a7904cf' ||
-      channel._id === '6701580f426f72722a790504' ||
-      channel._id === '67015828426f72722a790527' ||
-      channel._id === '67015836426f72722a790542' ||
-      channel._id === '67015845426f72722a790546' ||
-      channel._id === '67015856426f72722a79054a',
-  );
-
-  return channels;
-};
